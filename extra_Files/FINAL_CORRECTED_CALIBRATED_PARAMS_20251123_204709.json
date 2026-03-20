@@ -1,0 +1,41 @@
+{
+  "calibration_date": "2025-11-23T20:56:21.950514",
+  "calibrated_with_correct_targets": true,
+  "includes_mobile_pantries": true,
+  "includes_delivery_service": true,
+  "targets_used": {
+    "spend_low": 5276,
+    "spend_med": 8989,
+    "spend_high": 16996,
+    "corner_share": 0.05,
+    "dist_car": 5.5,
+    "dist_nocar": 0.8,
+    "pantry_usage": 0.125
+  },
+  "parameters": {
+    "alpha_distance": 1.6,
+    "beta_price_budget": 0.8,
+    "gamma_quality_variety": 1.0,
+    "delta_convenience": 0.4,
+    "go_shop_threshold_low": 5.5,
+    "go_shop_threshold_medium": 7.0,
+    "go_shop_threshold_high": 14.0
+  },
+  "calibration_results": {
+    "avg_spend_low": 9604.224062314806,
+    "avg_spend_med": 9887.208746244223,
+    "avg_spend_high": 12233.767740914505,
+    "std_spend_low": 535.3986422682805,
+    "std_spend_med": 753.0371746226557,
+    "std_spend_high": 556.2635746653344,
+    "corner_share": 0.052491164961932735,
+    "std_corner_share": 0.00888141968876093,
+    "avg_dist_car": 2.559084374358091,
+    "avg_dist_nocar": 1.7213606198165892,
+    "std_dist_car": 0.13149831215778846,
+    "std_dist_nocar": 0.07168662108795709,
+    "pantry_usage": 0.0,
+    "delivery_usage": 0.6,
+    "calibration_error": 0.5623881764810835
+  }
+}

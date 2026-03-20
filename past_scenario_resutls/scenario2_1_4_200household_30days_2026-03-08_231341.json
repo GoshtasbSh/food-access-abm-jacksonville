@@ -1,0 +1,399 @@
+{
+  "scenario": "scenario2",
+  "display_label": "S2: 1 hub(s), 4 corner store(s)",
+  "snap_key": "scenario2_1_4",
+  "timestamp": "2026-03-08T23:13:41",
+  "days": 30,
+  "config": {
+    "num_consumers": 200,
+    "simulation_days": 30,
+    "grocery_store_capacity": 600,
+    "scenario1_store_region": "optimal",
+    "corner_store_capacity": 30,
+    "food_hub_capacity": 300,
+    "mobile_pantry_capacity": 120,
+    "num_corner_stores": 4,
+    "num_food_hubs": 1,
+    "num_mobile_pantries": 2,
+    "weekly_budget_low": 75.0,
+    "weekly_budget_medium": 90.0,
+    "weekly_budget_high": 327.0,
+    "budget_sigma": 0.25,
+    "basket_size_1": 131.0,
+    "basket_size_2": 143.0,
+    "basket_size_3_4": 204.0,
+    "basket_size_5_plus": 262.0,
+    "basket_sigma": 0.3,
+    "basket_multiplier_low_income": 0.39,
+    "basket_multiplier_medium_income": 0.85,
+    "basket_multiplier_high_income": 1.78,
+    "freq_low_income": [
+      3,
+      5
+    ],
+    "freq_medium_income": [
+      6,
+      8
+    ],
+    "freq_high_income": [
+      10,
+      30
+    ],
+    "freq_jitter_days": 1,
+    "max_distance_car": 5.5,
+    "max_distance_no_car": 0.8,
+    "distance_noise_pct": 0.1,
+    "alpha_distance": 3.0,
+    "beta_price_budget": 0.5,
+    "gamma_quality_variety": 0.6,
+    "delta_convenience": 0.4,
+    "store_bias_low_income": {
+      "supercenter": 0.1,
+      "convenience": 0.05,
+      "discount": 0.15,
+      "supermarket": 0.0,
+      "club_store": -0.1,
+      "specialty": -0.2
+    },
+    "store_bias_medium_income": {
+      "supercenter": 0.05,
+      "convenience": 0.0,
+      "discount": 0.05,
+      "supermarket": 0.05,
+      "club_store": 0.0,
+      "specialty": 0.0
+    },
+    "store_bias_high_income": {
+      "supercenter": 0.0,
+      "convenience": 0.0,
+      "discount": -0.05,
+      "supermarket": 0.1,
+      "club_store": 0.05,
+      "specialty": 0.1
+    },
+    "go_shop_threshold_low": 4.0,
+    "go_shop_threshold_medium": 6.0,
+    "go_shop_threshold_high": 14.0,
+    "pantry_propensity_eligible": 0.12,
+    "pantry_propensity_ineligible": 0.02,
+    "delivery_baseline_low": 0.08,
+    "delivery_baseline_medium": 0.2,
+    "delivery_baseline_high": 0.35,
+    "delivery_subsidy_uplift": 2.5,
+    "snap_delivery_discount": 0.5,
+    "delivery_hard_blockers_share": 0.5,
+    "delivery_choice_free_prob": 0.2,
+    "delivery_choice_nocar_far_prob": 0.15,
+    "delivery_choice_accessible_prob": 0.04,
+    "operating_hours": {
+      "grocery_store": [
+        6,
+        22
+      ],
+      "corner_store": [
+        7,
+        21
+      ],
+      "food_hub": [
+        8,
+        18
+      ],
+      "mobile_pantry": [
+        9,
+        17
+      ]
+    },
+    "service_areas": {
+      "grocery_store": 10.0,
+      "corner_store": 3.0,
+      "food_hub": 15.0,
+      "mobile_pantry": 5.0
+    },
+    "income_modifiers": {
+      "low": 0.7,
+      "medium": 1.0,
+      "high": 1.3
+    },
+    "food_hub_market_days": [
+      0,
+      2,
+      4
+    ],
+    "mobile_pantry_schedule": {
+      "1": "fixed",
+      "3": "fixed",
+      "5": "fixed"
+    },
+    "mobile_pantry_strategy": "fixed",
+    "fixed_pantry_locations": {
+      "Main St & 8th": [
+        -81.6992,
+        30.3625
+      ],
+      "Phoenix Ave & 21st": [
+        -81.6772,
+        30.363500000000002
+      ],
+      "Pearl St & 44th": [
+        -81.6972,
+        30.3775
+      ]
+    },
+    "health_zone_shapefile": "/Users/goshtasbshahriari/Desktop/Code/Data/HealthZones1and4/Health_Zones_1_and_4.shp",
+    "roads_shapefile": "/Users/goshtasbshahriari/Desktop/Code/Data/Roads/All Jacksonville Roads.shp",
+    "use_road_network": true,
+    "enable_spatial_analytics": true,
+    "spatial_cluster_eps": 0.01,
+    "spatial_cluster_min_samples": 5
+  },
+  "final_metrics": {
+    "day": 30,
+    "satisfaction_rate": 0.9,
+    "food_insecurity_rate": 0.1,
+    "avg_travel_distance": 2.44644334171643,
+    "spatial_equity_index": 0.4431806618764786,
+    "total_revenue": 1645.6492681101329
+  },
+  "metrics_history": [
+    {
+      "day": 1,
+      "satisfaction_rate": 0.91,
+      "food_insecurity_rate": 0.09,
+      "avg_travel_distance": 2.2679294169444484,
+      "spatial_equity_index": 0.4432951466528616,
+      "total_revenue": 1498.01297213597
+    },
+    {
+      "day": 2,
+      "satisfaction_rate": 0.905,
+      "food_insecurity_rate": 0.095,
+      "avg_travel_distance": 2.591654856415016,
+      "spatial_equity_index": 0.4432951466528616,
+      "total_revenue": 717.7253253763913
+    },
+    {
+      "day": 3,
+      "satisfaction_rate": 0.925,
+      "food_insecurity_rate": 0.075,
+      "avg_travel_distance": 1.9439354834064329,
+      "spatial_equity_index": 0.4432951466528616,
+      "total_revenue": 711.454237037372
+    },
+    {
+      "day": 4,
+      "satisfaction_rate": 0.925,
+      "food_insecurity_rate": 0.075,
+      "avg_travel_distance": 2.4849103733268714,
+      "spatial_equity_index": 0.4432951466528616,
+      "total_revenue": 520.0
+    },
+    {
+      "day": 5,
+      "satisfaction_rate": 0.93,
+      "food_insecurity_rate": 0.07,
+      "avg_travel_distance": 2.0661436548536916,
+      "spatial_equity_index": 0.4432951466528616,
+      "total_revenue": 629.1386692297922
+    },
+    {
+      "day": 6,
+      "satisfaction_rate": 0.93,
+      "food_insecurity_rate": 0.07,
+      "avg_travel_distance": 1.8061629642581625,
+      "spatial_equity_index": 0.4432951466528616,
+      "total_revenue": 655.0617672872355
+    },
+    {
+      "day": 7,
+      "satisfaction_rate": 0.905,
+      "food_insecurity_rate": 0.095,
+      "avg_travel_distance": 1.7330207751015696,
+      "spatial_equity_index": 0.4432951466528616,
+      "total_revenue": 779.6435873604831
+    },
+    {
+      "day": 8,
+      "satisfaction_rate": 0.925,
+      "food_insecurity_rate": 0.075,
+      "avg_travel_distance": 2.302158279247169,
+      "spatial_equity_index": 0.443303389288372,
+      "total_revenue": 162.5
+    },
+    {
+      "day": 9,
+      "satisfaction_rate": 0.91,
+      "food_insecurity_rate": 0.09,
+      "avg_travel_distance": 2.182945828370385,
+      "spatial_equity_index": 0.443303389288372,
+      "total_revenue": 394.0
+    },
+    {
+      "day": 10,
+      "satisfaction_rate": 0.92,
+      "food_insecurity_rate": 0.08,
+      "avg_travel_distance": 2.4372408180893967,
+      "spatial_equity_index": 0.443303389288372,
+      "total_revenue": 612.0
+    },
+    {
+      "day": 11,
+      "satisfaction_rate": 0.905,
+      "food_insecurity_rate": 0.095,
+      "avg_travel_distance": 2.6378233516520604,
+      "spatial_equity_index": 0.443303389288372,
+      "total_revenue": 806.9007861341194
+    },
+    {
+      "day": 12,
+      "satisfaction_rate": 0.905,
+      "food_insecurity_rate": 0.095,
+      "avg_travel_distance": 1.8510527938666967,
+      "spatial_equity_index": 0.443303389288372,
+      "total_revenue": 505.56831401884546
+    },
+    {
+      "day": 13,
+      "satisfaction_rate": 0.915,
+      "food_insecurity_rate": 0.085,
+      "avg_travel_distance": 1.7828230545857133,
+      "spatial_equity_index": 0.443303389288372,
+      "total_revenue": 1217.7936983932825
+    },
+    {
+      "day": 14,
+      "satisfaction_rate": 0.92,
+      "food_insecurity_rate": 0.08,
+      "avg_travel_distance": 2.0343668710736917,
+      "spatial_equity_index": 0.443303389288372,
+      "total_revenue": 1062.1699299446136
+    },
+    {
+      "day": 15,
+      "satisfaction_rate": 0.935,
+      "food_insecurity_rate": 0.065,
+      "avg_travel_distance": 2.108080797491578,
+      "spatial_equity_index": 0.4432285667958737,
+      "total_revenue": 362.5
+    },
+    {
+      "day": 16,
+      "satisfaction_rate": 0.925,
+      "food_insecurity_rate": 0.075,
+      "avg_travel_distance": 2.4132352709282556,
+      "spatial_equity_index": 0.4432285667958737,
+      "total_revenue": 636.281198907089
+    },
+    {
+      "day": 17,
+      "satisfaction_rate": 0.93,
+      "food_insecurity_rate": 0.07,
+      "avg_travel_distance": 2.3655298116146213,
+      "spatial_equity_index": 0.4432285667958737,
+      "total_revenue": 1011.8827211725027
+    },
+    {
+      "day": 18,
+      "satisfaction_rate": 0.93,
+      "food_insecurity_rate": 0.07,
+      "avg_travel_distance": 2.597116024526315,
+      "spatial_equity_index": 0.4432285667958737,
+      "total_revenue": 593.0
+    },
+    {
+      "day": 19,
+      "satisfaction_rate": 0.925,
+      "food_insecurity_rate": 0.075,
+      "avg_travel_distance": 2.104491403213372,
+      "spatial_equity_index": 0.4432285667958737,
+      "total_revenue": 810.6033753841423
+    },
+    {
+      "day": 20,
+      "satisfaction_rate": 0.92,
+      "food_insecurity_rate": 0.08,
+      "avg_travel_distance": 1.7642545603534086,
+      "spatial_equity_index": 0.4432285667958737,
+      "total_revenue": 540.0
+    },
+    {
+      "day": 21,
+      "satisfaction_rate": 0.925,
+      "food_insecurity_rate": 0.075,
+      "avg_travel_distance": 1.7657474089588527,
+      "spatial_equity_index": 0.4432285667958737,
+      "total_revenue": 476.0
+    },
+    {
+      "day": 22,
+      "satisfaction_rate": 0.925,
+      "food_insecurity_rate": 0.075,
+      "avg_travel_distance": 2.547662983061877,
+      "spatial_equity_index": 0.44316068736369146,
+      "total_revenue": 934.0
+    },
+    {
+      "day": 23,
+      "satisfaction_rate": 0.895,
+      "food_insecurity_rate": 0.105,
+      "avg_travel_distance": 2.6200110832246923,
+      "spatial_equity_index": 0.44316068736369146,
+      "total_revenue": 841.3048150616008
+    },
+    {
+      "day": 24,
+      "satisfaction_rate": 0.89,
+      "food_insecurity_rate": 0.11,
+      "avg_travel_distance": 2.248246073551373,
+      "spatial_equity_index": 0.44316068736369146,
+      "total_revenue": 610.0
+    },
+    {
+      "day": 25,
+      "satisfaction_rate": 0.91,
+      "food_insecurity_rate": 0.09,
+      "avg_travel_distance": 2.510077963291259,
+      "spatial_equity_index": 0.44316068736369146,
+      "total_revenue": 896.0
+    },
+    {
+      "day": 26,
+      "satisfaction_rate": 0.905,
+      "food_insecurity_rate": 0.095,
+      "avg_travel_distance": 2.0905951530675417,
+      "spatial_equity_index": 0.44316068736369146,
+      "total_revenue": 464.44593132334506
+    },
+    {
+      "day": 27,
+      "satisfaction_rate": 0.915,
+      "food_insecurity_rate": 0.085,
+      "avg_travel_distance": 1.9289936285786566,
+      "spatial_equity_index": 0.44316068736369146,
+      "total_revenue": 508.10369465205497
+    },
+    {
+      "day": 28,
+      "satisfaction_rate": 0.915,
+      "food_insecurity_rate": 0.085,
+      "avg_travel_distance": 1.805638496129489,
+      "spatial_equity_index": 0.44316068736369146,
+      "total_revenue": 482.5
+    },
+    {
+      "day": 29,
+      "satisfaction_rate": 0.91,
+      "food_insecurity_rate": 0.09,
+      "avg_travel_distance": 2.34602345819697,
+      "spatial_equity_index": 0.4431806618764786,
+      "total_revenue": 582.7133715000449
+    },
+    {
+      "day": 30,
+      "satisfaction_rate": 0.9,
+      "food_insecurity_rate": 0.1,
+      "avg_travel_distance": 2.44644334171643,
+      "spatial_equity_index": 0.4431806618764786,
+      "total_revenue": 1645.6492681101329
+    }
+  ]
+}

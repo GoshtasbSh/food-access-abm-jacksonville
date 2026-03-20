@@ -1,0 +1,20 @@
+Name,Address,ZipCode,Category,ProviderType,Longitude,Latitude,Capacity,PriceLevel,Rating
+The Fresh Market,"150 Riverside Ave Suite 200, Jacksonville, FL 32202",32202,Supermarket / Grocery store,ProviderType.GROCERY_STORE,-81.74383718648623,30.30254323850536,700,$$$,4.5
+Publix Super Market at Riverside,"2033 Riverside Ave, Jacksonville, FL 32204",32204,Supermarket,ProviderType.GROCERY_STORE,-81.73968919681765,30.296569302938057,700,$$,4.5
+Winn_Dixie (Brentwood),"5210 Norwood Ave, Jacksonville, FL 32208",32208,Grocery store / Supermarket,ProviderType.GROCERY_STORE,-81.70165360576914,30.29023199954497,700,$,4.1
+Harveys Supermarket (Gateway Town Center),"201 W 48th Street, Jacksonville, FL 32208",32208,Supermarket,ProviderType.GROCERY_STORE,-81.68122303192254,30.290506499507966,700,$,4.1
+ALDI,"2261 Edgewood Ave W, Jacksonville, FL 32209",32209,Supermarket,ProviderType.GROCERY_STORE,-81.64051901257878,30.304822768803106,700,$,4.3
+Springfield Superette,"(N Main St area, Jacksonville, FL 32206)",32206,Convenience store,ProviderType.CORNER_STORE,-81.75887366112379,30.341116699708564,80,Ð,Ð
+Clean Greens Mart,"1807 W 45th St #1, Jacksonville, FL 32209",32209,Convenience store,ProviderType.CORNER_STORE,-81.68799346702497,30.34306418937278,80,Ð,4.6
+Prime Time Super Market,"1548 Kings Rd, Jacksonville, FL 32209",32209,Convenience store,ProviderType.CORNER_STORE,-81.64256983198493,30.358296846045906,80,Ð,Ð
+Dollar Tree (Gateway Town Center),"5258 Norwood Ave Unit 12A, Jacksonville, FL 32208",32208,Dollar store,ProviderType.CORNER_STORE,-81.74425501389526,30.309866046621867,80,$,Ð
+Family Dollar (Moncrief Rd),"3000 Moncrief Rd Unit 6, Jacksonville, FL 32209",32209,Dollar store,ProviderType.CORNER_STORE,-81.73886692145489,30.322022770920217,80,$,Ð
+Family Dollar (Edgewood Ave W),"3040 Edgewood Ave W, Jacksonville, FL 32209",32209,Dollar store,ProviderType.CORNER_STORE,-81.71460095031206,30.325520082805216,80,$,Ð
+Dollar General,"2161 Kings Rd, Jacksonville, FL 32209",32209,Dollar store,ProviderType.CORNER_STORE,-81.69081914282887,30.314792966213727,80,$,Ð
+Corner Grocery,"877 W 25th St, Jacksonville, FL 32209",32209,Convenience store / Corner store,ProviderType.CORNER_STORE,-81.67183629759731,30.325151401066535,50,Ð,Ð
+Forty Fifth Street Convenience,"2275 W 45th St, Jacksonville, FL 32209",32209,Convenience store,ProviderType.CORNER_STORE,-81.7040870194743,30.355452772641804,50,Ð,Ð
+Jones & Jones Corner Store,"1630 E 28th St, Jacksonville, FL 32206",32206,Corner store,ProviderType.CORNER_STORE,-81.6957085160328,30.341652645314113,50,Ð,Ð
+Moonshine Food Store,"3629 N Main St, Jacksonville, FL 32206",32206,Food store,ProviderType.CORNER_STORE,-81.73068188590156,30.35758512320235,50,Ð,Ð
+College Park Convenience Store,"1625 Kings Rd, Jacksonville, FL 32209",32209,Convenience store,ProviderType.CORNER_STORE,-81.6587372383336,30.366232532861922,50,Ð,Ð
+Magic Korner,"1501 Mcconihe St, Jacksonville, FL 32209",32209,Convenience store,ProviderType.CORNER_STORE,-81.74548271999893,30.393087800025512,50,Ð,Ð
+Shop and Save,"150 E 3rd St, Jacksonville, FL 32206",32206,Corner store,ProviderType.CORNER_STORE,-81.72492555965519,30.378039377238203,50,Ð,Ð

@@ -1,0 +1,231 @@
+{
+  "timestamp": "20251123_222034",
+  "total_configs": 32,
+  "targets": {
+    "annual_spend_low": 5270.0,
+    "annual_spend_medium": 8989.0,
+    "annual_spend_high": 16996.0,
+    "distance_car": 3.4,
+    "distance_no_car": 1.0
+  },
+  "best_error": 3.285367821093757,
+  "best_params": {
+    "alpha": 1.2,
+    "gamma": 0.6,
+    "threshold_low": 3.0,
+    "threshold_medium": 7.0,
+    "threshold_high": 18.0
+  },
+  "top_5": [
+    {
+      "config_id": 19,
+      "parameters": {
+        "alpha": 1.2,
+        "gamma": 0.6,
+        "threshold_low": 3.0,
+        "threshold_medium": 7.0,
+        "threshold_high": 18.0
+      },
+      "metrics": {
+        "annual_spend_low": 4227.959077220823,
+        "annual_spend_low_std": 0.0,
+        "annual_spend_medium": 9294.649872461794,
+        "annual_spend_medium_std": 0.0,
+        "annual_spend_high": 24800.615892975577,
+        "annual_spend_high_std": 0.0,
+        "weekly_share": 0.3888888888888889,
+        "weekly_share_std": 0.0,
+        "subweekly_share": 0.5555555555555556,
+        "subweekly_share_std": 0.0,
+        "distance_car_mi": 1.8429527311186962,
+        "distance_car_mi_std": 0.0,
+        "distance_no_car_mi": 0.6609430698936936,
+        "distance_no_car_mi_std": 0.0,
+        "small_store_share": 0.11221945137157108,
+        "small_store_share_std": 0.0,
+        "pantry_user_share": 0.26,
+        "pantry_user_share_std": 0.0
+      },
+      "calibration_error": 3.285367821093757,
+      "individual_errors": {
+        "spend_low": 0.19773072538504308,
+        "spend_medium": 0.03400265574166137,
+        "spend_high": 0.4592031003162848,
+        "weekly_freq": 0.027777777777777818,
+        "subweekly_freq": 1.5252525252525255,
+        "distance_car": 0.4579550790827364,
+        "distance_no_car": 0.33905693010630644,
+        "small_store": 0.24438902743142144
+      },
+      "time_seconds": 2.284493923187256
+    },
+    {
+      "config_id": 17,
+      "parameters": {
+        "alpha": 1.2,
+        "gamma": 0.6,
+        "threshold_low": 3.0,
+        "threshold_medium": 6.0,
+        "threshold_high": 18.0
+      },
+      "metrics": {
+        "annual_spend_low": 4157.483968925732,
+        "annual_spend_low_std": 0.0,
+        "annual_spend_medium": 9582.498190569899,
+        "annual_spend_medium_std": 0.0,
+        "annual_spend_high": 24715.38519571159,
+        "annual_spend_high_std": 0.0,
+        "weekly_share": 0.3888888888888889,
+        "weekly_share_std": 0.0,
+        "subweekly_share": 0.5555555555555556,
+        "subweekly_share_std": 0.0,
+        "distance_car_mi": 1.844522692003075,
+        "distance_car_mi_std": 0.0,
+        "distance_no_car_mi": 0.6623154342844502,
+        "distance_no_car_mi_std": 0.0,
+        "small_store_share": 0.1133250311332503,
+        "small_store_share_std": 0.0,
+        "pantry_user_share": 0.3,
+        "pantry_user_share_std": 0.0
+      },
+      "calibration_error": 3.3460257189957865,
+      "individual_errors": {
+        "spend_low": 0.21110361120953844,
+        "spend_medium": 0.0660249405462119,
+        "spend_high": 0.4541883499477284,
+        "weekly_freq": 0.027777777777777818,
+        "subweekly_freq": 1.5252525252525255,
+        "distance_car": 0.4574933258814485,
+        "distance_no_car": 0.33768456571554983,
+        "small_store": 0.266500622665006
+      },
+      "time_seconds": 2.2835299968719482
+    },
+    {
+      "config_id": 3,
+      "parameters": {
+        "alpha": 1.0,
+        "gamma": 0.6,
+        "threshold_low": 3.0,
+        "threshold_medium": 7.0,
+        "threshold_high": 18.0
+      },
+      "metrics": {
+        "annual_spend_low": 4310.859714707294,
+        "annual_spend_low_std": 0.0,
+        "annual_spend_medium": 9465.183569826042,
+        "annual_spend_medium_std": 0.0,
+        "annual_spend_high": 24077.074513525942,
+        "annual_spend_high_std": 0.0,
+        "weekly_share": 0.3333333333333333,
+        "weekly_share_std": 0.0,
+        "subweekly_share": 0.6111111111111112,
+        "subweekly_share_std": 0.0,
+        "distance_car_mi": 1.8634580463006032,
+        "distance_car_mi_std": 0.0,
+        "distance_no_car_mi": 0.6623154342844502,
+        "distance_no_car_mi_std": 0.0,
+        "small_store_share": 0.10099750623441396,
+        "small_store_share_std": 0.0,
+        "pantry_user_share": 0.26,
+        "pantry_user_share_std": 0.0
+      },
+      "calibration_error": 3.4056091505187216,
+      "individual_errors": {
+        "spend_low": 0.1820000541352383,
+        "spend_medium": 0.05297403157481834,
+        "spend_high": 0.4166318259311569,
+        "weekly_freq": 0.16666666666666677,
+        "subweekly_freq": 1.7777777777777781,
+        "distance_car": 0.45192410402923433,
+        "distance_no_car": 0.33768456571554983,
+        "small_store": 0.019950124688279114
+      },
+      "time_seconds": 2.3210878372192383
+    },
+    {
+      "config_id": 28,
+      "parameters": {
+        "alpha": 1.2,
+        "gamma": 0.8,
+        "threshold_low": 3.0,
+        "threshold_medium": 7.0,
+        "threshold_high": 24.0
+      },
+      "metrics": {
+        "annual_spend_low": 4341.739029321447,
+        "annual_spend_low_std": 0.0,
+        "annual_spend_medium": 9205.140834244197,
+        "annual_spend_medium_std": 0.0,
+        "annual_spend_high": 24547.540593587724,
+        "annual_spend_high_std": 0.0,
+        "weekly_share": 0.3333333333333333,
+        "weekly_share_std": 0.0,
+        "subweekly_share": 0.6111111111111112,
+        "subweekly_share_std": 0.0,
+        "distance_car_mi": 1.8714339810202205,
+        "distance_car_mi_std": 0.0,
+        "distance_no_car_mi": 0.6609430698936936,
+        "distance_no_car_mi_std": 0.0,
+        "small_store_share": 0.09363295880149813,
+        "small_store_share_std": 0.0,
+        "pantry_user_share": 0.28,
+        "pantry_user_share_std": 0.0
+      },
+      "calibration_error": 3.4412484800890826,
+      "individual_errors": {
+        "spend_low": 0.17614060164678433,
+        "spend_medium": 0.024045036627455482,
+        "spend_high": 0.4443128144026668,
+        "weekly_freq": 0.16666666666666677,
+        "subweekly_freq": 1.7777777777777781,
+        "distance_car": 0.44957824087640574,
+        "distance_no_car": 0.33905693010630644,
+        "small_store": 0.06367041198501872
+      },
+      "time_seconds": 2.503657102584839
+    },
+    {
+      "config_id": 26,
+      "parameters": {
+        "alpha": 1.2,
+        "gamma": 0.8,
+        "threshold_low": 3.0,
+        "threshold_medium": 6.0,
+        "threshold_high": 24.0
+      },
+      "metrics": {
+        "annual_spend_low": 4345.478400003788,
+        "annual_spend_low_std": 0.0,
+        "annual_spend_medium": 9677.735322582144,
+        "annual_spend_medium_std": 0.0,
+        "annual_spend_high": 24103.353711812735,
+        "annual_spend_high_std": 0.0,
+        "weekly_share": 0.3333333333333333,
+        "weekly_share_std": 0.0,
+        "subweekly_share": 0.6111111111111112,
+        "subweekly_share_std": 0.0,
+        "distance_car_mi": 1.8442132991716604,
+        "distance_car_mi_std": 0.0,
+        "distance_no_car_mi": 0.6609430698936936,
+        "distance_no_car_mi_std": 0.0,
+        "small_store_share": 0.10209102091020911,
+        "small_store_share_std": 0.0,
+        "pantry_user_share": 0.22,
+        "pantry_user_share_std": 0.0
+      },
+      "calibration_error": 3.453134978474235,
+      "individual_errors": {
+        "spend_low": 0.17543104364254497,
+        "spend_medium": 0.07661979336768766,
+        "spend_high": 0.4181780249360282,
+        "weekly_freq": 0.16666666666666677,
+        "subweekly_freq": 1.7777777777777781,
+        "distance_car": 0.45758432377304104,
+        "distance_no_car": 0.33905693010630644,
+        "small_store": 0.04182041820418203
+      },
+      "time_seconds": 2.4756791591644287
+    }
+  ]
+}

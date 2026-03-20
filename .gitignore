@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project-specific
+.mplconfig/
+*.log
+sa_results/checkpoint_*.csv
+
+# Large outputs (optional: uncomment to exclude from repo)
+# scenarios_results/*.json
+# past_scenario_resutls/
+# sa_results/

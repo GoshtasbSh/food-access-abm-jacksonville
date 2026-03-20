@@ -1,0 +1,752 @@
+Loading model (may take 30–60s)...
+Model loaded.
+QUICK MODE: 144 runs × 1 seed = 144 total (~20 min)
+PHASE 1 CALIBRATION
+  144 configs × 1 seed(s) = 144 runs
+
+  Running config 1/144 (α=1.0 β=0.5 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 1/144 (0.7%)  Best err: 0.1470  ETA: 0h 6m  ⭐
+  Running config 2/144 (α=1.0 β=0.5 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 2/144 (1.4%)  Best err: 0.1470  ETA: 0h 6m
+  Running config 3/144 (α=1.0 β=0.5 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 3/144 (2.1%)  Best err: 0.1470  ETA: 0h 6m
+  Running config 4/144 (α=1.0 β=0.5 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 4/144 (2.8%)  Best err: 0.1470  ETA: 0h 5m
+  Running config 5/144 (α=1.0 β=0.5 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 5/144 (3.5%)  Best err: 0.1470  ETA: 0h 5m
+  Running config 6/144 (α=1.0 β=0.5 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 6/144 (4.2%)  Best err: 0.1470  ETA: 0h 5m
+  Running config 7/144 (α=1.0 β=0.5 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 7/144 (4.9%)  Best err: 0.1470  ETA: 0h 5m
+  Running config 8/144 (α=1.0 β=0.5 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 8/144 (5.6%)  Best err: 0.1470  ETA: 0h 5m
+  Running config 9/144 (α=1.0 β=0.5 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [█░░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 9/144 (6.2%)  Best err: 0.1470  ETA: 0h 5m
+  Running config 10/144 (α=1.0 β=0.5 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [██░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 10/144 (6.9%)  Best err: 0.1470  ETA: 0h 5m
+  Running config 11/144 (α=1.0 β=0.5 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [██░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 11/144 (7.6%)  Best err: 0.1470  ETA: 0h 5m
+  Running config 12/144 (α=1.0 β=0.5 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [██░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 12/144 (8.3%)  Best err: 0.1470  ETA: 0h 5m
+  Running config 13/144 (α=1.0 β=0.5 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [██░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 13/144 (9.0%)  Best err: 0.1470  ETA: 0h 5m
+  Running config 14/144 (α=1.0 β=0.5 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [██░░░░░░░░░░░░░░░░░░░░░░░░░░░░] 14/144 (9.7%)  Best err: 0.1470  ETA: 0h 5m
+  Running config 15/144 (α=1.0 β=0.5 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [███░░░░░░░░░░░░░░░░░░░░░░░░░░░] 15/144 (10.4%)  Best err: 0.1470  ETA: 0h 5m
+  Running config 16/144 (α=1.0 β=0.5 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [███░░░░░░░░░░░░░░░░░░░░░░░░░░░] 16/144 (11.1%)  Best err: 0.1470  ETA: 0h 5m
+  Running config 17/144 (α=1.0 β=0.9 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [███░░░░░░░░░░░░░░░░░░░░░░░░░░░] 17/144 (11.8%)  Best err: 0.1470  ETA: 0h 5m
+  Running config 18/144 (α=1.0 β=0.9 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [███░░░░░░░░░░░░░░░░░░░░░░░░░░░] 18/144 (12.5%)  Best err: 0.1470  ETA: 0h 5m
+  Running config 19/144 (α=1.0 β=0.9 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [███░░░░░░░░░░░░░░░░░░░░░░░░░░░] 19/144 (13.2%)  Best err: 0.1470  ETA: 0h 5m
+  Running config 20/144 (α=1.0 β=0.9 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [████░░░░░░░░░░░░░░░░░░░░░░░░░░] 20/144 (13.9%)  Best err: 0.1470  ETA: 0h 5m
+  Running config 21/144 (α=1.0 β=0.9 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [████░░░░░░░░░░░░░░░░░░░░░░░░░░] 21/144 (14.6%)  Best err: 0.1470  ETA: 0h 5m
+  Running config 22/144 (α=1.0 β=0.9 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [████░░░░░░░░░░░░░░░░░░░░░░░░░░] 22/144 (15.3%)  Best err: 0.1470  ETA: 0h 5m
+  Running config 23/144 (α=1.0 β=0.9 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [████░░░░░░░░░░░░░░░░░░░░░░░░░░] 23/144 (16.0%)  Best err: 0.1470  ETA: 0h 5m
+  Running config 24/144 (α=1.0 β=0.9 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [█████░░░░░░░░░░░░░░░░░░░░░░░░░] 24/144 (16.7%)  Best err: 0.1470  ETA: 0h 5m
+  Running config 25/144 (α=1.0 β=0.9 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [█████░░░░░░░░░░░░░░░░░░░░░░░░░] 25/144 (17.4%)  Best err: 0.1470  ETA: 0h 5m
+  Running config 26/144 (α=1.0 β=0.9 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [█████░░░░░░░░░░░░░░░░░░░░░░░░░] 26/144 (18.1%)  Best err: 0.1470  ETA: 0h 4m
+  Running config 27/144 (α=1.0 β=0.9 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [█████░░░░░░░░░░░░░░░░░░░░░░░░░] 27/144 (18.8%)  Best err: 0.1470  ETA: 0h 4m
+  Running config 28/144 (α=1.0 β=0.9 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [█████░░░░░░░░░░░░░░░░░░░░░░░░░] 28/144 (19.4%)  Best err: 0.1470  ETA: 0h 4m
+  Running config 29/144 (α=1.0 β=0.9 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [██████░░░░░░░░░░░░░░░░░░░░░░░░] 29/144 (20.1%)  Best err: 0.1470  ETA: 0h 4m
+  Running config 30/144 (α=1.0 β=0.9 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [██████░░░░░░░░░░░░░░░░░░░░░░░░] 30/144 (20.8%)  Best err: 0.1470  ETA: 0h 4m
+  Running config 31/144 (α=1.0 β=0.9 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [██████░░░░░░░░░░░░░░░░░░░░░░░░] 31/144 (21.5%)  Best err: 0.1470  ETA: 0h 4m
+  Running config 32/144 (α=1.0 β=0.9 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [██████░░░░░░░░░░░░░░░░░░░░░░░░] 32/144 (22.2%)  Best err: 0.1470  ETA: 0h 4m
+  Running config 33/144 (α=1.0 β=1.3 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [██████░░░░░░░░░░░░░░░░░░░░░░░░] 33/144 (22.9%)  Best err: 0.1470  ETA: 0h 4m
+  Running config 34/144 (α=1.0 β=1.3 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [███████░░░░░░░░░░░░░░░░░░░░░░░] 34/144 (23.6%)  Best err: 0.1470  ETA: 0h 4m
+  Running config 35/144 (α=1.0 β=1.3 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [███████░░░░░░░░░░░░░░░░░░░░░░░] 35/144 (24.3%)  Best err: 0.1470  ETA: 0h 4m
+  Running config 36/144 (α=1.0 β=1.3 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [███████░░░░░░░░░░░░░░░░░░░░░░░] 36/144 (25.0%)  Best err: 0.1470  ETA: 0h 4m
+  Running config 37/144 (α=1.0 β=1.3 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [███████░░░░░░░░░░░░░░░░░░░░░░░] 37/144 (25.7%)  Best err: 0.1470  ETA: 0h 4m
+  Running config 38/144 (α=1.0 β=1.3 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [███████░░░░░░░░░░░░░░░░░░░░░░░] 38/144 (26.4%)  Best err: 0.1470  ETA: 0h 4m
+  Running config 39/144 (α=1.0 β=1.3 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [████████░░░░░░░░░░░░░░░░░░░░░░] 39/144 (27.1%)  Best err: 0.1470  ETA: 0h 4m
+  Running config 40/144 (α=1.0 β=1.3 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [████████░░░░░░░░░░░░░░░░░░░░░░] 40/144 (27.8%)  Best err: 0.1470  ETA: 0h 4m
+  Running config 41/144 (α=1.0 β=1.3 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [████████░░░░░░░░░░░░░░░░░░░░░░] 41/144 (28.5%)  Best err: 0.1470  ETA: 0h 4m
+  Running config 42/144 (α=1.0 β=1.3 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [████████░░░░░░░░░░░░░░░░░░░░░░] 42/144 (29.2%)  Best err: 0.1470  ETA: 0h 4m
+  Running config 43/144 (α=1.0 β=1.3 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [████████░░░░░░░░░░░░░░░░░░░░░░] 43/144 (29.9%)  Best err: 0.1470  ETA: 0h 4m
+  Running config 44/144 (α=1.0 β=1.3 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [█████████░░░░░░░░░░░░░░░░░░░░░] 44/144 (30.6%)  Best err: 0.1470  ETA: 0h 4m
+  Running config 45/144 (α=1.0 β=1.3 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [█████████░░░░░░░░░░░░░░░░░░░░░] 45/144 (31.2%)  Best err: 0.1470  ETA: 0h 4m
+  Running config 46/144 (α=1.0 β=1.3 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [█████████░░░░░░░░░░░░░░░░░░░░░] 46/144 (31.9%)  Best err: 0.1470  ETA: 0h 4m
+  Running config 47/144 (α=1.0 β=1.3 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [█████████░░░░░░░░░░░░░░░░░░░░░] 47/144 (32.6%)  Best err: 0.1470  ETA: 0h 4m
+  Running config 48/144 (α=1.0 β=1.3 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [██████████░░░░░░░░░░░░░░░░░░░░] 48/144 (33.3%)  Best err: 0.1470  ETA: 0h 4m
+  Running config 49/144 (α=2.0 β=0.5 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [██████████░░░░░░░░░░░░░░░░░░░░] 49/144 (34.0%)  Best err: 0.0997  ETA: 0h 4m  ⭐
+  Running config 50/144 (α=2.0 β=0.5 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [██████████░░░░░░░░░░░░░░░░░░░░] 50/144 (34.7%)  Best err: 0.0997  ETA: 0h 3m
+  Running config 51/144 (α=2.0 β=0.5 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [██████████░░░░░░░░░░░░░░░░░░░░] 51/144 (35.4%)  Best err: 0.0997  ETA: 0h 3m
+  Running config 52/144 (α=2.0 β=0.5 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [██████████░░░░░░░░░░░░░░░░░░░░] 52/144 (36.1%)  Best err: 0.0997  ETA: 0h 3m
+  Running config 53/144 (α=2.0 β=0.5 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [███████████░░░░░░░░░░░░░░░░░░░] 53/144 (36.8%)  Best err: 0.0997  ETA: 0h 3m
+  Running config 54/144 (α=2.0 β=0.5 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [███████████░░░░░░░░░░░░░░░░░░░] 54/144 (37.5%)  Best err: 0.0997  ETA: 0h 3m
+  Running config 55/144 (α=2.0 β=0.5 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [███████████░░░░░░░░░░░░░░░░░░░] 55/144 (38.2%)  Best err: 0.0997  ETA: 0h 3m
+  Running config 56/144 (α=2.0 β=0.5 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [███████████░░░░░░░░░░░░░░░░░░░] 56/144 (38.9%)  Best err: 0.0997  ETA: 0h 3m
+  Running config 57/144 (α=2.0 β=0.5 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [███████████░░░░░░░░░░░░░░░░░░░] 57/144 (39.6%)  Best err: 0.0997  ETA: 0h 3m
+  Running config 58/144 (α=2.0 β=0.5 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [████████████░░░░░░░░░░░░░░░░░░] 58/144 (40.3%)  Best err: 0.0997  ETA: 0h 3m
+  Running config 59/144 (α=2.0 β=0.5 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [████████████░░░░░░░░░░░░░░░░░░] 59/144 (41.0%)  Best err: 0.0997  ETA: 0h 3m
+  Running config 60/144 (α=2.0 β=0.5 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [████████████░░░░░░░░░░░░░░░░░░] 60/144 (41.7%)  Best err: 0.0997  ETA: 0h 3m
+  Running config 61/144 (α=2.0 β=0.5 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [████████████░░░░░░░░░░░░░░░░░░] 61/144 (42.4%)  Best err: 0.0997  ETA: 0h 3m
+  Running config 62/144 (α=2.0 β=0.5 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [████████████░░░░░░░░░░░░░░░░░░] 62/144 (43.1%)  Best err: 0.0997  ETA: 0h 3m
+  Running config 63/144 (α=2.0 β=0.5 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [█████████████░░░░░░░░░░░░░░░░░] 63/144 (43.8%)  Best err: 0.0997  ETA: 0h 3m
+  Running config 64/144 (α=2.0 β=0.5 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [█████████████░░░░░░░░░░░░░░░░░] 64/144 (44.4%)  Best err: 0.0997  ETA: 0h 3m
+  Running config 65/144 (α=2.0 β=0.9 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [█████████████░░░░░░░░░░░░░░░░░] 65/144 (45.1%)  Best err: 0.0997  ETA: 0h 3m
+  Running config 66/144 (α=2.0 β=0.9 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [█████████████░░░░░░░░░░░░░░░░░] 66/144 (45.8%)  Best err: 0.0997  ETA: 0h 3m
+  Running config 67/144 (α=2.0 β=0.9 γ=0.6)...
+  LOW    insecurity: 20/52 = 38.5%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [█████████████░░░░░░░░░░░░░░░░░] 67/144 (46.5%)  Best err: 0.0997  ETA: 0h 3m
+  Running config 68/144 (α=2.0 β=0.9 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [██████████████░░░░░░░░░░░░░░░░] 68/144 (47.2%)  Best err: 0.0997  ETA: 0h 3m
+  Running config 69/144 (α=2.0 β=0.9 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [██████████████░░░░░░░░░░░░░░░░] 69/144 (47.9%)  Best err: 0.0997  ETA: 0h 3m
+  Running config 70/144 (α=2.0 β=0.9 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [██████████████░░░░░░░░░░░░░░░░] 70/144 (48.6%)  Best err: 0.0997  ETA: 0h 3m
+  Running config 71/144 (α=2.0 β=0.9 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [██████████████░░░░░░░░░░░░░░░░] 71/144 (49.3%)  Best err: 0.0997  ETA: 0h 3m
+  Running config 72/144 (α=2.0 β=0.9 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [███████████████░░░░░░░░░░░░░░░] 72/144 (50.0%)  Best err: 0.0997  ETA: 0h 3m
+  Running config 73/144 (α=2.0 β=0.9 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [███████████████░░░░░░░░░░░░░░░] 73/144 (50.7%)  Best err: 0.0997  ETA: 0h 2m
+  Running config 74/144 (α=2.0 β=0.9 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [███████████████░░░░░░░░░░░░░░░] 74/144 (51.4%)  Best err: 0.0997  ETA: 0h 2m
+  Running config 75/144 (α=2.0 β=0.9 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [███████████████░░░░░░░░░░░░░░░] 75/144 (52.1%)  Best err: 0.0997  ETA: 0h 2m
+  Running config 76/144 (α=2.0 β=0.9 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [███████████████░░░░░░░░░░░░░░░] 76/144 (52.8%)  Best err: 0.0997  ETA: 0h 2m
+  Running config 77/144 (α=2.0 β=0.9 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [████████████████░░░░░░░░░░░░░░] 77/144 (53.5%)  Best err: 0.0997  ETA: 0h 2m
+  Running config 78/144 (α=2.0 β=0.9 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [████████████████░░░░░░░░░░░░░░] 78/144 (54.2%)  Best err: 0.0997  ETA: 0h 2m
+  Running config 79/144 (α=2.0 β=0.9 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [████████████████░░░░░░░░░░░░░░] 79/144 (54.9%)  Best err: 0.0997  ETA: 0h 2m
+  Running config 80/144 (α=2.0 β=0.9 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [████████████████░░░░░░░░░░░░░░] 80/144 (55.6%)  Best err: 0.0997  ETA: 0h 2m
+  Running config 81/144 (α=2.0 β=1.3 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [████████████████░░░░░░░░░░░░░░] 81/144 (56.2%)  Best err: 0.0997  ETA: 0h 2m
+  Running config 82/144 (α=2.0 β=1.3 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [█████████████████░░░░░░░░░░░░░] 82/144 (56.9%)  Best err: 0.0997  ETA: 0h 2m
+  Running config 83/144 (α=2.0 β=1.3 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [█████████████████░░░░░░░░░░░░░] 83/144 (57.6%)  Best err: 0.0997  ETA: 0h 2m
+  Running config 84/144 (α=2.0 β=1.3 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [█████████████████░░░░░░░░░░░░░] 84/144 (58.3%)  Best err: 0.0997  ETA: 0h 2m
+  Running config 85/144 (α=2.0 β=1.3 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [█████████████████░░░░░░░░░░░░░] 85/144 (59.0%)  Best err: 0.0997  ETA: 0h 2m
+  Running config 86/144 (α=2.0 β=1.3 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [█████████████████░░░░░░░░░░░░░] 86/144 (59.7%)  Best err: 0.0997  ETA: 0h 2m
+  Running config 87/144 (α=2.0 β=1.3 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [██████████████████░░░░░░░░░░░░] 87/144 (60.4%)  Best err: 0.0997  ETA: 0h 2m
+  Running config 88/144 (α=2.0 β=1.3 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [██████████████████░░░░░░░░░░░░] 88/144 (61.1%)  Best err: 0.0997  ETA: 0h 2m
+  Running config 89/144 (α=2.0 β=1.3 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [██████████████████░░░░░░░░░░░░] 89/144 (61.8%)  Best err: 0.0997  ETA: 0h 2m
+  Running config 90/144 (α=2.0 β=1.3 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [██████████████████░░░░░░░░░░░░] 90/144 (62.5%)  Best err: 0.0997  ETA: 0h 2m
+  Running config 91/144 (α=2.0 β=1.3 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [██████████████████░░░░░░░░░░░░] 91/144 (63.2%)  Best err: 0.0997  ETA: 0h 2m
+  Running config 92/144 (α=2.0 β=1.3 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [███████████████████░░░░░░░░░░░] 92/144 (63.9%)  Best err: 0.0997  ETA: 0h 2m
+  Running config 93/144 (α=2.0 β=1.3 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [███████████████████░░░░░░░░░░░] 93/144 (64.6%)  Best err: 0.0997  ETA: 0h 2m
+  Running config 94/144 (α=2.0 β=1.3 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [███████████████████░░░░░░░░░░░] 94/144 (65.3%)  Best err: 0.0997  ETA: 0h 2m
+  Running config 95/144 (α=2.0 β=1.3 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [███████████████████░░░░░░░░░░░] 95/144 (66.0%)  Best err: 0.0997  ETA: 0h 2m
+  Running config 96/144 (α=2.0 β=1.3 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [████████████████████░░░░░░░░░░] 96/144 (66.7%)  Best err: 0.0997  ETA: 0h 2m
+  Running config 97/144 (α=3.0 β=0.5 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [████████████████████░░░░░░░░░░] 97/144 (67.4%)  Best err: 0.0997  ETA: 0h 1m
+  Running config 98/144 (α=3.0 β=0.5 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [████████████████████░░░░░░░░░░] 98/144 (68.1%)  Best err: 0.0997  ETA: 0h 1m
+  Running config 99/144 (α=3.0 β=0.5 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [████████████████████░░░░░░░░░░] 99/144 (68.8%)  Best err: 0.0997  ETA: 0h 1m
+  Running config 100/144 (α=3.0 β=0.5 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [████████████████████░░░░░░░░░░] 100/144 (69.4%)  Best err: 0.0997  ETA: 0h 1m
+  Running config 101/144 (α=3.0 β=0.5 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [█████████████████████░░░░░░░░░] 101/144 (70.1%)  Best err: 0.0997  ETA: 0h 1m
+  Running config 102/144 (α=3.0 β=0.5 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [█████████████████████░░░░░░░░░] 102/144 (70.8%)  Best err: 0.0997  ETA: 0h 1m
+  Running config 103/144 (α=3.0 β=0.5 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [█████████████████████░░░░░░░░░] 103/144 (71.5%)  Best err: 0.0997  ETA: 0h 1m
+  Running config 104/144 (α=3.0 β=0.5 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [█████████████████████░░░░░░░░░] 104/144 (72.2%)  Best err: 0.0997  ETA: 0h 1m
+  Running config 105/144 (α=3.0 β=0.5 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [█████████████████████░░░░░░░░░] 105/144 (72.9%)  Best err: 0.0997  ETA: 0h 1m
+  Running config 106/144 (α=3.0 β=0.5 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [██████████████████████░░░░░░░░] 106/144 (73.6%)  Best err: 0.0997  ETA: 0h 1m
+  Running config 107/144 (α=3.0 β=0.5 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [██████████████████████░░░░░░░░] 107/144 (74.3%)  Best err: 0.0997  ETA: 0h 1m
+  Running config 108/144 (α=3.0 β=0.5 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [██████████████████████░░░░░░░░] 108/144 (75.0%)  Best err: 0.0997  ETA: 0h 1m
+  Running config 109/144 (α=3.0 β=0.5 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [██████████████████████░░░░░░░░] 109/144 (75.7%)  Best err: 0.0997  ETA: 0h 1m
+  Running config 110/144 (α=3.0 β=0.5 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [██████████████████████░░░░░░░░] 110/144 (76.4%)  Best err: 0.0997  ETA: 0h 1m
+  Running config 111/144 (α=3.0 β=0.5 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [███████████████████████░░░░░░░] 111/144 (77.1%)  Best err: 0.0997  ETA: 0h 1m
+  Running config 112/144 (α=3.0 β=0.5 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [███████████████████████░░░░░░░] 112/144 (77.8%)  Best err: 0.0997  ETA: 0h 1m
+  Running config 113/144 (α=3.0 β=0.9 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [███████████████████████░░░░░░░] 113/144 (78.5%)  Best err: 0.0997  ETA: 0h 1m
+  Running config 114/144 (α=3.0 β=0.9 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [███████████████████████░░░░░░░] 114/144 (79.2%)  Best err: 0.0997  ETA: 0h 1m
+  Running config 115/144 (α=3.0 β=0.9 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [███████████████████████░░░░░░░] 115/144 (79.9%)  Best err: 0.0997  ETA: 0h 1m
+  Running config 116/144 (α=3.0 β=0.9 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [████████████████████████░░░░░░] 116/144 (80.6%)  Best err: 0.0997  ETA: 0h 1m
+  Running config 117/144 (α=3.0 β=0.9 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [████████████████████████░░░░░░] 117/144 (81.2%)  Best err: 0.0997  ETA: 0h 1m
+  Running config 118/144 (α=3.0 β=0.9 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [████████████████████████░░░░░░] 118/144 (81.9%)  Best err: 0.0997  ETA: 0h 1m
+  Running config 119/144 (α=3.0 β=0.9 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [████████████████████████░░░░░░] 119/144 (82.6%)  Best err: 0.0997  ETA: 0h 1m
+  Running config 120/144 (α=3.0 β=0.9 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [█████████████████████████░░░░░] 120/144 (83.3%)  Best err: 0.0997  ETA: 0h 1m
+  Running config 121/144 (α=3.0 β=0.9 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [█████████████████████████░░░░░] 121/144 (84.0%)  Best err: 0.0997  ETA: 0h 0m
+  Running config 122/144 (α=3.0 β=0.9 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [█████████████████████████░░░░░] 122/144 (84.7%)  Best err: 0.0997  ETA: 0h 0m
+  Running config 123/144 (α=3.0 β=0.9 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [█████████████████████████░░░░░] 123/144 (85.4%)  Best err: 0.0997  ETA: 0h 0m
+  Running config 124/144 (α=3.0 β=0.9 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [█████████████████████████░░░░░] 124/144 (86.1%)  Best err: 0.0997  ETA: 0h 0m
+  Running config 125/144 (α=3.0 β=0.9 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [██████████████████████████░░░░] 125/144 (86.8%)  Best err: 0.0997  ETA: 0h 0m
+  Running config 126/144 (α=3.0 β=0.9 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [██████████████████████████░░░░] 126/144 (87.5%)  Best err: 0.0997  ETA: 0h 0m
+  Running config 127/144 (α=3.0 β=0.9 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [██████████████████████████░░░░] 127/144 (88.2%)  Best err: 0.0997  ETA: 0h 0m
+  Running config 128/144 (α=3.0 β=0.9 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [██████████████████████████░░░░] 128/144 (88.9%)  Best err: 0.0997  ETA: 0h 0m
+  Running config 129/144 (α=3.0 β=1.3 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [██████████████████████████░░░░] 129/144 (89.6%)  Best err: 0.0997  ETA: 0h 0m
+  Running config 130/144 (α=3.0 β=1.3 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [███████████████████████████░░░] 130/144 (90.3%)  Best err: 0.0997  ETA: 0h 0m
+  Running config 131/144 (α=3.0 β=1.3 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [███████████████████████████░░░] 131/144 (91.0%)  Best err: 0.0997  ETA: 0h 0m
+  Running config 132/144 (α=3.0 β=1.3 γ=0.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [███████████████████████████░░░] 132/144 (91.7%)  Best err: 0.0997  ETA: 0h 0m
+  Running config 133/144 (α=3.0 β=1.3 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [███████████████████████████░░░] 133/144 (92.4%)  Best err: 0.0997  ETA: 0h 0m
+  Running config 134/144 (α=3.0 β=1.3 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [███████████████████████████░░░] 134/144 (93.1%)  Best err: 0.0997  ETA: 0h 0m
+  Running config 135/144 (α=3.0 β=1.3 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [████████████████████████████░░] 135/144 (93.8%)  Best err: 0.0997  ETA: 0h 0m
+  Running config 136/144 (α=3.0 β=1.3 γ=1.4)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 5/16 = 31.2%
+  [████████████████████████████░░] 136/144 (94.4%)  Best err: 0.0997  ETA: 0h 0m
+  Running config 137/144 (α=3.0 β=1.3 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [████████████████████████████░░] 137/144 (95.1%)  Best err: 0.0997  ETA: 0h 0m
+  Running config 138/144 (α=3.0 β=1.3 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [████████████████████████████░░] 138/144 (95.8%)  Best err: 0.0997  ETA: 0h 0m
+  Running config 139/144 (α=3.0 β=1.3 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [████████████████████████████░░] 139/144 (96.5%)  Best err: 0.0997  ETA: 0h 0m
+  Running config 140/144 (α=3.0 β=1.3 γ=2.2)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [█████████████████████████████░] 140/144 (97.2%)  Best err: 0.0997  ETA: 0h 0m
+  Running config 141/144 (α=3.0 β=1.3 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [█████████████████████████████░] 141/144 (97.9%)  Best err: 0.0997  ETA: 0h 0m
+  Running config 142/144 (α=3.0 β=1.3 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [█████████████████████████████░] 142/144 (98.6%)  Best err: 0.0997  ETA: 0h 0m
+  Running config 143/144 (α=3.0 β=1.3 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [█████████████████████████████░] 143/144 (99.3%)  Best err: 0.0997  ETA: 0h 0m
+  Running config 144/144 (α=3.0 β=1.3 γ=2.6)...
+  LOW    insecurity: 21/52 = 40.4%
+  MEDIUM insecurity: 9/32 = 28.1%
+  HIGH   insecurity: 4/16 = 25.0%
+  [██████████████████████████████] 144/144 (100.0%)  Best err: 0.0997  ETA: 0h 0m
+
+================================================================================
+CALIBRATION COMPLETE!
+================================================================================
+Total time: 6.1 minutes (0.10 hours)
+Configurations tested: 144/144
+
+📊 BEST CONFIGURATION:
+  alpha:         2.00
+  beta:          0.50
+  gamma:         0.60
+  delta:         0.4 (fixed)
+  threshold_low: 5.0
+  threshold_med: 6.0
+  threshold_high: 14.0 (fixed)
+  Total Error:   0.0997
+
+📈 BEST METRICS:
+  Spending: Low=$3288 Med=$4458 High=$11326
+  Corner Share: 34.5%
+  Distance: Car=2.51km NoCar=0.51km
+
+✅ Results saved:
+  /Users/goshtasbshahriari/Desktop/Code/GeoMesa_Food_Access/PHASE1_QUICK_CHECK.csv
+  BEST_PHASE1_PARAMS_20260227_014946.json
+================================================================================

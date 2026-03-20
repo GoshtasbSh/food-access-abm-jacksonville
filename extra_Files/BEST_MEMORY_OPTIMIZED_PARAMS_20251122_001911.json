@@ -1,0 +1,23 @@
+{
+  "best_parameters": {
+    "alpha_distance": 2.5,
+    "beta_price_budget": 0.7,
+    "gamma_quality_variety": 1.0,
+    "delta_convenience": 0.4,
+    "go_shop_threshold_low": 7.0,
+    "go_shop_threshold_medium": 7.0,
+    "go_shop_threshold_high": 14.0
+  },
+  "calibration_error": 0.5200163842325815,
+  "metrics": {
+    "avg_spend_low": 8831.586622095607,
+    "avg_spend_med": 8862.306740535683,
+    "avg_spend_high": 13068.657046615564,
+    "corner_share": 0.07560627674750357,
+    "avg_dist_car": 2.654696058885315,
+    "avg_dist_nocar": 1.949857698497822
+  },
+  "total_configs_tested": 108,
+  "total_time_hours": 0.0783903486861123,
+  "timestamp": "20251122_001911"
+}

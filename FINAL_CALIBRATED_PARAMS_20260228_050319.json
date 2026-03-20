@@ -1,0 +1,97 @@
+{
+  "final_parameters": {
+    "alpha_distance": 3.0,
+    "beta_price_budget": 0.5,
+    "gamma_quality_variety": 0.6,
+    "delta_convenience": 0.4,
+    "go_shop_threshold_low": 4.0,
+    "go_shop_threshold_medium": 6.0,
+    "go_shop_threshold_high": 14.0
+  },
+  "calibration_error_full": 0.0945553021504792,
+  "calibration_error_phase1": 0.0908288020686789,
+  "metrics_mean": {
+    "avg_spend_low": 3475.588835451405,
+    "avg_spend_med": 4179.8985978763085,
+    "avg_spend_high": 11366.470986396404,
+    "corner_share": 0.3993134425486289,
+    "food_insecurity_share": 0.3832,
+    "avg_dist_car": 2.5173174639806506,
+    "avg_dist_nocar": 0.4870897701855553,
+    "total_trips": 33807.4
+  },
+  "metrics_std": {
+    "avg_spend_low": 60.678089170948255,
+    "avg_spend_med": 88.32202054408563,
+    "avg_spend_high": 713.3345037952256,
+    "corner_share": 0.0188463713121899,
+    "food_insecurity_share": 0.0168570460045643,
+    "avg_dist_car": 0.036657404046114,
+    "avg_dist_nocar": 0.0460150287095984,
+    "total_trips": 561.1618661313329
+  },
+  "seed_results": [
+    {
+      "seed": 0,
+      "avg_spend_low": 3418.701850195608,
+      "avg_spend_med": 4112.956427697579,
+      "avg_spend_high": 11490.462079768606,
+      "corner_share": 0.388637521349594,
+      "food_insecurity_share": 0.366,
+      "avg_dist_car": 2.5311137731957767,
+      "avg_dist_nocar": 0.4988562930518051,
+      "total_trips": 33373
+    },
+    {
+      "seed": 1,
+      "avg_spend_low": 3519.2464923500725,
+      "avg_spend_med": 4188.949440590725,
+      "avg_spend_high": 11550.81601858999,
+      "corner_share": 0.4214001105197336,
+      "food_insecurity_share": 0.378,
+      "avg_dist_car": 2.5808917591579923,
+      "avg_dist_nocar": 0.41475851661764274,
+      "total_trips": 34383
+    },
+    {
+      "seed": 2,
+      "avg_spend_low": 3405.120166656202,
+      "avg_spend_med": 4106.287455663572,
+      "avg_spend_high": 11573.134770064422,
+      "corner_share": 0.37769471488178025,
+      "food_insecurity_share": 0.366,
+      "avg_dist_car": 2.5065213404199564,
+      "avg_dist_nocar": 0.5025208534143409,
+      "total_trips": 34512
+    },
+    {
+      "seed": 3,
+      "avg_spend_low": 3566.4200848149167,
+      "avg_spend_med": 4144.715015532097,
+      "avg_spend_high": 10032.04222339465,
+      "corner_share": 0.42250971781252783,
+      "food_insecurity_share": 0.406,
+      "avg_dist_car": 2.4752506971311434,
+      "avg_dist_nocar": 0.46515933762488326,
+      "total_trips": 33701
+    },
+    {
+      "seed": 4,
+      "avg_spend_low": 3468.455583240228,
+      "avg_spend_med": 4346.58464989757,
+      "avg_spend_high": 12185.899840164346,
+      "corner_share": 0.3863251481795089,
+      "food_insecurity_share": 0.4,
+      "avg_dist_car": 2.4928097499983846,
+      "avg_dist_nocar": 0.5541538502191047,
+      "total_trips": 33068
+    }
+  ],
+  "validation_settings": {
+    "num_households": 500,
+    "num_days": 365,
+    "num_seeds": 5
+  },
+  "total_time_hours": 3.0600952641831505,
+  "timestamp": "20260228_050319"
+}

@@ -1,0 +1,102 @@
+================================================================================
+🎯 SIMPLIFIED GRID SEARCH CALIBRATION
+================================================================================
+Started: 2025-11-23 21:48:07
+
+📊 Grid: 3 × 3 × 3 = 27 configs
+⚙️  Settings: 50 HH, 90 days, 1 seed
+⏱️  Expected time: ~3-4 hours
+
+
+======================================================================
+GRID SEARCH CALIBRATION
+======================================================================
+Testing 3 × 3 × 3 = 27 configurations
+Each with 1 seeds × 90 days
+======================================================================
+
+
+[1/27] Testing: α=0.80, γ=0.40, threshold_low=2.0
+Running 1 seeds × 90 days... 📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 500
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 500 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7490, 30.3043), capacity: 700
+      • Publix Super Market at Riverside at (-81.7239, 30.3009), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7035, 30.3029), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6792, 30.3078), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6447, 30.2977), capacity: 700
+      • ALDI at (-81.7442, 30.3206), capacity: 700
+      • Springfield Superette at (-81.7246, 30.3285), capacity: 700
+      • Clean Greens Mart at (-81.7106, 30.3117), capacity: 700
+      • Prime Time Super Market at (-81.6876, 30.3267), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6484, 30.3274), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7404, 30.3460), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7268, 30.3456), capacity: 80
+      • Dollar General at (-81.7096, 30.3428), capacity: 80
+      • Corner Grocery at (-81.6851, 30.3489), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6536, 30.3383), capacity: 50
+      • Jones & Jones Corner Store at (-81.7547, 30.3655), capacity: 50
+      • Moonshine Food Store at (-81.7269, 30.3614), capacity: 50
+      • College Park Convenience Store at (-81.7116, 30.3624), capacity: 50
+      • Magic Korner at (-81.6758, 30.3623), capacity: 50
+      • Shop and Save at (-81.6451, 30.3636), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday of each month, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday of each month, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd and 5th Wednesday of each month, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 500 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (WEEKLY schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.61
+/var/folders/p0/5_v22l457f5f2_c0ccmt4_6h0000gn/T/tmprazfjmi1: line 3: 14815 Terminated: 15          python -u run_SIMPLE_grid_calibration.py

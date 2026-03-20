@@ -1,0 +1,14 @@
+{
+  "alpha_distance": 2.5,
+  "gamma_quality": 1.5,
+  "threshold_low": 7.0,
+  "error": 0.5637483826113965,
+  "metrics": {
+    "avg_spend_low": 8548.271777323622,
+    "avg_spend_med": 9830.009071414746,
+    "avg_spend_high": 12112.657748744625,
+    "corner_share": 0.04014730776868083,
+    "avg_dist_car": 2.487945866312715,
+    "avg_dist_nocar": 1.7885152021377626
+  }
+}

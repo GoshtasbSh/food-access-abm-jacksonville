@@ -1,0 +1,67 @@
+{
+  "calibration_date": "2025-11-23T20:41:18.500253",
+  "includes_mobile_pantries": true,
+  "includes_delivery_service": true,
+  "mobile_pantries": [
+    {
+      "name": "JaxPAL",
+      "schedule": "3rd Tuesday monthly",
+      "location": "3450 Monument Rd"
+    },
+    {
+      "name": "Bethany Ministries",
+      "schedule": "2nd Tuesday monthly",
+      "location": "8550 Arlington Expy"
+    },
+    {
+      "name": "Paxon Revival Center",
+      "schedule": "2nd & 5th Wednesday monthly",
+      "location": "5461 Commonwealth Ave"
+    }
+  ],
+  "delivery_service": {
+    "type": "Market-Rate",
+    "base_fee": 2.0,
+    "distance_fee": 0.75,
+    "subsidy": false
+  },
+  "parameters": {
+    "alpha_distance": 2.0,
+    "beta_price_budget": 0.8,
+    "gamma_quality_variety": 1.2,
+    "delta_convenience": 0.4,
+    "go_shop_threshold_low": 5.5,
+    "go_shop_threshold_medium": 7.0,
+    "go_shop_threshold_high": 14.0
+  },
+  "calibration_results": {
+    "avg_spend_low": 9571.990183050746,
+    "avg_spend_med": 9851.304314107454,
+    "avg_spend_high": 12095.80653542039,
+    "std_spend_low": 585.3234421054271,
+    "std_spend_med": 757.1717140139592,
+    "std_spend_high": 623.3526504194357,
+    "corner_share": 0.056018960115226335,
+    "std_corner_share": 0.007841824860385356,
+    "avg_dist_car": 2.5524351142552675,
+    "avg_dist_nocar": 1.7141389279013033,
+    "std_dist_car": 0.13097413676106304,
+    "std_dist_nocar": 0.07180280201279528,
+    "pantry_usage": 0.0,
+    "delivery_usage": 0.601,
+    "calibration_error": 0.8546602874704332
+  },
+  "calibration_targets": {
+    "spend_low": 2400,
+    "spend_med": 5200,
+    "spend_high": 8800,
+    "corner_share": 0.05,
+    "dist_car": 6.5,
+    "dist_nocar": 2.0
+  },
+  "validation_settings": {
+    "num_households": 200,
+    "num_days": 365,
+    "num_seeds": 5
+  }
+}

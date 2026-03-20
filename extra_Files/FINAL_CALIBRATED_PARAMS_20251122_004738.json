@@ -1,0 +1,88 @@
+{
+  "final_parameters": {
+    "alpha_distance": 2.5,
+    "beta_price_budget": 0.7,
+    "gamma_quality_variety": 1.0,
+    "delta_convenience": 0.4,
+    "go_shop_threshold_low": 5.5,
+    "go_shop_threshold_medium": 7.0,
+    "go_shop_threshold_high": 14.0
+  },
+  "calibration_error_full": 0.4818573155392826,
+  "calibration_error_phase1": 0.5427757339973044,
+  "metrics_mean": {
+    "avg_spend_low": 9078.344645194946,
+    "avg_spend_med": 9343.744347948032,
+    "avg_spend_high": 11715.023308622243,
+    "corner_share": 0.0835595565607621,
+    "avg_dist_car": 2.4945719846145304,
+    "avg_dist_nocar": 1.6881829819610068
+  },
+  "metrics_std": {
+    "avg_spend_low": 440.74193986061607,
+    "avg_spend_med": 731.1536619816055,
+    "avg_spend_high": 679.4164869664452,
+    "corner_share": 0.009974005974087173,
+    "avg_dist_car": 0.11540813130469223,
+    "avg_dist_nocar": 0.06579088131360247
+  },
+  "seed_results": [
+    {
+      "seed": 0,
+      "avg_spend_low": 8580.486726353454,
+      "avg_spend_med": 8963.906334443409,
+      "avg_spend_high": 11154.711407972081,
+      "corner_share": 0.07719019744022225,
+      "avg_dist_car": 2.4421803163283946,
+      "avg_dist_nocar": 1.5981152179122078,
+      "total_trips": 10079
+    },
+    {
+      "seed": 1,
+      "avg_spend_low": 9775.46586768913,
+      "avg_spend_med": 9919.618995870287,
+      "avg_spend_high": 11647.48192299659,
+      "corner_share": 0.07210248420323725,
+      "avg_dist_car": 2.5051567041458354,
+      "avg_dist_nocar": 1.8008333116624595,
+      "total_trips": 11553
+    },
+    {
+      "seed": 2,
+      "avg_spend_low": 8733.6413971597,
+      "avg_spend_med": 9623.040097302097,
+      "avg_spend_high": 11949.337856046955,
+      "corner_share": 0.07750540735400144,
+      "avg_dist_car": 2.466520815926654,
+      "avg_dist_nocar": 1.6932487411395112,
+      "total_trips": 11096
+    },
+    {
+      "seed": 3,
+      "avg_spend_low": 8918.653275538969,
+      "avg_spend_med": 8104.568468793869,
+      "avg_spend_high": 10948.158184994645,
+      "corner_share": 0.09687406371716768,
+      "avg_dist_car": 2.703442577064562,
+      "avg_dist_nocar": 1.6890561759142997,
+      "total_trips": 10013
+    },
+    {
+      "seed": 4,
+      "avg_spend_low": 9383.47595923347,
+      "avg_spend_med": 10107.587843330495,
+      "avg_spend_high": 12875.42717110094,
+      "corner_share": 0.09412563008918186,
+      "avg_dist_car": 2.355559509607207,
+      "avg_dist_nocar": 1.659661463176555,
+      "total_trips": 10316
+    }
+  ],
+  "validation_settings": {
+    "num_households": 200,
+    "num_days": 365,
+    "num_seeds": 5
+  },
+  "total_time_hours": 0.2505178258154127,
+  "timestamp": "20251122_004738"
+}

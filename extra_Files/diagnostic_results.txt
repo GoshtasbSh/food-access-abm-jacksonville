@@ -1,0 +1,6 @@
+Total Error: 9.217
+Passed: 1/9
+Small Store Share: 19.3%
+Low-Income Spend: $9,944
+Car Distance: 2.30 mi
+Pantry Usage: 0.0%

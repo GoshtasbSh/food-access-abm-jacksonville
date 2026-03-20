@@ -1,0 +1,3647 @@
+================================================================================
+CORRECTED CALIBRATION WITH REAL TARGET VALUES
+================================================================================
+
+REAL TARGETS (from user's table):
+  • Low-Income Spending: $5,276/year
+  • Medium-Income Spending: $8,989/year
+  • High-Income Spending: $16,996/year
+  • Corner Store Usage: ≤10% (target 5%)
+  • Travel Distance (car): 5.5 km
+  • Travel Distance (no-car): 0.8 km
+  • Pantry Usage: 12.5%
+  • Delivery Usage: 3-20% (target ~10%)
+
+================================================================================
+
+🔍 PHASE 1: GRID SEARCH WITH CORRECTED TARGETS
+================================================================================
+Total configurations: 27
+Settings: 50 HH, 90 days, 1 seed
+Estimated time: 5-8 minutes
+
+[1/27] α=0.8, β=0.6, γ=0.8📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.86
+ → L=$10324, M=$9573, H=$14720 | Corner=1.8% | Dist(car=2.8, no=2.0) | Pantry=0.0% | Err=0.676 | 2.4s
+[2/27] α=0.8, β=0.6, γ=1.0📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.92
+ → L=$10199, M=$9702, H=$14391 | Corner=1.2% | Dist(car=2.8, no=2.1) | Pantry=0.0% | Err=0.722 | 2.3s
+[3/27] α=0.8, β=0.6, γ=1.2📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.97
+ → L=$10257, M=$10002, H=$13896 | Corner=1.2% | Dist(car=2.8, no=2.1) | Pantry=0.0% | Err=0.723 | 2.3s
+[4/27] α=0.8, β=0.7, γ=0.8📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.91
+ → L=$10153, M=$9576, H=$13967 | Corner=1.1% | Dist(car=2.8, no=2.0) | Pantry=0.0% | Err=0.706 | 2.3s
+[5/27] α=0.8, β=0.7, γ=1.0📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.97
+ → L=$10142, M=$9567, H=$14081 | Corner=0.7% | Dist(car=2.8, no=2.1) | Pantry=0.0% | Err=0.735 | 2.3s
+[6/27] α=0.8, β=0.7, γ=1.2📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 9.01
+ → L=$10245, M=$9612, H=$14545 | Corner=0.7% | Dist(car=2.8, no=2.1) | Pantry=0.0% | Err=0.730 | 2.3s
+[7/27] α=0.8, β=0.8, γ=0.8📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.96
+ → L=$10371, M=$9582, H=$14425 | Corner=1.7% | Dist(car=2.8, no=2.0) | Pantry=0.0% | Err=0.689 | 2.3s
+[8/27] α=0.8, β=0.8, γ=1.0📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 9.01
+ → L=$10200, M=$9927, H=$13659 | Corner=0.8% | Dist(car=2.8, no=2.1) | Pantry=0.0% | Err=0.734 | 2.3s
+[9/27] α=0.8, β=0.8, γ=1.2📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 9.05
+ → L=$10206, M=$9582, H=$14335 | Corner=1.3% | Dist(car=2.8, no=2.1) | Pantry=0.0% | Err=0.716 | 2.3s
+[10/27] α=1.2, β=0.6, γ=0.8📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.64
+ → L=$9920, M=$9583, H=$13844 | Corner=2.9% | Dist(car=2.8, no=2.0) | Pantry=0.0% | Err=0.656 | 2.4s
+[11/27] α=1.2, β=0.6, γ=1.0📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.70
+ → L=$9931, M=$9590, H=$13458 | Corner=2.2% | Dist(car=2.8, no=2.0) | Pantry=0.0% | Err=0.672 | 2.3s
+[12/27] α=1.2, β=0.6, γ=1.2📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.76
+ → L=$10347, M=$9536, H=$13962 | Corner=1.5% | Dist(car=2.8, no=2.0) | Pantry=0.0% | Err=0.695 | 2.5s
+[13/27] α=1.2, β=0.7, γ=0.8📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.69
+ → L=$9842, M=$10041, H=$13715 | Corner=3.0% | Dist(car=2.7, no=2.0) | Pantry=0.0% | Err=0.647 | 2.3s
+[14/27] α=1.2, β=0.7, γ=1.0📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.75
+ → L=$10222, M=$9838, H=$13703 | Corner=2.0% | Dist(car=2.8, no=2.0) | Pantry=0.0% | Err=0.689 | 2.3s
+[15/27] α=1.2, β=0.7, γ=1.2📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.81
+ → L=$10277, M=$9590, H=$14356 | Corner=1.6% | Dist(car=2.8, no=2.0) | Pantry=0.0% | Err=0.689 | 2.3s
+[16/27] α=1.2, β=0.8, γ=0.8📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.74
+ → L=$10098, M=$9573, H=$13290 | Corner=3.7% | Dist(car=2.7, no=1.9) | Pantry=0.0% | Err=0.625 | 2.3s
+[17/27] α=1.2, β=0.8, γ=1.0📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.80
+ → L=$10279, M=$9766, H=$13227 | Corner=2.0% | Dist(car=2.8, no=2.0) | Pantry=0.0% | Err=0.686 | 2.3s
+[18/27] α=1.2, β=0.8, γ=1.2📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.86
+ → L=$10019, M=$9460, H=$14415 | Corner=1.3% | Dist(car=2.8, no=2.0) | Pantry=0.0% | Err=0.687 | 2.3s
+[19/27] α=1.6, β=0.6, γ=0.8📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.36
+ → L=$9796, M=$9186, H=$13304 | Corner=5.9% | Dist(car=2.6, no=2.0) | Pantry=0.0% | Err=0.612 | 2.3s
+[20/27] α=1.6, β=0.6, γ=1.0📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.44
+ → L=$9768, M=$9769, H=$13266 | Corner=4.8% | Dist(car=2.7, no=2.0) | Pantry=0.0% | Err=0.598 | 2.3s
+[21/27] α=1.6, β=0.6, γ=1.2📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.52
+ → L=$9940, M=$10106, H=$13332 | Corner=3.4% | Dist(car=2.8, no=2.0) | Pantry=0.0% | Err=0.641 | 2.3s
+[22/27] α=1.6, β=0.7, γ=0.8📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.43
+ → L=$9547, M=$9288, H=$13464 | Corner=6.9% | Dist(car=2.6, no=2.0) | Pantry=0.0% | Err=0.634 | 2.3s
+[23/27] α=1.6, β=0.7, γ=1.0📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.51
+ → L=$9768, M=$9742, H=$14153 | Corner=3.8% | Dist(car=2.7, no=2.0) | Pantry=0.0% | Err=0.621 | 2.3s
+[24/27] α=1.6, β=0.7, γ=1.2📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.58
+ → L=$9993, M=$9276, H=$13832 | Corner=3.6% | Dist(car=2.7, no=2.0) | Pantry=0.0% | Err=0.621 | 2.3s
+[25/27] α=1.6, β=0.8, γ=0.8📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.50
+ → L=$9815, M=$9175, H=$13082 | Corner=6.4% | Dist(car=2.6, no=2.0) | Pantry=0.0% | Err=0.626 | 2.3s
+[26/27] α=1.6, β=0.8, γ=1.0📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.57
+ → L=$9698, M=$9301, H=$13731 | Corner=3.9% | Dist(car=2.7, no=2.0) | Pantry=0.0% | Err=0.615 | 2.3s
+[27/27] α=1.6, β=0.8, γ=1.2📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 50
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 50 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7525, 30.3090), capacity: 700
+      • Publix Super Market at Riverside at (-81.7214, 30.3020), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7089, 30.2931), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6868, 30.3073), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6520, 30.3042), capacity: 700
+      • ALDI at (-81.7596, 30.3294), capacity: 700
+      • Springfield Superette at (-81.7194, 30.3142), capacity: 700
+      • Clean Greens Mart at (-81.7084, 30.3137), capacity: 700
+      • Prime Time Super Market at (-81.6819, 30.3205), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6554, 30.3158), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7478, 30.3328), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7302, 30.3373), capacity: 80
+      • Dollar General at (-81.7029, 30.3457), capacity: 80
+      • Corner Grocery at (-81.6840, 30.3403), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6522, 30.3309), capacity: 50
+      • Jones & Jones Corner Store at (-81.7478, 30.3534), capacity: 50
+      • Moonshine Food Store at (-81.7347, 30.3690), capacity: 50
+      • College Park Convenience Store at (-81.6927, 30.3662), capacity: 50
+      • Magic Korner at (-81.6819, 30.3520), capacity: 50
+      • Shop and Save at (-81.6503, 30.3588), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 50 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.64
+ → L=$10251, M=$9293, H=$13592 | Corner=2.5% | Dist(car=2.8, no=2.0) | Pantry=0.0% | Err=0.665 | 2.3s
+
+================================================================================
+🎯 PHASE 1 COMPLETE! (1.0 minutes)
+================================================================================
+Results saved to: CORRECTED_CALIB_PHASE1_20251123_204709.csv
+
+Top 5 Configurations:
+    alpha  beta  gamma  avg_spend_low  avg_spend_med  avg_spend_high  corner_share  avg_dist_car  pantry_usage     error
+19    1.6   0.6    1.0    9768.193999    9769.369765    13266.163562      0.048128      2.664569           0.0  0.598474
+18    1.6   0.6    0.8    9796.439566    9185.663737    13303.834552      0.059140      2.647062           0.0  0.611694
+25    1.6   0.8    1.0    9698.481786    9301.298634    13730.662032      0.039349      2.693843           0.0  0.615018
+22    1.6   0.7    1.0    9768.402474    9742.170588    14153.036399      0.038309      2.722674           0.0  0.620521
+23    1.6   0.7    1.2    9992.572857    9276.405882    13831.690919      0.036145      2.713774           0.0  0.620846
+
+================================================================================
+🚀 PHASE 2: FULL VALIDATION OF TOP 3
+================================================================================
+Settings: 200 HH, 365 days, 5 seeds
+Estimated time: 12-15 minutes
+
+
+[1/3] Validating: α=1.6, β=0.6, γ=1.0
+           Phase 1 Error: 0.5985
+
+    Seed 1/5...
+📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 200
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 200 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7490, 30.3043), capacity: 700
+      • Publix Super Market at Riverside at (-81.7239, 30.3009), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7035, 30.3029), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6792, 30.3078), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6447, 30.2977), capacity: 700
+      • ALDI at (-81.7442, 30.3206), capacity: 700
+      • Springfield Superette at (-81.7246, 30.3285), capacity: 700
+      • Clean Greens Mart at (-81.7106, 30.3117), capacity: 700
+      • Prime Time Super Market at (-81.6876, 30.3267), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6484, 30.3274), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7404, 30.3460), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7268, 30.3456), capacity: 80
+      • Dollar General at (-81.7096, 30.3428), capacity: 80
+      • Corner Grocery at (-81.6851, 30.3489), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6536, 30.3383), capacity: 50
+      • Jones & Jones Corner Store at (-81.7547, 30.3655), capacity: 50
+      • Moonshine Food Store at (-81.7269, 30.3614), capacity: 50
+      • College Park Convenience Store at (-81.7116, 30.3624), capacity: 50
+      • Magic Korner at (-81.6758, 30.3623), capacity: 50
+      • Shop and Save at (-81.6451, 30.3636), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 200 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.33
+      Day 100/365
+      Day 200/365
+      Day 300/365
+    Seed 2/5...
+📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 200
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 200 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7517, 30.3044), capacity: 700
+      • Publix Super Market at Riverside at (-81.7360, 30.2960), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7091, 30.2918), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6843, 30.2969), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6561, 30.3008), capacity: 700
+      • ALDI at (-81.7516, 30.3237), capacity: 700
+      • Springfield Superette at (-81.7319, 30.3276), capacity: 700
+      • Clean Greens Mart at (-81.7115, 30.3234), capacity: 700
+      • Prime Time Super Market at (-81.6797, 30.3212), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6612, 30.3140), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7440, 30.3494), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7297, 30.3438), capacity: 80
+      • Dollar General at (-81.6945, 30.3479), capacity: 80
+      • Corner Grocery at (-81.6863, 30.3308), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6606, 30.3476), capacity: 50
+      • Jones & Jones Corner Store at (-81.7580, 30.3584), capacity: 50
+      • Moonshine Food Store at (-81.7168, 30.3607), capacity: 50
+      • College Park Convenience Store at (-81.6982, 30.3563), capacity: 50
+      • Magic Korner at (-81.6743, 30.3667), capacity: 50
+      • Shop and Save at (-81.6636, 30.3650), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 200 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.49
+      Day 100/365
+      Day 200/365
+      Day 300/365
+    Seed 3/5...
+📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 200
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 200 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7513, 30.2905), capacity: 700
+      • Publix Super Market at Riverside at (-81.7250, 30.2987), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7036, 30.2966), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6839, 30.3024), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6580, 30.2953), capacity: 700
+      • ALDI at (-81.7476, 30.3206), capacity: 700
+      • Springfield Superette at (-81.7333, 30.3203), capacity: 700
+      • Clean Greens Mart at (-81.7083, 30.3257), capacity: 700
+      • Prime Time Super Market at (-81.6709, 30.3199), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6471, 30.3116), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7499, 30.3313), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7274, 30.3319), capacity: 80
+      • Dollar General at (-81.7095, 30.3419), capacity: 80
+      • Corner Grocery at (-81.6835, 30.3321), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6596, 30.3370), capacity: 50
+      • Jones & Jones Corner Store at (-81.7506, 30.3540), capacity: 50
+      • Moonshine Food Store at (-81.7232, 30.3597), capacity: 50
+      • College Park Convenience Store at (-81.7019, 30.3577), capacity: 50
+      • Magic Korner at (-81.6721, 30.3616), capacity: 50
+      • Shop and Save at (-81.6608, 30.3640), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 200 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.39
+      Day 100/365
+      Day 200/365
+      Day 300/365
+    Seed 4/5...
+📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 200
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 200 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7490, 30.3042), capacity: 700
+      • Publix Super Market at Riverside at (-81.7302, 30.3002), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.6941, 30.3079), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6855, 30.2941), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6630, 30.2988), capacity: 700
+      • ALDI at (-81.7594, 30.3191), capacity: 700
+      • Springfield Superette at (-81.7230, 30.3156), capacity: 700
+      • Clean Greens Mart at (-81.6985, 30.3218), capacity: 700
+      • Prime Time Super Market at (-81.6875, 30.3212), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6588, 30.3183), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7543, 30.3439), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7272, 30.3331), capacity: 80
+      • Dollar General at (-81.7011, 30.3456), capacity: 80
+      • Corner Grocery at (-81.6819, 30.3344), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6562, 30.3487), capacity: 50
+      • Jones & Jones Corner Store at (-81.7405, 30.3634), capacity: 50
+      • Moonshine Food Store at (-81.7179, 30.3669), capacity: 50
+      • College Park Convenience Store at (-81.7044, 30.3518), capacity: 50
+      • Magic Korner at (-81.6749, 30.3612), capacity: 50
+      • Shop and Save at (-81.6568, 30.3545), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 200 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 7.96
+      Day 100/365
+      Day 200/365
+      Day 300/365
+    Seed 5/5...
+📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 200
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 200 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7407, 30.3009), capacity: 700
+      • Publix Super Market at Riverside at (-81.7165, 30.3043), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.6980, 30.2943), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6685, 30.2901), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6589, 30.2987), capacity: 700
+      • ALDI at (-81.7444, 30.3140), capacity: 700
+      • Springfield Superette at (-81.7187, 30.3297), capacity: 700
+      • Clean Greens Mart at (-81.7087, 30.3219), capacity: 700
+      • Prime Time Super Market at (-81.6878, 30.3177), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6631, 30.3291), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7513, 30.3490), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7203, 30.3473), capacity: 80
+      • Dollar General at (-81.7085, 30.3315), capacity: 80
+      • Corner Grocery at (-81.6760, 30.3334), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6493, 30.3382), capacity: 50
+      • Jones & Jones Corner Store at (-81.7494, 30.3688), capacity: 50
+      • Moonshine Food Store at (-81.7256, 30.3522), capacity: 50
+      • College Park Convenience Store at (-81.7088, 30.3609), capacity: 50
+      • Magic Korner at (-81.6775, 30.3628), capacity: 50
+      • Shop and Save at (-81.6560, 30.3630), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 200 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.11
+      Day 100/365
+      Day 200/365
+      Day 300/365
+
+  ✅ VALIDATION COMPLETE:
+     Spend: L=$9591±573 (target: $5,276)
+            M=$9875±755 (target: $8,989)
+            H=$12147±592 (target: $16,996)
+     Corner: 5.4%±0.79% (target: 5%)
+     Distance: car=2.55±0.13km (target: 5.5km)
+               nocar=1.72±0.07km (target: 0.8km)
+     Pantry: 0.0% (target: 12.5%)
+     Delivery: 59.6% (target: 3-20%)
+     Error: 0.5655 | Time: 3.1min
+
+[2/3] Validating: α=1.6, β=0.6, γ=0.8
+           Phase 1 Error: 0.6117
+
+    Seed 1/5...
+📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 200
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 200 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7490, 30.3043), capacity: 700
+      • Publix Super Market at Riverside at (-81.7239, 30.3009), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7035, 30.3029), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6792, 30.3078), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6447, 30.2977), capacity: 700
+      • ALDI at (-81.7442, 30.3206), capacity: 700
+      • Springfield Superette at (-81.7246, 30.3285), capacity: 700
+      • Clean Greens Mart at (-81.7106, 30.3117), capacity: 700
+      • Prime Time Super Market at (-81.6876, 30.3267), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6484, 30.3274), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7404, 30.3460), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7268, 30.3456), capacity: 80
+      • Dollar General at (-81.7096, 30.3428), capacity: 80
+      • Corner Grocery at (-81.6851, 30.3489), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6536, 30.3383), capacity: 50
+      • Jones & Jones Corner Store at (-81.7547, 30.3655), capacity: 50
+      • Moonshine Food Store at (-81.7269, 30.3614), capacity: 50
+      • College Park Convenience Store at (-81.7116, 30.3624), capacity: 50
+      • Magic Korner at (-81.6758, 30.3623), capacity: 50
+      • Shop and Save at (-81.6451, 30.3636), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 200 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.26
+      Day 100/365
+      Day 200/365
+      Day 300/365
+    Seed 2/5...
+📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 200
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 200 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7517, 30.3044), capacity: 700
+      • Publix Super Market at Riverside at (-81.7360, 30.2960), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7091, 30.2918), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6843, 30.2969), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6561, 30.3008), capacity: 700
+      • ALDI at (-81.7516, 30.3237), capacity: 700
+      • Springfield Superette at (-81.7319, 30.3276), capacity: 700
+      • Clean Greens Mart at (-81.7115, 30.3234), capacity: 700
+      • Prime Time Super Market at (-81.6797, 30.3212), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6612, 30.3140), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7440, 30.3494), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7297, 30.3438), capacity: 80
+      • Dollar General at (-81.6945, 30.3479), capacity: 80
+      • Corner Grocery at (-81.6863, 30.3308), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6606, 30.3476), capacity: 50
+      • Jones & Jones Corner Store at (-81.7580, 30.3584), capacity: 50
+      • Moonshine Food Store at (-81.7168, 30.3607), capacity: 50
+      • College Park Convenience Store at (-81.6982, 30.3563), capacity: 50
+      • Magic Korner at (-81.6743, 30.3667), capacity: 50
+      • Shop and Save at (-81.6636, 30.3650), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 200 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.44
+      Day 100/365
+      Day 200/365
+      Day 300/365
+    Seed 3/5...
+📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 200
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 200 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7513, 30.2905), capacity: 700
+      • Publix Super Market at Riverside at (-81.7250, 30.2987), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7036, 30.2966), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6839, 30.3024), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6580, 30.2953), capacity: 700
+      • ALDI at (-81.7476, 30.3206), capacity: 700
+      • Springfield Superette at (-81.7333, 30.3203), capacity: 700
+      • Clean Greens Mart at (-81.7083, 30.3257), capacity: 700
+      • Prime Time Super Market at (-81.6709, 30.3199), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6471, 30.3116), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7499, 30.3313), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7274, 30.3319), capacity: 80
+      • Dollar General at (-81.7095, 30.3419), capacity: 80
+      • Corner Grocery at (-81.6835, 30.3321), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6596, 30.3370), capacity: 50
+      • Jones & Jones Corner Store at (-81.7506, 30.3540), capacity: 50
+      • Moonshine Food Store at (-81.7232, 30.3597), capacity: 50
+      • College Park Convenience Store at (-81.7019, 30.3577), capacity: 50
+      • Magic Korner at (-81.6721, 30.3616), capacity: 50
+      • Shop and Save at (-81.6608, 30.3640), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 200 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.33
+      Day 100/365
+      Day 200/365
+      Day 300/365
+    Seed 4/5...
+📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 200
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 200 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7490, 30.3042), capacity: 700
+      • Publix Super Market at Riverside at (-81.7302, 30.3002), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.6941, 30.3079), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6855, 30.2941), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6630, 30.2988), capacity: 700
+      • ALDI at (-81.7594, 30.3191), capacity: 700
+      • Springfield Superette at (-81.7230, 30.3156), capacity: 700
+      • Clean Greens Mart at (-81.6985, 30.3218), capacity: 700
+      • Prime Time Super Market at (-81.6875, 30.3212), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6588, 30.3183), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7543, 30.3439), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7272, 30.3331), capacity: 80
+      • Dollar General at (-81.7011, 30.3456), capacity: 80
+      • Corner Grocery at (-81.6819, 30.3344), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6562, 30.3487), capacity: 50
+      • Jones & Jones Corner Store at (-81.7405, 30.3634), capacity: 50
+      • Moonshine Food Store at (-81.7179, 30.3669), capacity: 50
+      • College Park Convenience Store at (-81.7044, 30.3518), capacity: 50
+      • Magic Korner at (-81.6749, 30.3612), capacity: 50
+      • Shop and Save at (-81.6568, 30.3545), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 200 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 7.89
+      Day 100/365
+      Day 200/365
+      Day 300/365
+    Seed 5/5...
+📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 200
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 200 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7407, 30.3009), capacity: 700
+      • Publix Super Market at Riverside at (-81.7165, 30.3043), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.6980, 30.2943), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6685, 30.2901), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6589, 30.2987), capacity: 700
+      • ALDI at (-81.7444, 30.3140), capacity: 700
+      • Springfield Superette at (-81.7187, 30.3297), capacity: 700
+      • Clean Greens Mart at (-81.7087, 30.3219), capacity: 700
+      • Prime Time Super Market at (-81.6878, 30.3177), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6631, 30.3291), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7513, 30.3490), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7203, 30.3473), capacity: 80
+      • Dollar General at (-81.7085, 30.3315), capacity: 80
+      • Corner Grocery at (-81.6760, 30.3334), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6493, 30.3382), capacity: 50
+      • Jones & Jones Corner Store at (-81.7494, 30.3688), capacity: 50
+      • Moonshine Food Store at (-81.7256, 30.3522), capacity: 50
+      • College Park Convenience Store at (-81.7088, 30.3609), capacity: 50
+      • Magic Korner at (-81.6775, 30.3628), capacity: 50
+      • Shop and Save at (-81.6560, 30.3630), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 200 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.06
+      Day 100/365
+      Day 200/365
+      Day 300/365
+
+  ✅ VALIDATION COMPLETE:
+     Spend: L=$9503±575 (target: $5,276)
+            M=$9692±659 (target: $8,989)
+            H=$12143±583 (target: $16,996)
+     Corner: 7.0%±1.16% (target: 5%)
+     Distance: car=2.52±0.13km (target: 5.5km)
+               nocar=1.70±0.07km (target: 0.8km)
+     Pantry: 0.0% (target: 12.5%)
+     Delivery: 59.5% (target: 3-20%)
+     Error: 0.6034 | Time: 3.1min
+
+[3/3] Validating: α=1.6, β=0.8, γ=1.0
+           Phase 1 Error: 0.6150
+
+    Seed 1/5...
+📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 200
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 200 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7490, 30.3043), capacity: 700
+      • Publix Super Market at Riverside at (-81.7239, 30.3009), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7035, 30.3029), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6792, 30.3078), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6447, 30.2977), capacity: 700
+      • ALDI at (-81.7442, 30.3206), capacity: 700
+      • Springfield Superette at (-81.7246, 30.3285), capacity: 700
+      • Clean Greens Mart at (-81.7106, 30.3117), capacity: 700
+      • Prime Time Super Market at (-81.6876, 30.3267), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6484, 30.3274), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7404, 30.3460), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7268, 30.3456), capacity: 80
+      • Dollar General at (-81.7096, 30.3428), capacity: 80
+      • Corner Grocery at (-81.6851, 30.3489), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6536, 30.3383), capacity: 50
+      • Jones & Jones Corner Store at (-81.7547, 30.3655), capacity: 50
+      • Moonshine Food Store at (-81.7269, 30.3614), capacity: 50
+      • College Park Convenience Store at (-81.7116, 30.3624), capacity: 50
+      • Magic Korner at (-81.6758, 30.3623), capacity: 50
+      • Shop and Save at (-81.6451, 30.3636), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 200 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.46
+      Day 100/365
+      Day 200/365
+      Day 300/365
+    Seed 2/5...
+📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 200
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 200 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7517, 30.3044), capacity: 700
+      • Publix Super Market at Riverside at (-81.7360, 30.2960), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7091, 30.2918), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6843, 30.2969), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6561, 30.3008), capacity: 700
+      • ALDI at (-81.7516, 30.3237), capacity: 700
+      • Springfield Superette at (-81.7319, 30.3276), capacity: 700
+      • Clean Greens Mart at (-81.7115, 30.3234), capacity: 700
+      • Prime Time Super Market at (-81.6797, 30.3212), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6612, 30.3140), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7440, 30.3494), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7297, 30.3438), capacity: 80
+      • Dollar General at (-81.6945, 30.3479), capacity: 80
+      • Corner Grocery at (-81.6863, 30.3308), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6606, 30.3476), capacity: 50
+      • Jones & Jones Corner Store at (-81.7580, 30.3584), capacity: 50
+      • Moonshine Food Store at (-81.7168, 30.3607), capacity: 50
+      • College Park Convenience Store at (-81.6982, 30.3563), capacity: 50
+      • Magic Korner at (-81.6743, 30.3667), capacity: 50
+      • Shop and Save at (-81.6636, 30.3650), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 200 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.58
+      Day 100/365
+      Day 200/365
+      Day 300/365
+    Seed 3/5...
+📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 200
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 200 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7513, 30.2905), capacity: 700
+      • Publix Super Market at Riverside at (-81.7250, 30.2987), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.7036, 30.2966), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6839, 30.3024), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6580, 30.2953), capacity: 700
+      • ALDI at (-81.7476, 30.3206), capacity: 700
+      • Springfield Superette at (-81.7333, 30.3203), capacity: 700
+      • Clean Greens Mart at (-81.7083, 30.3257), capacity: 700
+      • Prime Time Super Market at (-81.6709, 30.3199), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6471, 30.3116), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7499, 30.3313), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7274, 30.3319), capacity: 80
+      • Dollar General at (-81.7095, 30.3419), capacity: 80
+      • Corner Grocery at (-81.6835, 30.3321), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6596, 30.3370), capacity: 50
+      • Jones & Jones Corner Store at (-81.7506, 30.3540), capacity: 50
+      • Moonshine Food Store at (-81.7232, 30.3597), capacity: 50
+      • College Park Convenience Store at (-81.7019, 30.3577), capacity: 50
+      • Magic Korner at (-81.6721, 30.3616), capacity: 50
+      • Shop and Save at (-81.6608, 30.3640), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 200 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.48
+      Day 100/365
+      Day 200/365
+      Day 300/365
+    Seed 4/5...
+📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 200
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 200 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7490, 30.3042), capacity: 700
+      • Publix Super Market at Riverside at (-81.7302, 30.3002), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.6941, 30.3079), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6855, 30.2941), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6630, 30.2988), capacity: 700
+      • ALDI at (-81.7594, 30.3191), capacity: 700
+      • Springfield Superette at (-81.7230, 30.3156), capacity: 700
+      • Clean Greens Mart at (-81.6985, 30.3218), capacity: 700
+      • Prime Time Super Market at (-81.6875, 30.3212), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6588, 30.3183), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7543, 30.3439), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7272, 30.3331), capacity: 80
+      • Dollar General at (-81.7011, 30.3456), capacity: 80
+      • Corner Grocery at (-81.6819, 30.3344), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6562, 30.3487), capacity: 50
+      • Jones & Jones Corner Store at (-81.7405, 30.3634), capacity: 50
+      • Moonshine Food Store at (-81.7179, 30.3669), capacity: 50
+      • College Park Convenience Store at (-81.7044, 30.3518), capacity: 50
+      • Magic Korner at (-81.6749, 30.3612), capacity: 50
+      • Shop and Save at (-81.6568, 30.3545), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 200 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.10
+      Day 100/365
+      Day 200/365
+      Day 300/365
+    Seed 5/5...
+📍 Road network loading not implemented yet - using Euclidean distances
+📊 Setting up Baseline Scenario (HOUSEHOLD-BASED)
+   Households: 200
+   Using real provider data: True
+   Using census tract data: Default demographics
+✅ Loaded 20 stores from CSV
+   Categories: 10 unique
+
+📍 Processing 20 stores...
+   Using fallback coordinates (grid distribution)
+   ✅ Processed 20 stores successfully
+
+   Store Type Summary:
+      • grocery_store: 9 stores
+      • corner_store: 11 stores
+   ✅ Loaded REAL data from CSV:
+      • 9 grocery stores
+      • 11 corner/convenience stores
+
+   👥 Creating 200 households from REAL HZ1 census data:
+
+📊 Loading REAL Health Zone 1 Census Data...
+   ✅ Loaded data for 37 HZ1 census tracts
+   ✅ Total: 48,044 households, 159,155 population
+      Income cutoffs (2023):
+         Low: < $28,262
+         Medium: $28,262 - $90,239
+         High: > $90,239
+      REAL Demographics from HZ1 (37 tracts, 48,044 households):
+         Low income: 45.2%
+         Medium income: 44.3%
+         High income: 10.5%
+         No vehicle: 19.2%
+         SNAP eligible: 32.3%
+         Black: 63.4%, White: 28.3%
+
+   📍 Adding 9 existing grocery stores:
+      • The Fresh Market at (-81.7407, 30.3009), capacity: 700
+      • Publix Super Market at Riverside at (-81.7165, 30.3043), capacity: 700
+      • Winn_Dixie (Brentwood) at (-81.6980, 30.2943), capacity: 700
+      • Harveys Supermarket (Gateway Town Center) at (-81.6685, 30.2901), capacity: 700
+      • Harveys Supermarket (Downtown) at (-81.6589, 30.2987), capacity: 700
+      • ALDI at (-81.7444, 30.3140), capacity: 700
+      • Springfield Superette at (-81.7187, 30.3297), capacity: 700
+      • Clean Greens Mart at (-81.7087, 30.3219), capacity: 700
+      • Prime Time Super Market at (-81.6878, 30.3177), capacity: 700
+
+   📍 Adding 11 existing corner stores:
+      • Dollar Tree (Gateway Town Center) at (-81.6631, 30.3291), capacity: 80
+      • Family Dollar (Moncrief Rd) at (-81.7513, 30.3490), capacity: 80
+      • Family Dollar (Edgewood Ave W) at (-81.7203, 30.3473), capacity: 80
+      • Dollar General at (-81.7085, 30.3315), capacity: 80
+      • Corner Grocery at (-81.6760, 30.3334), capacity: 50
+      • Forty Fifth Street Convenience at (-81.6493, 30.3382), capacity: 50
+      • Jones & Jones Corner Store at (-81.7494, 30.3688), capacity: 50
+      • Moonshine Food Store at (-81.7256, 30.3522), capacity: 50
+      • College Park Convenience Store at (-81.7088, 30.3609), capacity: 50
+      • Magic Korner at (-81.6775, 30.3628), capacity: 50
+      • Shop and Save at (-81.6560, 30.3630), capacity: 50
+
+   🚚 Adding REAL mobile pantries (Feeding Northeast Florida):
+      • JaxPAL at 3450 Monument Rd (30.3707, -81.4952)
+        Schedule: 3rd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Bethany Ministries at 8550 Arlington Expy (30.3225, -81.5710)
+        Schedule: 2nd Tuesday monthly, 10:00am-11:30am, capacity: 100 HH
+      • Paxon Revival Center at 5461 Commonwealth Ave (30.3523, -81.7393)
+        Schedule: 2nd & 5th Wednesday monthly, 10:00am-11:30am, capacity: 100 HH
+
+   📦 Adding MARKET-RATE delivery service (baseline):
+      • Market-Rate Online Grocery Delivery
+        - Fee: $2.00 + (distance × $0.75/km)
+        - Subsidy: NO (everyone pays full price)
+        - Example: $5.75 for 5km delivery
+
+   ✅ Baseline setup complete:
+      • 200 consumers
+      • 24 total providers:
+        - 9 grocery stores
+        - 11 corner stores
+        - 3 mobile pantries (monthly schedule)
+        - 1 delivery service (market-rate)
+      • Initial avg accessibility: 8.20
+      Day 100/365
+      Day 200/365
+      Day 300/365
+
+  ✅ VALIDATION COMPLETE:
+     Spend: L=$9604±535 (target: $5,276)
+            M=$9887±753 (target: $8,989)
+            H=$12234±556 (target: $16,996)
+     Corner: 5.2%±0.89% (target: 5%)
+     Distance: car=2.56±0.13km (target: 5.5km)
+               nocar=1.72±0.07km (target: 0.8km)
+     Pantry: 0.0% (target: 12.5%)
+     Delivery: 60.0% (target: 3-20%)
+     Error: 0.5624 | Time: 3.1min
+
+================================================================================
+🎉 CORRECTED CALIBRATION COMPLETE!
+================================================================================
+
+Results saved to: CORRECTED_CALIB_PHASE2_20251123_204709.csv
+Parameters saved to: FINAL_CORRECTED_CALIBRATED_PARAMS_20251123_204709.json
+
+🏆 BEST CALIBRATED PARAMETERS:
+   α (distance) = 1.60
+   β (price/budget) = 0.80
+   γ (quality) = 1.00
+   δ (convenience) = 0.40
+   Thresholds: L=5.5, M=7.0, H=14.0
+
+📊 FINAL RESULTS vs REAL TARGETS:
+   Spending:
+     Low:    $9604 ± $535 (target: $5,276)
+     Medium: $9887 ± $753 (target: $8,989)
+     High:   $12234 ± $556 (target: $16,996)
+   Corner Share: 5.2% ± 0.89% (target: ≤10%)
+   Travel Distance:
+     Car:    2.56 ± 0.13 km (target: 5.5 km)
+     No-car: 1.72 ± 0.07 km (target: 0.8 km)
+   Pantry Usage: 0.0% (target: 12.5%)
+   Delivery Usage: 60.0% (target: 3-20%)
+   Calibration Error: 0.5624
+
+================================================================================

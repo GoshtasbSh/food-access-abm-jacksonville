@@ -1,0 +1,21 @@
+{
+  "note": "Quick calibration (20-30 min). For full calibration, use run_SIMPLE_calibration.py",
+  "alpha_distance": 2.5,
+  "gamma_quality": 1.5,
+  "threshold_low": 6.5,
+  "error": 0.5804001438321215,
+  "metrics": {
+    "avg_spend_low": 8943.313030917627,
+    "avg_spend_med": 9791.233741386182,
+    "avg_spend_high": 11931.334407297536,
+    "corner_share": 0.03708574986334367,
+    "avg_dist_car": 2.583177910487086,
+    "avg_dist_nocar": 1.792840734902339
+  },
+  "config": {
+    "num_configs": 8,
+    "seeds_per_config": 2,
+    "days_per_run": 180,
+    "households": 100
+  }
+}

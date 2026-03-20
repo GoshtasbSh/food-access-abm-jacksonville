@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+title: GeoMesa Food Access ABM
+message: "If you use this software, please cite it as below."
+type: software
+authors:
+  - family-names: "YourLastName"
+    given-names: "YourFirstName"
+    email: "your.email@ufl.edu"
+    affiliation: "University of Florida"
+date-released: 2025-03-10
+url: "https://github.com/YOUR_USERNAME/GeoMesa-Food-Access"
+repository-code: "https://github.com/YOUR_USERNAME/GeoMesa-Food-Access"
+keywords:
+  - agent-based model
+  - food access
+  - food insecurity
+  - Jacksonville
+  - Health Zone 1
+  - Mesa-Geo
+  - spatial simulation
+license: MIT
