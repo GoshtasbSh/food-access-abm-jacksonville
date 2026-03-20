@@ -23,8 +23,8 @@ The model uses Mesa-Geo for spatial agent-based modeling, real census demographi
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
-cd GeoMesa_Food_Access
+git clone https://github.com/GoshtasbSh/food-access-abm-jacksonville.git
+cd food-access-abm-jacksonville
 
 # Create and activate environment (conda)
 conda create -n abm310 python=3.10

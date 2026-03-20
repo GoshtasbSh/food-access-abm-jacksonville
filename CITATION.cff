@@ -8,8 +8,8 @@ authors:
     email: "your.email@ufl.edu"
     affiliation: "University of Florida"
 date-released: 2025-03-10
-url: "https://github.com/YOUR_USERNAME/GeoMesa-Food-Access"
-repository-code: "https://github.com/YOUR_USERNAME/GeoMesa-Food-Access"
+url: "https://github.com/GoshtasbSh/food-access-abm-jacksonville"
+repository-code: "https://github.com/GoshtasbSh/food-access-abm-jacksonville"
 keywords:
   - agent-based model
   - food access

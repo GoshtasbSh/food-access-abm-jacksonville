@@ -4,13 +4,11 @@ This guide walks you through creating a private GitHub repository and pushing th
 
 ---
 
-## Recommended Repository Name
+## Repository
 
-**`GeoMesa-Food-Access`**
+**`food-access-abm-jacksonville`**
 
-- Professional and suitable for journal citations
-- Clear: Geo (spatial) + Mesa (ABM framework) + Food Access
-- URL example: `https://github.com/YOUR_USERNAME/GeoMesa-Food-Access`
+- URL: `https://github.com/GoshtasbSh/food-access-abm-jacksonville`
 
 ---
 
@@ -39,7 +37,7 @@ git config --global user.email "your.email@ufl.edu"
 ### Option A: Using GitHub Website (simplest)
 
 1. Go to [github.com/new](https://github.com/new)
-2. **Repository name:** `GeoMesa-Food-Access`
+2. **Repository name:** `food-access-abm-jacksonville`
 3. **Description:** `Agent-based model for evaluating food access interventions in Health Zone 1, Jacksonville, FL`
 4. **Visibility:** Private
 5. Do **not** initialize with README, .gitignore, or license (we already have them)
@@ -68,8 +66,8 @@ git add .
 git status   # Review what will be committed
 git commit -m "Initial commit: GeoMesa Food Access ABM for dissertation and journal"
 
-# Add your GitHub repo as remote (replace YOUR_USERNAME with your GitHub username)
-git remote add origin https://github.com/YOUR_USERNAME/GeoMesa-Food-Access.git
+# Add your GitHub repo as remote
+git remote add origin https://github.com/GoshtasbSh/food-access-abm-jacksonville.git
 
 # Push (you may be prompted for GitHub credentials)
 git branch -M main
@@ -79,7 +77,7 @@ git push -u origin main
 ### Authentication
 
 - **HTTPS:** Use a [Personal Access Token](https://github.com/settings/tokens) instead of a password
-- **SSH:** Use `git@github.com:YOUR_USERNAME/GeoMesa-Food-Access.git` as the remote URL if you have SSH keys set up
+- **SSH:** Use `git@github.com:GoshtasbSh/food-access-abm-jacksonville.git` as the remote URL if you have SSH keys set up
 
 ---
 
@@ -96,6 +94,6 @@ git push -u origin main
 
 | Item | Value |
 |------|-------|
-| Repo name | `GeoMesa-Food-Access` |
-| Clone URL | `https://github.com/YOUR_USERNAME/GeoMesa-Food-Access.git` |
+| Repo name | `food-access-abm-jacksonville` |
+| Clone URL | `https://github.com/GoshtasbSh/food-access-abm-jacksonville.git` |
 | Default branch | `main` |
