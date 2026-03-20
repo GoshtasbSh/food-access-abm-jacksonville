@@ -12,7 +12,7 @@ import os
 import io
 import contextlib
 
-sys.path.insert(0, '/Users/goshtasbshahriari/Desktop/Code/GeoMesa_Food_Access')
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Targets (user-specified; calibration uses 5300, 9000, 17000)
 TARGETS = {

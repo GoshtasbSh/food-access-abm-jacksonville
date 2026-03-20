@@ -125,7 +125,8 @@ class HZ1CensusDataLoader:
             data_dir: Base directory for data files (if None, uses default)
         """
         if data_dir is None:
-            data_dir = "/Users/goshtasbshahriari/UFL Dropbox/PhD_Dissertation/Code/Data"
+            from config import get_census_data_dir
+            data_dir = get_census_data_dir()
         
         self.household_csv = f"{data_dir}/duval_household_attributes.csv"
         self.sex_csv = f"{data_dir}/ACSDT5Y2023.B01001-Data.csv"

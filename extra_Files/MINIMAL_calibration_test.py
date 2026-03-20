@@ -1,4 +1,5 @@
 """Minimal calibration test to show progress immediately"""
+import os
 import sys
 import time
 
@@ -8,7 +9,7 @@ print("="*80, flush=True)
 print("", flush=True)
 
 print("Step 1: Importing libraries...", flush=True)
-sys.path.append('/Users/goshtasbshahriari/Desktop/Code/GeoMesa_Food_Access')
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 try:
     from enhanced_mesa_geo_model import SimulationConfig, IncomeLevel, EnhancedHouseholdAgent

@@ -1,7 +1,8 @@
 """Simple test to show calibration progress"""
+import os
 import sys
 import time
-sys.path.append('/Users/goshtasbshahriari/Desktop/Code/GeoMesa_Food_Access')
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 print("="*80)
 print("TESTING CALIBRATION - SHOWING PROGRESS")

@@ -366,9 +366,9 @@ class SimulationConfig:
     # Fixed named street locations for mobile pantries (optional)
     fixed_pantry_locations: Dict[str, Tuple[float, float]] = None
     
-    # Technical/spatial parameters
-    health_zone_shapefile: str = "/Users/goshtasbshahriari/Desktop/Code/Data/HealthZones1and4/Health_Zones_1_and_4.shp"
-    roads_shapefile: str = "/Users/goshtasbshahriari/Desktop/Code/Data/Roads/All Jacksonville Roads.shp"
+    # Technical/spatial parameters (use config for defaults)
+    health_zone_shapefile: str = None
+    roads_shapefile: str = None
     use_road_network: bool = True
     enable_spatial_analytics: bool = True
     spatial_cluster_eps: float = 0.01
@@ -376,6 +376,12 @@ class SimulationConfig:
     
     def __post_init__(self):
         """Set default values for complex parameters"""
+        from config import get_health_zone_shapefile, get_roads_shapefile
+        if self.health_zone_shapefile is None:
+            self.health_zone_shapefile = get_health_zone_shapefile()
+        if self.roads_shapefile is None:
+            self.roads_shapefile = get_roads_shapefile()
+
         # Apply calibrated parameters from the most recent JSON file.
         # This ensures every SimulationConfig instance uses calibrated values
         # regardless of which file creates it.  Values set via setattr after

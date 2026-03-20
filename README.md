@@ -44,6 +44,7 @@ The model expects the following data:
 | `hz1_household_data_CORRECTED.csv` | Project root | Census-derived household data (included) |
 | `health_zone_1_census_tracts.txt` | Project root | Census tract IDs (included) |
 | `Health_Zones_1_and_4.shp` | External | Health Zone shapefile for map display |
+| Census data (optional) | `census_data/` or env | Raw census files for HZ1CensusDataLoader |
 
 ### Configuring Data Paths
 
@@ -61,6 +62,9 @@ export GEOMESA_DATA_DIR="/path/to/your/Data"
 
 # Or set the shapefile path directly
 export GEOMESA_HEALTH_ZONE_SHP="/path/to/Health_Zones_1_and_4.shp"
+
+# Census data (for HZ1CensusDataLoader - duval_household_attributes.csv, ACS*.csv)
+export GEOMESA_CENSUS_DATA_DIR="/path/to/census/data"
 ```
 
 If the shapefile is missing, the map will use a fallback polygon (Jacksonville area).

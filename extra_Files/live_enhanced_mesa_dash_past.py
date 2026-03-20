@@ -607,7 +607,8 @@ def update_sa_progress(completed, total, done=False, result_path=None):
 def load_health_zone():
     """Load Health Zone 1 polygon for map display"""
     try:
-        gdf = gpd.read_file("/Users/goshtasbshahriari/Desktop/Code/Data/HealthZones1and4/Health_Zones_1_and_4.shp")
+        from config import get_health_zone_shapefile
+        gdf = gpd.read_file(get_health_zone_shapefile())
         gdf = gdf.to_crs(epsg=4326)
         hz1 = gdf[gdf["HealthZ"] == 1]
         if not hz1.empty:

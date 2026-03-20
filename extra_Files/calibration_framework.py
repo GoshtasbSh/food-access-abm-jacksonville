@@ -13,6 +13,7 @@ NOTE: Pantry usage is NOT a baseline calibration target since baseline
 Uses multi-seed runs (30 seeds × 30 days) and normalized error minimization.
 """
 
+import os
 import sys
 import numpy as np
 import pandas as pd
@@ -22,7 +23,7 @@ import random
 from concurrent.futures import ProcessPoolExecutor, as_completed
 import itertools
 
-sys.path.append('/Users/goshtasbshahriari/Desktop/Code/GeoMesa_Food_Access')
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from enhanced_mesa_geo_model import SimulationConfig, IncomeLevel
 from baseline_scenario import BaselineScenarioModel

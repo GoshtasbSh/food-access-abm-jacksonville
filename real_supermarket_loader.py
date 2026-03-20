@@ -396,11 +396,12 @@ def get_stores_for_model(csv_path: str,
 # ============================================================================
 
 if __name__ == "__main__":
+    import os
+    from config import get_project_dir
     print("="*80)
     print("REAL SUPERMARKET DATA LOADER - EXAMPLE")
     print("="*80)
-    
-    csv_path = "/Users/goshtasbshahriari/UFL Dropbox/PhD_Dissertation/Code/Data/SuperMarkets/Supermarket.csv"
+    csv_path = os.environ.get("GEOMESA_SUPERMARKET_CSV", os.path.join(get_project_dir(), "supermarkets_with_coords_CURATED.csv"))
     
     # Example 1: Load without geocoding (fast)
     print("\n1. Loading with fallback coordinates (fast):")
@@ -424,7 +425,7 @@ if __name__ == "__main__":
     print("\n3. Exporting processed data:")
     loader = SupermarketDataLoader(csv_path, use_geocoding=False)
     stores = loader.get_store_data()
-    output_path = "/Users/goshtasbshahriari/Desktop/Code/GeoMesa_Food_Access/supermarkets_with_coords.csv"
+    output_path = os.path.join(get_project_dir(), "supermarkets_with_coords.csv")
     loader.export_to_csv(stores, output_path)
     
     print("\n" + "="*80)

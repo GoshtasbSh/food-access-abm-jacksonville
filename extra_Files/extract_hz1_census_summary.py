@@ -21,6 +21,7 @@ Income cutoffs (2023 Jacksonville): Low <$28,262, Medium $28,262-$90,239, High >
 """
 
 import math
+import os
 import pandas as pd
 import re
 import sys
@@ -396,8 +397,9 @@ def print_summary(results: dict):
 
 
 def main():
-    # Default data directory (same as hz1_census_data_loader)
-    default_data_dir = "/Users/goshtasbshahriari/UFL Dropbox/PhD_Dissertation/Code/Data"
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    from config import get_census_data_dir
+    default_data_dir = get_census_data_dir()
     
     # Allow override via command line (first non-flag arg is data dir)
     args = [a for a in sys.argv[1:] if a.startswith('-') is False]

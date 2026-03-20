@@ -11,6 +11,7 @@ SUPER FOCUSED GRID: 27 configurations (3^3 - only vary 3 key parameters!)
 ESTIMATED TIME: 5-8 minutes (Phase 1) + 15-20 minutes (Phase 2) = 20-28 minutes total
 """
 
+import os
 import sys
 import numpy as np
 import pandas as pd
@@ -21,7 +22,7 @@ import time
 import gc
 import itertools
 
-sys.path.append('/Users/goshtasbshahriari/Desktop/Code/GeoMesa_Food_Access')
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from enhanced_mesa_geo_model import SimulationConfig, IncomeLevel, EnhancedHouseholdAgent
 from baseline_scenario import create_baseline_scenario

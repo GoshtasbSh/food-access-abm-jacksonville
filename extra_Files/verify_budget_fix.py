@@ -6,9 +6,10 @@ This script verifies that after implementing income-scaled baskets,
 household spending stays within their weekly budgets.
 """
 
+import os
 import sys
 import numpy as np
-sys.path.append('/Users/goshtasbshahriari/Desktop/Code/GeoMesa_Food_Access')
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from enhanced_mesa_geo_model import SimulationConfig, IncomeLevel, IncomeClassifier
 

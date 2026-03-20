@@ -4,8 +4,9 @@ COMPREHENSIVE VERIFICATION: Mobile Pantries + Delivery Parameters
 Double-checking EVERYTHING per user request
 """
 
+import os
 import sys
-sys.path.append('/Users/goshtasbshahriari/Desktop/Code/GeoMesa_Food_Access')
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from enhanced_mesa_geo_model import SimulationConfig, EnhancedMobilePantry, EnhancedDeliveryService, IncomeLevel
 from baseline_scenario import create_baseline_scenario

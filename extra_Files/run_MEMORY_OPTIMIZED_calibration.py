@@ -32,10 +32,9 @@ import random
 import time
 import gc  # Garbage collection
 import argparse
-import os
 import itertools
 
-sys.path.append('/Users/goshtasbshahriari/Desktop/Code/GeoMesa_Food_Access')
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 # Suppress verbose model setup (stores, pantries, demographics) during calibration
 print("Loading model (may take 30–60s)...", flush=True)

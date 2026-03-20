@@ -7,10 +7,11 @@ This script helps you calibrate α, β, γ, δ by:
 3. Finding best-fit parameters
 """
 
+import os
 import sys
 import numpy as np
 from typing import Dict, List, Tuple
-sys.path.append('/Users/goshtasbshahriari/Desktop/Code/GeoMesa_Food_Access')
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from enhanced_mesa_geo_model import SimulationConfig, IncomeLevel
 from baseline_scenario import BaselineScenarioModel

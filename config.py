@@ -30,3 +30,8 @@ def get_project_dir() -> str:
 def get_supermarket_csv() -> str:
     """Path to curated supermarket CSV (in project)."""
     return os.path.join(get_project_dir(), "supermarkets_with_coords_CURATED.csv")
+
+def get_census_data_dir() -> str:
+    """Path to census data (duval_household_attributes.csv, ACS* files). Override via GEOMESA_CENSUS_DATA_DIR."""
+    default = os.path.join(get_project_dir(), "census_data")
+    return os.environ.get("GEOMESA_CENSUS_DATA_DIR", default)

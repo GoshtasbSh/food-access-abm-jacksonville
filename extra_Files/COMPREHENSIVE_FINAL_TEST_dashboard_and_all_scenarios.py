@@ -4,8 +4,9 @@ COMPREHENSIVE FINAL TEST: All Scenarios + Dashboard
 Verifies EVERYTHING is correct including dashboard integration
 """
 
+import os
 import sys
-sys.path.append('/Users/goshtasbshahriari/Desktop/Code/GeoMesa_Food_Access')
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from enhanced_mesa_geo_model import SimulationConfig, EnhancedMobilePantry, EnhancedDeliveryService, IncomeLevel
 

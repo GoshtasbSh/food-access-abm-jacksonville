@@ -20,6 +20,7 @@ STRATEGY:
 - Time: ~20 minutes total
 """
 
+import os
 import sys
 import numpy as np
 import pandas as pd
@@ -30,7 +31,7 @@ import time
 import gc
 import itertools
 
-sys.path.append('/Users/goshtasbshahriari/Desktop/Code/GeoMesa_Food_Access')
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from enhanced_mesa_geo_model import SimulationConfig, IncomeLevel, EnhancedHouseholdAgent
 from baseline_scenario import create_baseline_scenario

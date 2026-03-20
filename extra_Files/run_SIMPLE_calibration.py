@@ -9,10 +9,11 @@ import numpy as np
 import pandas as pd
 from datetime import datetime
 import json
+import os
 import random
 import sys
 
-sys.path.append('/Users/goshtasbshahriari/Desktop/Code/GeoMesa_Food_Access')
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from enhanced_mesa_geo_model import SimulationConfig, IncomeLevel
 from baseline_scenario import create_baseline_scenario

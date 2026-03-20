@@ -81,6 +81,21 @@ git push -u origin main
 
 ---
 
+## Local Setup: Census Data
+
+The model uses `HZ1CensusDataLoader`, which needs census files (`duval_household_attributes.csv`, `ACSDT5Y2023.B01001-Data.csv`, `ACSDT5Y2023.B02001-Data.csv`). Set the path:
+
+```bash
+export GEOMESA_CENSUS_DATA_DIR="/path/to/your/census/data"
+```
+
+Example (if your data is in Dropbox):
+```bash
+export GEOMESA_CENSUS_DATA_DIR="/Users/goshtasbshahriari/UFL Dropbox/PhD_Dissertation/Code/Data"
+```
+
+---
+
 ## Step 5: Before Making Public (for journal)
 
 1. Update `CITATION.cff` with your name, email, and the final repo URL

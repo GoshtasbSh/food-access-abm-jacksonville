@@ -3,11 +3,12 @@
 Temporary 30-day diagnostic test: 50 HH, 30 days, trip counts by type.
 Run: conda activate abm310 && python temp_30day_diagnostic_test.py
 """
+import os
 import sys
 import random
 import numpy as np
 
-sys.path.insert(0, '/Users/goshtasbshahriari/Desktop/Code/GeoMesa_Food_Access')
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from enhanced_mesa_geo_model import SimulationConfig
 from baseline_scenario import create_baseline_scenario
