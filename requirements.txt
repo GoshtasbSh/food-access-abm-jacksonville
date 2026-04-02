@@ -6,20 +6,20 @@ mesa>=2.1.0,<3.0.0
 mesa-geo>=0.9.1
 
 # Scientific computing
-numpy>=1.21.0
-pandas>=1.3.0
-scipy>=1.7.0
+numpy
+pandas
+scipy
 
 # Geospatial
-geopandas>=0.10.0
+geopandas
 shapely>=1.8.0
-pyproj>=3.2.0
-geopy>=2.2.0
-fiona>=1.8.20
+pyproj
+geopy
+fiona
 
 # Spatial analytics
-scikit-learn>=1.0.0
-networkx>=2.6.0
+scikit-learn
+networkx
 
 # Dashboards and visualization
 dash>=2.6.0
@@ -27,12 +27,11 @@ dash-leaflet>=0.1.23
 plotly>=5.10.0
 
 # Utilities
-psutil>=5.8.0
-tqdm>=4.62.0
-numba>=0.56.0
+psutil
+tqdm
 
 # Sensitivity analysis (optional, for Sobol indices)
-SALib>=1.4.0
+SALib
 
 # Production WSGI server (for Render deployment)
 gunicorn>=21.2.0
