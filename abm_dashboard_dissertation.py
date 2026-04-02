@@ -1050,7 +1050,8 @@ def table_cumulative_burden():
 # ═══════════════════════════════════════════════════════════════════
 
 app = dash.Dash(__name__, title="ABM Food Access — PhD Dissertation v3",
-                suppress_callback_exceptions=True)
+                suppress_callback_exceptions=True,
+                requests_pathname_prefix=os.environ.get('DASH_DISS_PREFIX', '/'))
 
 # ── Color constants ──────────────────────────────────────────────
 C_PURPLE  = "#4F46E5"
@@ -2260,4 +2261,5 @@ if __name__ == "__main__":
     print("═"*65)
     print("  ➜  http://127.0.0.1:8065")
     print("═"*65 + "\n")
-    app.run(debug=False, port=8065)
+    if os.environ.get('COMBINED_APP') != '1':
+        app.run(debug=False, port=8065)

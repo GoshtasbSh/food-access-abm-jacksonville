@@ -63,7 +63,8 @@ import geopandas as gpd
 from shapely.geometry import Point
 
 # Initialize Dash app
-app = dash.Dash(__name__, suppress_callback_exceptions=True)
+app = dash.Dash(__name__, suppress_callback_exceptions=True,
+                requests_pathname_prefix=os.environ.get('DASH_LIVE_PREFIX', '/'))
 app.title = "Modeling food access: an agent-based model for evaluating interventions for Health Zone 1, Jacksonville, FL"
 
 # Add enhanced custom CSS styling
@@ -5222,6 +5223,7 @@ if __name__ == '__main__':
     # Default to stable non-debug mode to avoid watchdog/FSEvents crashes on some macOS setups.
     # Set DASH_DEBUG=1 to enable Dash debug mode when needed.
     debug_mode = os.getenv("DASH_DEBUG", "0") == "1"
-    app.run(debug=debug_mode, port=8050, host="0.0.0.0")
+    if os.environ.get('COMBINED_APP') != '1':
+        app.run(debug=debug_mode, port=8050, host="0.0.0.0")
 
 # Note: Parameter section rendering is now handled by handle_section_and_scenario_changes callback
