@@ -33,3 +33,6 @@ numba>=0.56.0
 
 # Sensitivity analysis (optional, for Sobol indices)
 SALib>=1.4.0
+
+# Production WSGI server (for Render deployment)
+gunicorn>=21.2.0
