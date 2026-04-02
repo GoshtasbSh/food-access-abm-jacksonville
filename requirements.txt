@@ -2,7 +2,7 @@
 # Python 3.9+ recommended
 
 # Core Mesa ABM framework
-mesa>=3.0.0
+mesa>=2.1.0,<3.0.0
 mesa-geo>=0.9.1
 
 # Scientific computing
