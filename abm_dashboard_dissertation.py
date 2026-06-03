@@ -1530,6 +1530,13 @@ app.layout = html.Div([
         ], style={"background":"rgba(255,255,255,0.08)","borderRadius":"10px",
                    "padding":"10px 14px","minWidth":"210px"}),
         html.Div(id="header-badge", className="header-badge"),
+        # Cross-link back to the live simulation (shown only in the combined app)
+        html.A("🔬  Live Simulation  →", href=os.environ.get('DASH_LIVE_PREFIX', '/'),
+               style={"color": "#fff", "textDecoration": "none", "fontWeight": "700",
+                      "fontSize": "12px", "background": "rgba(255,255,255,0.14)",
+                      "padding": "9px 13px", "borderRadius": "8px",
+                      "whiteSpace": "nowrap", "alignSelf": "center"}
+               ) if os.environ.get('COMBINED_APP') == '1' else html.Div(),
     ], className="dash-header"),
 
     # Tab bar

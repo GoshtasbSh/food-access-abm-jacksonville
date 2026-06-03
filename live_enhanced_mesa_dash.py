@@ -689,7 +689,17 @@ app.layout = html.Div([
             'position': 'relative',
             'overflow': 'hidden'
         }),
-        
+
+        # Cross-link to the results dashboard (shown only in the combined app)
+        html.Div(
+            html.A("📊  View Dissertation / Journal Results Dashboard  (Dissertation · Journal · All seeds)  →",
+                   href=os.environ.get('DASH_DISS_PREFIX', '/results/'),
+                   style={'color': 'white', 'textDecoration': 'none',
+                          'fontWeight': '700', 'fontSize': '14px'}),
+            style={'background': '#0D9488', 'textAlign': 'center',
+                   'padding': '11px 10px', 'letterSpacing': '0.3px'}
+        ) if os.environ.get('COMBINED_APP') == '1' else html.Div(),
+
         # Navigation tabs
         html.Div([
             html.Ul([
