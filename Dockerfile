@@ -56,8 +56,12 @@ ENV HOME=/home/appuser
 
 EXPOSE 7860
 
-# Single worker (the live dashboard keeps simulation state in memory across the
-# user's polling requests) + threads for concurrency. Long timeout so a heavy
-# live run is never killed mid-request.
+# Single worker + threads for concurrency. Long timeout so a heavy live run is
+# never killed mid-request.
+# IMPORTANT: --workers 1 is REQUIRED, not just preferred. Two reasons:
+#   (1) the live dashboard keeps simulation state in memory across polling requests;
+#   (2) the results dashboard's seed-set selector swaps a process-global dataset
+#       under a thread lock — correct within one process, but multiple worker
+#       PROCESSES would each hold independent state and could diverge.
 # Bind to $PORT if the platform sets one (Render/Railway), else 7860 (HF default).
 CMD ["sh", "-c", "gunicorn --bind 0.0.0.0:${PORT:-7860} --workers 1 --threads 8 --timeout 600 app:application"]
