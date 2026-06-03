@@ -83,7 +83,7 @@ app.index_string = '''
                 font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
                 margin: 0;
                 padding: 0;
-                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                background: #F0F4F8;
                 min-height: 100vh;
             }
             
@@ -103,7 +103,7 @@ app.index_string = '''
                 display: flex;
                 padding: 0;
                 margin: 0;
-                background: linear-gradient(135deg, #667eea, #764ba2);
+                background: linear-gradient(135deg, #1E3A5F, #0D9488);
                 position: relative;
                 overflow: hidden;
             }
@@ -189,7 +189,7 @@ app.index_string = '''
                 left: 0;
                 right: 0;
                 height: 4px;
-                background: linear-gradient(90deg, #667eea, #764ba2, #667eea);
+                background: linear-gradient(90deg, #1E3A5F, #0D9488, #1E3A5F);
                 background-size: 200% 100%;
                 animation: gradient-shift 3s ease infinite;
             }
@@ -221,10 +221,10 @@ app.index_string = '''
             }
             
             input[type="number"]:focus {
-                border-color: #667eea;
+                border-color: #4F46E5;
                 outline: none;
                 box-shadow: 
-                    0 0 0 4px rgba(102, 126, 234, 0.1),
+                    0 0 0 4px rgba(79, 70, 229, 0.1),
                     inset 0 2px 4px rgba(0,0,0,0.04);
                 background: #ffffff;
                 transform: translateY(-2px);
@@ -284,7 +284,7 @@ app.index_string = '''
             /* Enhanced metrics card styling */
             .metric-card {
                 background: linear-gradient(145deg, #ffffff, #f8f9fa) !important;
-                border: 2px solid rgba(102, 126, 234, 0.1) !important;
+                border: 2px solid rgba(79, 70, 229, 0.1) !important;
                 border-radius: 14px !important;
                 padding: 14px 12px !important;
                 text-align: center !important;
@@ -309,7 +309,7 @@ app.index_string = '''
                 left: 0;
                 right: 0;
                 bottom: 0;
-                background: linear-gradient(45deg, #667eea, #764ba2);
+                background: linear-gradient(45deg, #1E3A5F, #0D9488);
                 opacity: 0;
                 transition: opacity 0.4s ease;
                 z-index: 1;
@@ -324,14 +324,14 @@ app.index_string = '''
                 box-shadow: 
                     0 20px 40px rgba(0,0,0,0.15),
                     0 8px 20px rgba(0,0,0,0.08);
-                border-color: #667eea;
+                border-color: #4F46E5;
             }
             
             .metric-value {
                 font-size: 2.0em !important;
                 font-weight: 700 !important;
                 margin: 0 !important;
-                background: linear-gradient(135deg, #667eea, #764ba2) !important;
+                background: linear-gradient(135deg, #1E3A5F, #0D9488) !important;
                 -webkit-background-clip: text !important;
                 -webkit-text-fill-color: transparent !important;
                 background-clip: text !important;
@@ -354,14 +354,14 @@ app.index_string = '''
             
             /* Enhanced status display styling */
             .status-display {
-                background: linear-gradient(135deg, #667eea, #764ba2);
+                background: linear-gradient(135deg, #1E3A5F, #0D9488);
                 color: white;
                 border-radius: 12px;
                 padding: 16px 24px;
                 margin: 16px 0;
                 font-weight: 600;
                 text-align: center;
-                box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+                box-shadow: 0 8px 25px rgba(79, 70, 229, 0.3);
                 position: relative;
                 overflow: hidden;
             }
@@ -458,7 +458,7 @@ app.index_string = '''
                 padding: 20px;
                 margin: 15px 0;
                 box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-                border-left: 4px solid #667eea;
+                border-left: 4px solid #4F46E5;
             }
             
             .param-summary h6 {
@@ -483,14 +483,14 @@ app.index_string = '''
                 margin: 10px 0;
                 text-align: center;
                 box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-                border: 1px solid rgba(102, 126, 234, 0.1);
+                border: 1px solid rgba(79, 70, 229, 0.1);
             }
             
             .compact-metric h4 {
                 font-size: 1.8em;
                 font-weight: 700;
                 margin: 0;
-                background: linear-gradient(135deg, #667eea, #764ba2);
+                background: linear-gradient(135deg, #1E3A5F, #0D9488);
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
                 background-clip: text;
@@ -682,23 +682,13 @@ app.layout = html.Div([
             #     html.Span(className="live-indicator")
             # ], style={'margin': '8px 0 0 0', 'opacity': '0.9'})
         ], style={
-            'background': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            'background': 'linear-gradient(135deg, #1E3A5F 0%, #0D9488 100%)',
             'color': 'white',
             'padding': '40px 30px',
             'textAlign': 'center',
             'position': 'relative',
             'overflow': 'hidden'
         }),
-
-        # Cross-link to the results dashboard (shown only in the combined app)
-        html.Div(
-            html.A("📊  View Dissertation / Journal Results Dashboard  (Dissertation · Journal · All seeds)  →",
-                   href=os.environ.get('DASH_DISS_PREFIX', '/results/'),
-                   style={'color': 'white', 'textDecoration': 'none',
-                          'fontWeight': '700', 'fontSize': '14px'}),
-            style={'background': '#0D9488', 'textAlign': 'center',
-                   'padding': '11px 10px', 'letterSpacing': '0.3px'}
-        ) if os.environ.get('COMBINED_APP') == '1' else html.Div(),
 
         # Navigation tabs
         html.Div([
@@ -710,7 +700,12 @@ app.layout = html.Div([
                 html.Li(html.A("📦 Scenario 4: Subsidized Delivery", href="#", id="tab-scenario4", className="nav-link"), className="nav-item"),
                 html.Li(html.A("⚖️ Compare All Scenarios", href="#", id="tab-comparison", className="nav-link"), className="nav-item"),
                 html.Li(html.A("🔬 Sensitivity Analysis", href="#", id="tab-sensitivity", className="nav-link"), className="nav-item"),
-            ], className="nav-tabs"),
+            ] + ([html.Li(html.A("📊 Results Dashboard →",
+                                  href=os.environ.get('DASH_DISS_PREFIX', '/results/'),
+                                  className="nav-link", style={'fontWeight': '700'}),
+                          className="nav-item")]
+                 if os.environ.get('COMBINED_APP') == '1' else []),
+               className="nav-tabs"),
         ]),
         
         # Store current scenario (default to baseline)
@@ -765,7 +760,7 @@ app.layout = html.Div([
                         html.Div("Primary Metrics", id={"type": "metrics-main-tab", "index": "primary"}, 
                                 className="metrics-main-tab", 
                                 style={"padding": "8px 16px", "cursor": "pointer", "borderRadius": "6px", 
-                                      "background": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", 
+                                      "background": "linear-gradient(135deg, #1E3A5F 0%, #0D9488 100%)", 
                                       "color": "white", "fontWeight": "500", "textAlign": "center", "fontSize": "13px"}),
                         html.Div("Live Results", id={"type": "metrics-main-tab", "index": "results"}, 
                                 className="metrics-main-tab",
@@ -783,7 +778,7 @@ app.layout = html.Div([
                                 # Default primary metrics sub-nav
                                 html.Div("Primary Metrics", id={"type": "metrics-sub-item", "index": "primary-main"}, 
                                         style={"padding": "6px 10px", "cursor": "pointer", "borderRadius": "4px", 
-                                              "background": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", 
+                                              "background": "linear-gradient(135deg, #1E3A5F 0%, #0D9488 100%)", 
                                               "color": "white", "fontSize": "12px", "marginBottom": "4px"}),
                                 html.Div("Progress", id={"type": "metrics-sub-item", "index": "progress"}, 
                                         style={"padding": "6px 10px", "cursor": "pointer", "borderRadius": "4px", 
@@ -1158,7 +1153,7 @@ def update_parameter_layout(scenario, n_intervals, existing_children):
                         "padding": "6px 10px",
                         "cursor": "pointer" if key != "_store_region" else "default",
                         "borderRadius": "4px",
-                        "background": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" if key == default_value else "#f9f9f9",
+                        "background": "linear-gradient(135deg, #1E3A5F 0%, #0D9488 100%)" if key == default_value else "#f9f9f9",
                         "color": "white" if key == default_value else "#4a5568",
                         "fontSize": "12px",
                         "marginBottom": "4px",
@@ -1307,7 +1302,7 @@ def update_param_section_styles(selected_section, scenario):
                 "padding": "6px 10px",
                 "cursor": "pointer",
                 "borderRadius": "4px",
-                "background": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                "background": "linear-gradient(135deg, #1E3A5F 0%, #0D9488 100%)",
                 "color": "white",
                 "fontSize": "12px",
                 "marginBottom": "4px",
@@ -1577,7 +1572,7 @@ def update_all_live_elements(n_intervals):
                 dl.GeoJSON(
                     data=health_zone_geojson,
                     options={"interactive": False},
-                    style={"fillColor": "#667eea", "weight": 3, "color": "#764ba2", "fillOpacity": 0.15, "pointerEvents": "none"}
+                    style={"fillColor": "#4F46E5", "weight": 3, "color": "#0D9488", "fillOpacity": 0.15, "pointerEvents": "none"}
                 )
             ]
     else:
@@ -1592,7 +1587,7 @@ def update_all_live_elements(n_intervals):
             dl.GeoJSON(
                 data=health_zone_geojson,
                 options={"interactive": False},
-                style={"fillColor": "#667eea", "weight": 3, "color": "#764ba2", "fillOpacity": 0.15, "pointerEvents": "none"}
+                style={"fillColor": "#4F46E5", "weight": 3, "color": "#0D9488", "fillOpacity": 0.15, "pointerEvents": "none"}
             )
         ]
     
@@ -1614,7 +1609,7 @@ def create_enhanced_map_view(current_model, running, day):
         dl.GeoJSON(
             data=health_zone_geojson,
             options={"interactive": False},
-            style={"fillColor": "#667eea", "weight": 3, "color": "#764ba2", "fillOpacity": 0.15, "pointerEvents": "none"}
+            style={"fillColor": "#4F46E5", "weight": 3, "color": "#0D9488", "fillOpacity": 0.15, "pointerEvents": "none"}
         )
     ]
     
@@ -1755,7 +1750,7 @@ def create_enhanced_map_view(current_model, running, day):
             # Choose icon by provider type
             if ptype_val in ("food_hub", "foodhub", "hub"):
                 label = "🆕 NEW Food Hub" if is_new else "Food Hub"
-                icon_bg = "#6f42c1"
+                icon_bg = "#4338CA"
                 icon_emoji = "🏬"
             elif ptype_val in ("corner_store", "corner", "cornerstore"):
                 label = "🆕 NEW Corner Store" if is_new else "Corner Store"
@@ -2002,7 +1997,7 @@ def create_primary_metrics_only(stored_metrics=None, scenario=None):
             ], className="metric-card"),
                     
                     html.Div([
-                html.H3(f"{data['spatial_equity']:.3f}", className="metric-value", style={"color": "#6f42c1"}),
+                html.H3(f"{data['spatial_equity']:.3f}", className="metric-value", style={"color": "#4338CA"}),
                 html.P("⚖️ Spatial Equity Index", className="metric-label")
             ], className="metric-card"),
         ], style={"display": "grid", "gridTemplateColumns": "1fr 1fr", "gap": "12px", "marginBottom": "20px"}),
@@ -2135,7 +2130,7 @@ def create_performance_metrics_only(stored_metrics=None, scenario=None):
             ], className="metric-card"),
             
             html.Div([
-                html.H3("Optimized", className="metric-value", style={"color": "#6f42c1"}),
+                html.H3("Optimized", className="metric-value", style={"color": "#4338CA"}),
                 html.P("⚡ Processing Speed", className="metric-label")
             ], className="metric-card"),
             
@@ -2213,7 +2208,7 @@ def create_beautiful_metrics_cards():
             ], className="metric-card"),
             
             html.Div([
-                html.H3(f"{spatial_equity:.3f}", className="metric-value", style={"color": "#6f42c1"}),
+                html.H3(f"{spatial_equity:.3f}", className="metric-value", style={"color": "#4338CA"}),
                 html.P("⚖️ Spatial Equity Index", className="metric-label")
             ], className="metric-card"),
         ], style={"display": "grid", "gridTemplateColumns": "1fr 1fr", "gap": "12px", "marginBottom": "25px"}),
@@ -2284,7 +2279,7 @@ def create_beautiful_charts_view(scenario=None):
         "scenario1": "#0891B2",
         "scenario2": "#15803D",
         "scenario3": "#D97706",
-        "scenario4": "#7C3AED",
+        "scenario4": "#4F46E5",
     }
     SC_LABEL = {
         "baseline":  "Baseline",
@@ -2294,7 +2289,7 @@ def create_beautiful_charts_view(scenario=None):
         "scenario4": "S4: Subsidised Delivery",
     }
     sc_key   = scenario or current_scenario or "baseline"
-    sc_color = SC_COLOR.get(sc_key, "#667eea")
+    sc_color = SC_COLOR.get(sc_key, "#4F46E5")
     sc_label = SC_LABEL.get(sc_key, "Simulation")
 
     if not simulation_data:
@@ -2397,8 +2392,8 @@ def create_beautiful_charts_view(scenario=None):
         fig3.add_trace(go.Scatter(
             x=df["day"], y=df["spatial_equity_index"],
             mode="lines+markers", name="Spatial Equity Index",
-            line=dict(color="#7C3AED", width=2.5),
-            marker=dict(size=4, color="#7C3AED"),
+            line=dict(color="#4F46E5", width=2.5),
+            marker=dict(size=4, color="#4F46E5"),
             fill="tozeroy", fillcolor="rgba(124,58,237,0.07)",
             hovertemplate="Day %{x}<br>Equity: %{y:.3f}<extra></extra>"
         ))
@@ -2539,7 +2534,7 @@ def _v2_add_timeseries(fig, df, col, sc_key, name=None, dash=None, std_col=None)
     if col not in df.columns:
         return
     col_color = _V2_PALETTE.get(sc_key, "#334155")
-    col_light  = _V2_LIGHT.get(sc_key,  "rgba(102,126,234,0.12)")
+    col_light  = _V2_LIGHT.get(sc_key,  "rgba(79, 70, 229,0.12)")
     y = np.array(df[col])
     x = df["day"]
     # Use real std if available (multi-seed run), else cosmetic ±0.8%
@@ -2855,7 +2850,7 @@ def create_v2_distance_chart(scenario):
                 bl_df["day"] = list(range(1, len(bl_df) + 1))
 
     sc_color = _V2_PALETTE.get(sc_key, "#334155")
-    sc_light  = _V2_LIGHT.get(sc_key, "rgba(102,126,234,0.12)")
+    sc_light  = _V2_LIGHT.get(sc_key, "rgba(79, 70, 229,0.12)")
     bl_color  = _V2_PALETTE["baseline"]
     bl_light  = _V2_LIGHT["baseline"]
 
@@ -3132,7 +3127,7 @@ def create_v2_equity_chart(scenario):
             fig_b.add_trace(go.Scatter(
                 x=df["day"], y=eq, mode="lines",
                 name="Spatial Equity Index",
-                line=dict(color="#7C3AED", width=2.0),
+                line=dict(color="#4F46E5", width=2.0),
                 hovertemplate="Day %{x}<br>Equity index: %{y:.1%}<extra></extra>"
             ))
         if len(df) >= 20:
@@ -3146,7 +3141,7 @@ def create_v2_equity_chart(scenario):
         snap_day = int(latest.get("day", len(df)))
         bar_keys  = ["satisfaction_rate", "food_insecurity_rate", "spatial_equity_index"]
         bar_names = ["Satisfaction",      "Food Insecurity",       "Spatial Equity Index"]
-        bar_cols  = ["#15803D",           "#DC2626",               "#7C3AED"]
+        bar_cols  = ["#15803D",           "#DC2626",               "#4F46E5"]
         bar_vals  = [float(latest.get(k, 0)) for k in bar_keys]
 
         # Only render if at least one metric is non-zero
@@ -3355,7 +3350,7 @@ def create_v2_sat_benchmark_chart(scenario):
         return _v2_no_data_div(sc_key)
 
     sc_color = _V2_PALETTE.get(sc_key, "#334155")
-    sc_light  = _V2_LIGHT.get(sc_key, "rgba(102,126,234,0.12)")
+    sc_light  = _V2_LIGHT.get(sc_key, "rgba(79, 70, 229,0.12)")
 
     # Calibrated baseline satisfaction (from PHASE2 results mean: ~0.61)
     CALIB_BASELINE_SAT = 0.61
@@ -3861,7 +3856,7 @@ def create_results_view(selected_scenario=None):
 
             SC_COLORS = {
                 "Baseline": "#1e3a5f", "Scenario 1": "#0891B2",
-                "Scenario 2": "#15803D", "Scenario 3": "#D97706", "Scenario 4": "#7C3AED"
+                "Scenario 2": "#15803D", "Scenario 3": "#D97706", "Scenario 4": "#4F46E5"
             }
             SC_KEYS  = ["baseline", "scenario1", "scenario2", "scenario3", "scenario4"]
             SC_NAMES = {
@@ -3871,9 +3866,9 @@ def create_results_view(selected_scenario=None):
             }
             SC_COLS = {
                 "baseline": "#1e3a5f", "scenario1": "#0891B2",
-                "scenario2": "#15803D", "scenario3": "#D97706", "scenario4": "#7C3AED"
+                "scenario2": "#15803D", "scenario3": "#D97706", "scenario4": "#4F46E5"
             }
-            color_seq = [SC_COLORS.get(s, "#667eea") for s in rank_df["scenario"]]
+            color_seq = [SC_COLORS.get(s, "#4F46E5") for s in rank_df["scenario"]]
 
             CMP_LAYOUT = dict(
                 plot_bgcolor="#F8FAFC", paper_bgcolor="white",
@@ -3955,7 +3950,7 @@ def create_results_view(selected_scenario=None):
             # Bar 2: Food Insecurity (highlight lowest)
             best_fi_scenario = rank_df.loc[rank_df["food_insecurity_rate"].idxmin(), "scenario"]
             fi_colors = [
-                "#15803D" if s == best_fi_scenario else SC_COLORS.get(s, "#667eea")
+                "#15803D" if s == best_fi_scenario else SC_COLORS.get(s, "#4F46E5")
                 for s in rank_df["scenario"]
             ]
             fi_fig = go.Figure([go.Bar(
@@ -3986,7 +3981,7 @@ def create_results_view(selected_scenario=None):
             # Bar 3: Travel Distance (highlight shortest)
             best_dist_scenario = rank_df.loc[rank_df["avg_travel_distance"].idxmin(), "scenario"]
             dist_colors = [
-                "#15803D" if s == best_dist_scenario else SC_COLORS.get(s, "#667eea")
+                "#15803D" if s == best_dist_scenario else SC_COLORS.get(s, "#4F46E5")
                 for s in rank_df["scenario"]
             ]
             dist_fig = go.Figure([go.Bar(
@@ -4021,7 +4016,7 @@ def create_results_view(selected_scenario=None):
                 fi_y   = [h.get("food_insecurity_rate", 0) for h in hist]
                 base_k = _base_key(key)
                 c      = _V2_PALETTE.get(base_k, "#334155")
-                cl     = _V2_LIGHT.get(base_k, "rgba(102,126,234,0.1)")
+                cl     = _V2_LIGHT.get(base_k, "rgba(79, 70, 229,0.1)")
                 disp   = snap.get("display_label", SC_NAMES.get(key, key))
                 fi_arr = np.array(fi_y)
                 ts_fig.add_trace(go.Scatter(x=days_x, y=fi_arr + 0.008, mode="lines",
@@ -4061,7 +4056,7 @@ def create_results_view(selected_scenario=None):
                 sat_y  = [h.get("satisfaction_rate", 0) for h in hist]
                 base_k = _base_key(key)
                 c      = _V2_PALETTE.get(base_k, "#334155")
-                cl     = _V2_LIGHT.get(base_k, "rgba(102,126,234,0.1)")
+                cl     = _V2_LIGHT.get(base_k, "rgba(79, 70, 229,0.1)")
                 disp   = snap.get("display_label", SC_NAMES.get(key, key))
                 sat_arr = np.array(sat_y)
                 sat_ts_fig.add_trace(go.Scatter(x=days_x, y=sat_arr + 0.008, mode="lines",
@@ -4101,7 +4096,7 @@ def create_results_view(selected_scenario=None):
                 grouped_fig.add_trace(go.Bar(
                     name=sc, x=["Satisfaction (%)", "Food Insecurity (%)", "Travel Dist. (kmx10)"],
                     y=vals,
-                    marker_color=SC_COLORS.get(sc, "#667eea"),
+                    marker_color=SC_COLORS.get(sc, "#4F46E5"),
                     text=[f"{v:.1f}" for v in vals],
                     textposition="outside",
                     textfont=dict(size=9, family="Georgia, serif"),
@@ -4290,9 +4285,9 @@ def create_results_view(selected_scenario=None):
 
     SC_COLOR_MAP = {
         "baseline": "#2C3E50", "scenario1": "#0891B2",
-        "scenario2": "#15803D", "scenario3": "#D97706", "scenario4": "#7C3AED"
+        "scenario2": "#15803D", "scenario3": "#D97706", "scenario4": "#4F46E5"
     }
-    sc_color = SC_COLOR_MAP.get(selected_scenario or current_scenario or "baseline", "#667eea")
+    sc_color = SC_COLOR_MAP.get(selected_scenario or current_scenario or "baseline", "#4F46E5")
 
     graphs = []
 
@@ -4331,7 +4326,7 @@ def create_results_view(selected_scenario=None):
             x=df["day"], y=df["avg_travel_distance"],
             mode="lines", name="Avg Travel Distance",
             line=dict(color=sc_color, width=2.5),
-            fill="tozeroy", fillcolor=f"rgba(102,126,234,0.07)"
+            fill="tozeroy", fillcolor=f"rgba(79, 70, 229,0.07)"
         )])
         fig2.update_layout(
             title="🚗 Average Travel Distance (km) — Day by Day",
@@ -4356,7 +4351,7 @@ def create_results_view(selected_scenario=None):
             fig3.add_trace(go.Scatter(
                 x=df["day"], y=df["spatial_equity_index"],
                 mode="lines", name="Spatial Equity Index",
-                line=dict(color="#7C3AED", width=2.0)
+                line=dict(color="#4F46E5", width=2.0)
             ))
         if fig3.data:
             fig3.update_layout(
@@ -4377,7 +4372,7 @@ def create_results_view(selected_scenario=None):
             "Food Insecurity": latest_data.get("food_insecurity_rate", 0),
             "Spatial Equity": latest_data.get("spatial_equity_index", 0),
         }
-        bar_colors = ["#15803D", "#DC2626", "#7C3AED"]
+        bar_colors = ["#15803D", "#DC2626", "#4F46E5"]
         fig4 = go.Figure([go.Bar(
             x=list(bar_metrics.keys()),
             y=list(bar_metrics.values()),
@@ -4671,7 +4666,7 @@ def handle_main_metrics_tab_click(n_clicks_list, current_main):
     for i, tab_type in enumerate(["primary", "results"]):
         if tab_type == clicked_tab:
             style = {"padding": "8px 16px", "cursor": "pointer", "borderRadius": "6px", 
-                    "background": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", 
+                    "background": "linear-gradient(135deg, #1E3A5F 0%, #0D9488 100%)", 
                     "color": "white", "fontWeight": "500", "textAlign": "center", "fontSize": "13px"}
         else:
             style = {"padding": "8px 16px", "cursor": "pointer", "borderRadius": "6px", 
@@ -4825,7 +4820,7 @@ def handle_sub_metrics_click(n_clicks_list, main_metric, selected_scenario, curr
                 "padding": "6px 10px", 
                 "cursor": "pointer", 
                 "borderRadius": "4px",
-                "background": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", 
+                "background": "linear-gradient(135deg, #1E3A5F 0%, #0D9488 100%)", 
                 "color": "white", 
                 "fontSize": "12px", 
                 "marginBottom": "4px",
@@ -4862,7 +4857,7 @@ def initialize_metrics_navigation(main_metric):
         sub_nav = [
             html.Div("Primary Metrics", id={"type": "metrics-sub-item", "index": "primary-main"}, 
                     style={"padding": "6px 10px", "cursor": "pointer", "borderRadius": "4px", 
-                          "background": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)", 
+                          "background": "linear-gradient(135deg, #1E3A5F 0%, #0D9488 100%)", 
                           "color": "white", "fontSize": "12px", "marginBottom": "4px"}),
             html.Div("Progress", id={"type": "metrics-sub-item", "index": "progress"}, 
                     style={"padding": "6px 10px", "cursor": "pointer", "borderRadius": "4px", 
@@ -4876,7 +4871,7 @@ def initialize_metrics_navigation(main_metric):
         ]
     else:  # results — 4 chart sections, each showing a different v2-style chart
         _SNAV_ACTIVE = {"padding": "6px 10px", "cursor": "pointer", "borderRadius": "4px",
-                        "background": "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+                        "background": "linear-gradient(135deg, #1E3A5F 0%, #0D9488 100%)",
                         "color": "white", "fontSize": "12px", "marginBottom": "4px"}
         _SNAV_IDLE   = {"padding": "6px 10px", "cursor": "pointer", "borderRadius": "4px",
                         "background": "#f9f9f9", "color": "#4a5568", "fontSize": "12px", "marginBottom": "4px"}
@@ -4972,7 +4967,7 @@ def build_sa_layout(center_params, json_path, cal_error, tidy_df, indices_dict=N
             html.Th("Parameter", style={"padding": "8px", "textAlign": "left"}),
             html.Th("Center", style={"padding": "8px", "textAlign": "right"}),
             html.Th("±Bounds", style={"padding": "8px", "textAlign": "right"})
-        ], style={"background": "linear-gradient(135deg, #667eea, #764ba2)", "color": "white"})]
+        ], style={"background": "linear-gradient(135deg, #1E3A5F, #0D9488)", "color": "white"})]
         for name, v in center_params.items():
             lo, hi = v * (1 - pct), v * (1 + pct)
             rows.append(html.Tr([
