@@ -1,0 +1,27 @@
+# Keep the Hugging Face Docker image small and builds fast.
+# EXCLUDE heavy archives / caches / things not needed at runtime.
+# KEEP (do NOT add here): *.py, census_data/, scenarios_results/, the CSV/txt data,
+# and FINAL_CALIBRATED_PARAMS_*.json — all required by the running app.
+
+.git/
+.gitignore
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.DS_Store
+.mplconfig/
+.claude/
+.ipynb_checkpoints/
+
+# Large archives / past outputs not needed by the live app
+extra_Files/
+sa_results/
+past_scenario_resutls/
+# NOTE: journal_results_50seeds/ is intentionally NOT ignored — the dissertation
+# dashboard's seed-set selector reads it to show the Journal (50) and All (56)
+# views, so it must be baked into the image for those options to work online.
+
+# Logs and scratch
+*.log
+phase2_output.log

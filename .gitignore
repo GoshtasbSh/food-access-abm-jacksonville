@@ -29,6 +29,9 @@ Thumbs.db
 *.log
 sa_results/checkpoint_*.csv
 
+# Claude Code local session/config data (never commit)
+.claude/
+
 # Large outputs (optional: uncomment to exclude from repo)
 # scenarios_results/*.json
 # past_scenario_resutls/

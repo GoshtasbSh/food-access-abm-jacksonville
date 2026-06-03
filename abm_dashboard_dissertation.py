@@ -1,8 +1,15 @@
 """
-ABM Food Access — PhD Dissertation Dashboard  v3
+ABM Food Access — PhD Dissertation Dashboard  v4
 =================================================
 Jacksonville, FL · Health Zone 1 · 500 Households · 365 Days
-Supports 3 or 6 seeds  |  Within-Scenario Location Analysis  |  Policy Insights
+Seed-set selector: Dissertation (6) | Journal (50) | All (56 combined)
+
+NEW in v4
+---------
+  • Seed-set selector in header — switch between Dissertation (6 seeds),
+    Journal (50 seeds), or All (56 seeds combined) without reloading
+  • All charts and tables update instantly when seed set changes
+  • CI bands correctly narrow as seed count increases
 
 NEW in v3
 ---------
@@ -21,7 +28,7 @@ NEW in v3
   • Publication-ready static-export hint on every chart
 """
 
-import json, os, re, glob, itertools
+import json, os, re, glob, itertools, threading
 import numpy as np
 import pandas as pd
 from scipy import stats
@@ -129,6 +136,14 @@ EXACT_FALLBACK = {
 
 ALL_SEEDS = [42, 47, 52, 57, 62, 67]
 
+JOURNAL_DIR = os.path.join(BASE_DIR, "journal_results_50seeds")
+JOURNAL_SEEDS = [
+    102, 111, 178, 182, 200, 205, 213, 221, 315, 328, 345, 357, 394, 421, 427,
+    456, 465, 485, 506, 530, 551, 560, 602, 614, 624, 625, 660, 669, 686, 700,
+    715, 728, 736, 753, 762, 795, 801, 840, 848, 863, 869, 886, 891, 895, 902,
+    924, 934, 936, 962, 980,
+]
+
 def load_all():
     data = {}
     for sk, meta in SCENARIO_META.items():
@@ -160,13 +175,97 @@ def load_all():
         data[sk] = {**meta, "data": seeds}
     return data
 
-DATA = load_all()
+def load_journal_all():
+    """Load 50-seed journal results from journal_results_50seeds/."""
+    data = {}
+    for sk, meta in SCENARIO_META.items():
+        seeds = {}
+        pattern = SEED_PATTERNS.get(sk, "")
+        if not pattern or not os.path.isdir(JOURNAL_DIR):
+            data[sk] = {**meta, "data": seeds}
+            continue
+        for s in JOURNAL_SEEDS:
+            hits = glob.glob(os.path.join(JOURNAL_DIR, f"{pattern}*seed{s}*.json"))
+            hits = [h for h in hits if "summary" not in h.lower()]
+            if hits:
+                with open(sorted(hits)[-1]) as f:
+                    seeds[s] = json.load(f)
+        sum_hits = glob.glob(os.path.join(JOURNAL_DIR, f"{pattern}*summary*.json"))
+        if sum_hits:
+            with open(sorted(sum_hits)[-1]) as f:
+                seeds["summary"] = json.load(f)
+        data[sk] = {**meta, "data": seeds}
+    return data
+
+def _combined_summary(diss_entry, journal_entry):
+    """Merge dissertation and journal per-seed data into a combined summary dict."""
+    all_seeds = {}
+    for k, v in diss_entry.get("data", {}).items():
+        if isinstance(k, int):
+            all_seeds[k] = v
+    for k, v in journal_entry.get("data", {}).items():
+        if isinstance(k, int):
+            all_seeds[k] = v
+    if not all_seeds:
+        return {}
+    metrics_vals = {}
+    config = None
+    for seed_data in all_seeds.values():
+        if config is None:
+            config = seed_data.get("config", {})
+        for mk, mv in seed_data.get("final_metrics", {}).items():
+            if isinstance(mv, (int, float)) and mk != "day":
+                metrics_vals.setdefault(mk, []).append(mv)
+    fm_combined = {"day": 365}
+    for mk, vals in metrics_vals.items():
+        n = len(vals)
+        m = float(np.mean(vals))
+        s = float(np.std(vals, ddof=1)) if n > 1 else 0.0
+        fm_combined[mk]         = m
+        fm_combined[mk + "_std"] = s
+        fm_combined[mk + "_min"] = float(min(vals))
+        fm_combined[mk + "_max"] = float(max(vals))
+    first = next(iter(all_seeds.values()))
+    snap_key = first.get("snap_key", "")
+    return {
+        "scenario": snap_key.replace("_500hh_365d", ""),
+        "snap_key": snap_key,
+        "n_seeds": len(all_seeds),
+        "seeds_used": sorted(all_seeds.keys()),
+        "config": config or {},
+        "days": 365,
+        "final_metrics": fm_combined,
+    }
+
+def load_combined_all(data_diss, data_journal):
+    """Merge dissertation (6 seeds) + journal (50 seeds) into a single dataset."""
+    import copy
+    combined = copy.deepcopy(data_diss)
+    for sk in list(combined.keys()):
+        j_entry = data_journal.get(sk, {})
+        for k, v in j_entry.get("data", {}).items():
+            if isinstance(k, int):
+                combined[sk]["data"][k] = v
+        combined[sk]["data"]["summary"] = _combined_summary(
+            data_diss.get(sk, {}), j_entry
+        )
+    return combined
+
+DATA_DISS    = load_all()
+DATA_JOURNAL = load_journal_all()
+DATA_ALL     = load_combined_all(DATA_DISS, DATA_JOURNAL)
+DATA_MAP     = {"dissertation": DATA_DISS, "journal": DATA_JOURNAL, "all": DATA_ALL}
+DATA         = DATA_DISS   # active dataset — swapped by render_content callback
 
 SCENARIO_KEYS       = ["baseline", "scenario1", "scenario2", "scenario3", "scenario4"]
 LOCATION_KEYS       = ["scenario2_north", "scenario2_south", "scenario2_east", "scenario2_west"]
 VARIANT_KEYS        = ["scenario2_hub_sm", "scenario2_hub_lg", "scenario2_corner6", "scenario2_corner2"]
-# S2 existing data mapped to "north" for location comparison
-DATA["scenario2_north"] = DATA["scenario2"]   # alias
+# S2 existing data mapped to "north" for location comparison.
+# Apply the alias to EVERY seed set so the Location tab works under
+# Dissertation / Journal / All (the N/S/E/W sub-variants were never run at
+# 50 seeds, so "north" mirrors the main S2 for whichever set is active).
+for _ds in (DATA_DISS, DATA_JOURNAL, DATA_ALL):
+    _ds["scenario2_north"] = _ds["scenario2"]
 
 METRIC_INFO = {
     "satisfaction_rate":    {"label": "Satisfaction Rate",       "unit": "",     "higher_better": True,  "fmt": ".3f"},
@@ -187,7 +286,7 @@ METRIC_INFO = {
 # ═══════════════════════════════════════════════════════════════════
 
 def available_seeds(sk):
-    return [s for s in ALL_SEEDS if s in DATA[sk]["data"]]
+    return sorted(s for s in DATA[sk]["data"] if isinstance(s, int))
 
 def fm(sk, seed="summary"):
     d = DATA[sk]["data"].get(seed, {})
@@ -288,20 +387,30 @@ def summary_df(keys=None):
         sm = fm(sk, "summary")
         row = {"sk": sk, "label": DATA[sk]["label"], "short": DATA[sk]["short"]}
         for m in METRIC_INFO:
-            row[m]        = sm.get(m, np.nan)
-            row[m+"_std"] = sm.get(m+"_std", np.nan)
-            row[m+"_min"] = sm.get(m+"_min", np.nan)
-            row[m+"_max"] = sm.get(m+"_max", np.nan)
-            # Fallback: compute from seed values
-            if np.isnan(row[m]):
-                vs = [x for x in seed_vals(sk, m) if not np.isnan(x)]
-                row[m]        = np.mean(vs)  if vs else np.nan
-                row[m+"_std"] = np.std(vs, ddof=1) if len(vs) > 1 else np.nan
+            # Per-seed values are the SOURCE OF TRUTH: they reflect the active seed
+            # set exactly (6 / 50 / 56) and keep tables consistent with the KPI cards
+            # and charts (which already aggregate per-seed). The summary JSON is only
+            # a fallback when a scenario has no per-seed files loaded — this also
+            # avoids the dissertation's partial 3-seed summary file being shown as if
+            # it were the full 6-seed result.
+            vs = [x for x in seed_vals(sk, m) if not np.isnan(x)]
+            if vs:
+                row[m]        = np.mean(vs)
+                row[m+"_std"] = np.std(vs, ddof=1) if len(vs) > 1 else 0.0
+                row[m+"_min"] = np.min(vs)
+                row[m+"_max"] = np.max(vs)
+            else:
+                row[m]        = sm.get(m, np.nan)
+                row[m+"_std"] = sm.get(m+"_std", np.nan)
+                row[m+"_min"] = sm.get(m+"_min", np.nan)
+                row[m+"_max"] = sm.get(m+"_max", np.nan)
         rows.append(row)
     df = pd.DataFrame(rows)
     return df
 
-SDF = summary_df()
+# (Former module-level SDF cache removed: it was computed once on the dissertation
+#  set and became stale under the seed-set selector. summary_df() is now called
+#  fresh wherever needed so it always reflects the active seed set.)
 
 def hex_rgba(h, a=0.15):
     h = h.lstrip("#"); r, g, b = int(h[0:2],16), int(h[2:4],16), int(h[4:6],16)
@@ -473,7 +582,7 @@ def fig_radar():
     labels_r  = ["Satisfaction","Food Insecurity<br>(inv)","Travel Dist<br>(inv)",
                   "Spatial Equity","Pantry Share","Delivery Share"]
     invert = {"food_insecurity_rate","avg_travel_distance"}
-    ndf = SDF.set_index("sk")[metrics_r].copy()
+    ndf = summary_df().set_index("sk")[metrics_r].copy()
     for m in metrics_r:
         col = ndf[m]; rng = col.max()-col.min()
         ndf[m] = (col-col.min())/rng if rng > 0 else col*0+0.5
@@ -497,14 +606,15 @@ def fig_radar():
 def fig_composite_ranking():
     weights = {"satisfaction_rate":+1.0,"food_insecurity_rate":-1.0,
                "avg_travel_distance":-0.8,"spatial_equity_index":+0.6}
-    ndf = SDF.set_index("sk").copy()
+    _sdf = summary_df()
+    ndf = _sdf.set_index("sk").copy()
     score = pd.Series(0.0, index=ndf.index)
     for m, w in weights.items():
         col = ndf[m]; rng = col.max()-col.min()
         norm = (col-col.min())/rng if rng > 0 else col*0
         score += norm*w
     sdf2 = score.reset_index(); sdf2.columns=["sk","score"]
-    sdf2 = sdf2.merge(SDF[["sk","label"]], on="sk").sort_values("score")
+    sdf2 = sdf2.merge(_sdf[["sk","label"]], on="sk").sort_values("score")
     fig = go.Figure(go.Bar(
         x=sdf2["score"], y=sdf2["label"], orientation="h",
         marker=dict(color=[DATA[sk]["color"] for sk in sdf2["sk"]],
@@ -1384,9 +1494,18 @@ TAB_DEFS = [
 # 11.  LAYOUT
 # ═══════════════════════════════════════════════════════════════════
 
-# Compute seed counts for header badge
-total_seeds_loaded = sum(len(available_seeds(sk)) for sk in SCENARIO_KEYS)
-seed_status = f"{max(len(available_seeds(sk)) for sk in SCENARIO_KEYS)}-seed results loaded"
+def _seed_set_counts():
+    n_diss    = max(len([s for s in DATA_DISS[sk]["data"]    if isinstance(s,int)]) for sk in SCENARIO_KEYS)
+    n_journal = max(len([s for s in DATA_JOURNAL[sk]["data"] if isinstance(s,int)]) for sk in SCENARIO_KEYS)
+    n_all     = n_diss + n_journal
+    return n_diss, n_journal, n_all
+
+_nd, _nj, _na = _seed_set_counts()
+SEED_SET_OPTIONS = [
+    {"label": f"Dissertation  ({_nd} seeds)", "value": "dissertation"},
+    {"label": f"Journal  ({_nj} seeds)",      "value": "journal"},
+    {"label": f"All combined  ({_na} seeds)", "value": "all"},
+]
 
 app.layout = html.Div([
     # Header
@@ -1395,7 +1514,22 @@ app.layout = html.Div([
             html.H1("ABM Food Access Intervention Analysis  —  PhD Dissertation"),
             html.P("Jacksonville, FL  ·  Health Zone 1  ·  500 Households  ·  365-Day Simulation  ·  5 Scenarios"),
         ]),
-        html.Div(seed_status, className="header-badge"),
+        html.Div([
+            html.Div("Seed set:", style={"fontSize":"11px","fontWeight":"700","color":"#94A3B8",
+                                         "textTransform":"uppercase","letterSpacing":"0.6px",
+                                         "marginBottom":"5px"}),
+            dcc.RadioItems(
+                id="seed-set-radio",
+                options=SEED_SET_OPTIONS,
+                value="dissertation",
+                inline=False,
+                inputStyle={"marginRight":"5px"},
+                labelStyle={"display":"block","fontSize":"12px","color":"#E2E8F0",
+                             "marginBottom":"3px","cursor":"pointer"},
+            ),
+        ], style={"background":"rgba(255,255,255,0.08)","borderRadius":"10px",
+                   "padding":"10px 14px","minWidth":"210px"}),
+        html.Div(id="header-badge", className="header-badge"),
     ], className="dash-header"),
 
     # Tab bar
@@ -1417,6 +1551,7 @@ app.layout = html.Div([
         "baseline":   "overview", "scenario1": "overview",
         "scenario2":  "overview", "scenario3": "overview", "scenario4": "overview",
     }),
+    dcc.Store(id="seed-set", data="dissertation"),
 
     # Body
     html.Div([
@@ -1428,6 +1563,19 @@ app.layout = html.Div([
 # ═══════════════════════════════════════════════════════════════════
 # 12.  CALLBACKS
 # ═══════════════════════════════════════════════════════════════════
+
+@app.callback(
+    Output("seed-set","data"),
+    Output("header-badge","children"),
+    Input("seed-set-radio","value"),
+)
+def update_seed_set(value):
+    label_map = {
+        "dissertation": f"Dissertation · {_nd} seeds",
+        "journal":      f"Journal · {_nj} seeds",
+        "all":          f"All combined · {_na} seeds",
+    }
+    return value, label_map.get(value, "")
 
 @app.callback(Output("active-tab","data"),
               Input({"type":"tab-btn","tab":dash.ALL},"n_clicks"),
@@ -1491,19 +1639,27 @@ def render_sidebar(active_tab, active_items):
         ))
     return children
 
+# Serializes the global-DATA swap + render so concurrent viewers on different
+# seed sets can never interleave (the deployed combined app runs multi-threaded).
+_render_lock = threading.Lock()
+
 @app.callback(Output("content-area","children"),
-              Input("active-tab","data"), Input("active-item","data"))
-def render_content(active_tab, active_items):
-    item = active_items.get(active_tab, "kpi-overview")
-    dispatch = {
-        "comparison": render_comparison,
-        "location":   render_location,
-        "variants":   render_variants,
-        "policy":     render_policy,
-    }
-    if active_tab in dispatch:
-        return dispatch[active_tab](item)
-    return render_scenario(active_tab, item)
+              Input("active-tab","data"), Input("active-item","data"),
+              Input("seed-set","data"))
+def render_content(active_tab, active_items, seed_set):
+    global DATA
+    with _render_lock:
+        DATA = DATA_MAP.get(seed_set or "dissertation", DATA_DISS)
+        item = active_items.get(active_tab, "kpi-overview")
+        dispatch = {
+            "comparison": render_comparison,
+            "location":   render_location,
+            "variants":   render_variants,
+            "policy":     render_policy,
+        }
+        if active_tab in dispatch:
+            return dispatch[active_tab](item)
+        return render_scenario(active_tab, item)
 
 # ═══════════════════════════════════════════════════════════════════
 # 13.  CONTENT RENDERERS — HELPERS
@@ -1554,13 +1710,14 @@ def make_dash_table(df_t):
 
 def seed_status_badge(sk):
     n = len(available_seeds(sk))
-    target = 6
-    color_bg = "#F0FDF4" if n == target else ("#FFFBEB" if n >= 3 else "#FEF2F2")
-    color_bd = "#A7F3D0" if n == target else ("#FDE68A" if n >= 3 else "#FCA5A5")
-    color_tx = "#065F46" if n == target else ("#92400E" if n >= 3 else "#991B1B")
-    icon     = "✓" if n == target else ("⚠" if n >= 3 else "✗")
+    target = max(n, 1)  # dynamic: green when all seeds for this set are loaded
+    ok = n >= 3
+    color_bg = "#F0FDF4" if ok else "#FEF2F2"
+    color_bd = "#A7F3D0" if ok else "#FCA5A5"
+    color_tx = "#065F46" if ok else "#991B1B"
+    icon     = "✓" if ok else "✗"
     return html.Div(
-        f"{icon}  {n} / {target} seeds loaded",
+        f"{icon}  {n} seeds loaded",
         style={"display":"inline-flex","alignItems":"center","gap":"5px",
                "background":color_bg,"border":f"1px solid {color_bd}",
                "color":color_tx,"borderRadius":"20px","padding":"3px 11px",
@@ -2246,19 +2403,19 @@ def render_scenario(sk, item):
 
 if __name__ == "__main__":
     print("\n" + "═"*65)
-    print("  ABM Food Access — PhD Dissertation Dashboard  v3")
+    print("  ABM Food Access — PhD Dissertation Dashboard  v4")
     print("  Jacksonville, FL  |  Health Zone 1")
     print("═"*65)
+    print(f"  {'Scenario':<32}  {'Diss':>5}  {'Journal':>8}  {'All':>5}")
+    print(f"  {'─'*32}  {'─'*5}  {'─'*8}  {'─'*5}")
     for sk in SCENARIO_KEYS:
-        n   = len(available_seeds(sk))
-        sym = "✓" if n == 6 else ("◑" if n >= 3 else "✗")
-        lbl = DATA[sk]["label"]
-        print(f"  {sym}  {lbl:<32}  {n} / 6 seeds")
-    loc_loaded  = sum(1 for sk in LOCATION_KEYS if len(available_seeds(sk)) > 0)
-    var_loaded  = sum(1 for sk in VARIANT_KEYS  if len(available_seeds(sk)) > 0)
-    print(f"\n  📍 Location variants:  {loc_loaded}/4 loaded")
-    print(f"  🔧 Hub/corner variants: {var_loaded}/4 loaded")
+        nd = len([s for s in DATA_DISS[sk]["data"]    if isinstance(s,int)])
+        nj = len([s for s in DATA_JOURNAL[sk]["data"] if isinstance(s,int)])
+        na = len([s for s in DATA_ALL[sk]["data"]     if isinstance(s,int)])
+        lbl = DATA_DISS[sk]["label"]
+        print(f"  {lbl:<32}  {nd:>5}  {nj:>8}  {na:>5}")
     print("═"*65)
+    print("  Seed-set selector available in the dashboard header.")
     print("  ➜  http://127.0.0.1:8065")
     print("═"*65 + "\n")
     if os.environ.get('COMBINED_APP') != '1':
