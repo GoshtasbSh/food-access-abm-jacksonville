@@ -20,10 +20,14 @@
 # ----------------------------------------------------------------------------
 FROM python:3.10-slim
 
-# Runtime libs: libgomp1 for numpy/scikit-learn OpenMP. Geospatial deps come
-# from manylinux binary wheels, so no system GDAL/GEOS build is required.
+# Runtime libs:
+#   libgomp1  -> OpenMP for numpy/scikit-learn
+#   libexpat1 -> provides libexpat.so.1, required by rasterio (pulled in by
+#                mesa-geo). The geospatial wheels bundle GDAL/GEOS/PROJ but
+#                still link the system libexpat, which python:3.10-slim omits.
 RUN apt-get update && apt-get install -y --no-install-recommends \
         libgomp1 \
+        libexpat1 \
     && rm -rf /var/lib/apt/lists/*
 
 ENV PYTHONUNBUFFERED=1 \
