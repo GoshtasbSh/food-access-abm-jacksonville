@@ -1580,7 +1580,11 @@ app.layout = html.Div([
     # Body
     html.Div([
         html.Div(id="sidebar",      className="sidebar"),
-        html.Div(id="content-area", className="content-area"),
+        dcc.Loading(
+            html.Div(id="content-area", className="content-area"),
+            type="circle", color="#4F46E5",
+            style={"flex": "1", "minWidth": "0"},
+        ),
     ], className="body-layout"),
 ], style={"minHeight": "100vh", "background": C_BG})
 
@@ -1666,24 +1670,33 @@ def render_sidebar(active_tab, active_items):
 # Serializes the global-DATA swap + render so concurrent viewers on different
 # seed sets can never interleave (the deployed combined app runs multi-threaded).
 _render_lock = threading.Lock()
+# Memoize each rendered view by (seed_set, tab, item). The underlying result
+# files are loaded once at startup and never change, so a view's output is
+# deterministic — caching returns the EXACT same content (identical means,
+# tables, CIs, methodology), it only avoids recomputing it on every re-visit.
+_RENDER_CACHE = {}
 
 @app.callback(Output("content-area","children"),
               Input("active-tab","data"), Input("active-item","data"),
               Input("seed-set","data"))
 def render_content(active_tab, active_items, seed_set):
     global DATA
+    seed_set = seed_set or "dissertation"
+    item = active_items.get(active_tab, "kpi-overview")
+    key = (seed_set, active_tab, item)
     with _render_lock:
-        DATA = DATA_MAP.get(seed_set or "dissertation", DATA_DISS)
-        item = active_items.get(active_tab, "kpi-overview")
+        if key in _RENDER_CACHE:
+            return _RENDER_CACHE[key]
+        DATA = DATA_MAP.get(seed_set, DATA_DISS)
         dispatch = {
             "comparison": render_comparison,
             "location":   render_location,
             "variants":   render_variants,
             "policy":     render_policy,
         }
-        if active_tab in dispatch:
-            return dispatch[active_tab](item)
-        return render_scenario(active_tab, item)
+        out = dispatch[active_tab](item) if active_tab in dispatch else render_scenario(active_tab, item)
+        _RENDER_CACHE[key] = out
+        return out
 
 # ═══════════════════════════════════════════════════════════════════
 # 13.  CONTENT RENDERERS — HELPERS
