@@ -271,7 +271,29 @@ def create_enhanced_scenario_4(config: SimulationConfig = None,
     print(f"        - Low: {low_income} ({low_income/len(model.consumers)*100:.1f}%)")
     print(f"        - Medium: {med_income} ({med_income/len(model.consumers)*100:.1f}%)")
     print(f"        - High: {high_income} ({high_income/len(model.consumers)*100:.1f}%)")
-    
+
+    # Apply the documented delivery-subsidy adoption uplift
+    # (config.delivery_subsidy_uplift, capped at 0.95). Household init fixes
+    # adoption at the BASELINE propensity; under the subsidy, promote
+    # non-adopters with the conditional probability that makes total adoption
+    # exactly min(0.95, propensity * uplift):
+    #   P(adopt) = p + (1 - p) * (target - p) / (1 - p) = target
+    # Setup-time and subsidy-scenario-only, so baseline runs are untouched and
+    # the promotion is deterministic under the run seed.
+    promoted = 0
+    for c in model.consumers:
+        if not getattr(c, "can_use_delivery", False) or getattr(c, "is_delivery_user", False):
+            continue
+        p = float(getattr(c, "delivery_propensity", 0.0))
+        target = min(0.95, p * model.config.delivery_subsidy_uplift)
+        if target <= p or p >= 1.0:
+            continue
+        if random.random() < (target - p) / (1.0 - p):
+            c.is_delivery_user = True
+            promoted += 1
+    print(f"\n      • Subsidy adoption uplift: +{promoted} delivery adopters "
+          f"(×{model.config.delivery_subsidy_uplift}, cap 0.95)")
+
     return model
 
 

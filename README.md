@@ -83,7 +83,7 @@ Open **http://localhost:8050** in your browser.
 
 ### Dissertation Results Dashboard
 
-View pre-computed results (500 households × 365 days, 6 seeds):
+View pre-computed results (500 households × 365 days, 50 seeds):
 
 ```bash
 python abm_dashboard_dissertation.py
@@ -91,7 +91,11 @@ python abm_dashboard_dissertation.py
 
 Open **http://localhost:8065** in your browser.
 
-Results are loaded from `scenarios_results/` (JSON files). The dashboard auto-detects files by pattern (e.g. `baseline_500hh_365d_seed42_*.json`).
+Results are loaded from `results/journal_results_50seeds_recal/` — the recalibrated
+(γ = 2.6) 50-seed build, which is the calibration-valid model behind the paper and
+supersedes the earlier 6-seed γ = 0.6 runs. The dashboard auto-detects files by
+pattern (e.g. `baseline_500hh_365d_seed102_*.json`). Sobol sensitivity indices for
+the same build are read from `sobol_indices.json`.
 
 ## Running Scenarios
 

@@ -44,7 +44,7 @@ from plotly.subplots import make_subplots
 BASE_DIR = os.path.dirname(os.path.abspath(__file__)) if "__file__" in dir() else "."
 SEARCH_DIRS = [
     BASE_DIR,
-    os.path.join(BASE_DIR, "scenarios_results"),
+    os.path.join(BASE_DIR, "results", "scenarios_results"),
     "/mnt/user-data/uploads",
     "/mnt/project",
 ]
@@ -136,13 +136,20 @@ EXACT_FALLBACK = {
 
 ALL_SEEDS = [42, 47, 52, 57, 62, 67]
 
-JOURNAL_DIR = os.path.join(BASE_DIR, "journal_results_50seeds")
+JOURNAL_DIR = os.path.join(BASE_DIR, "results", "journal_results_50seeds")
 JOURNAL_SEEDS = [
     102, 111, 178, 182, 200, 205, 213, 221, 315, 328, 345, 357, 394, 421, 427,
     456, 465, 485, 506, 530, 551, 560, 602, 614, 624, 625, 660, 669, 686, 700,
     715, 728, 736, 753, 762, 795, 801, 840, 848, 863, 869, 886, 891, 895, 902,
     924, 934, 936, 962, 980,
 ]
+
+# Recalibrated (gamma=2.6) FINAL run — same 50 seeds, produced 2026-07-24 with
+# GEOMESA_CALIBRATED_PARAMS=paper_revision/recalibration/RECAL_JOURNAL_PARAMS.json.
+# This is the calibration-valid build (aggregate MAPE 9.53%) and SUPERSEDES the
+# pre-recalibration Dissertation (6-seed) and Journal (July 50-seed) sets, which
+# used the old, mismatched gamma=0.6 parameters. Recal uses the same seed list.
+RECAL_DIR = os.path.join(BASE_DIR, "results", "journal_results_50seeds_recal")
 
 def _safe_json(path):
     """Load JSON, returning None on any error so one corrupt/truncated file can
@@ -188,31 +195,40 @@ def load_all():
         data[sk] = {**meta, "data": seeds}
     return data
 
-def load_journal_all():
-    """Load 50-seed journal results from journal_results_50seeds/."""
+def load_journal_dir(results_dir, seeds_list):
+    """Load a 50-seed run from an arbitrary results directory (journal or recal)."""
     data = {}
     for sk, meta in SCENARIO_META.items():
         seeds = {}
         pattern = SEED_PATTERNS.get(sk, "")
-        if not pattern or not os.path.isdir(JOURNAL_DIR):
+        if not pattern or not os.path.isdir(results_dir):
             data[sk] = {**meta, "data": seeds}
             continue
-        for s in JOURNAL_SEEDS:
+        for s in seeds_list:
             # Trailing underscore anchors the seed number: seed102_ never matches
             # seed1020_ (prevents wrong-file loading if seeds ever overlap by prefix).
-            hits = glob.glob(os.path.join(JOURNAL_DIR, f"{pattern}*seed{s}_*.json"))
+            hits = glob.glob(os.path.join(results_dir, f"{pattern}*seed{s}_*.json"))
             hits = [h for h in hits if "summary" not in h.lower()]
             if hits:
                 d = _safe_json(sorted(hits)[-1])
                 if d is not None:
                     seeds[s] = d
-        sum_hits = glob.glob(os.path.join(JOURNAL_DIR, f"{pattern}*summary*.json"))
+        sum_hits = glob.glob(os.path.join(results_dir, f"{pattern}*summary*.json"))
         if sum_hits:
             d = _safe_json(sorted(sum_hits)[-1])
             if d is not None:
                 seeds["summary"] = d
         data[sk] = {**meta, "data": seeds}
     return data
+
+def load_journal_all():
+    """Load 50-seed journal results from journal_results_50seeds/ (July, pre-recal)."""
+    return load_journal_dir(JOURNAL_DIR, JOURNAL_SEEDS)
+
+def load_recal_all():
+    """Load the recalibrated (gamma=2.6) FINAL 50-seed results — the paper's
+    calibration-valid build (aggregate MAPE 9.53%, produced 2026-07-24)."""
+    return load_journal_dir(RECAL_DIR, JOURNAL_SEEDS)
 
 def _combined_summary(diss_entry, journal_entry):
     """Merge dissertation and journal per-seed data into a combined summary dict."""
@@ -268,21 +284,20 @@ def load_combined_all(data_diss, data_journal):
         )
     return combined
 
-DATA_DISS    = load_all()
-DATA_JOURNAL = load_journal_all()
-DATA_ALL     = load_combined_all(DATA_DISS, DATA_JOURNAL)
-DATA_MAP     = {"dissertation": DATA_DISS, "journal": DATA_JOURNAL, "all": DATA_ALL}
-DATA         = DATA_DISS   # active dataset — swapped by render_content callback
+# ONLY the recalibrated (gamma=2.6) FINAL build is shown. The pre-recal
+# Dissertation (6-seed) and Journal (July 50-seed) sets used the old, mismatched
+# gamma=0.6 parameters and were removed so the dashboard, paper, and dissertation
+# all reflect the single best/current model with no discrepancy.
+DATA_RECAL   = load_recal_all()
+DATA_MAP     = {"recal": DATA_RECAL}
+DATA         = DATA_RECAL   # the only dataset (recalibrated FINAL build)
 
 SCENARIO_KEYS       = ["baseline", "scenario1", "scenario2", "scenario3", "scenario4"]
 LOCATION_KEYS       = ["scenario2_north", "scenario2_south", "scenario2_east", "scenario2_west"]
 VARIANT_KEYS        = ["scenario2_hub_sm", "scenario2_hub_lg", "scenario2_corner6", "scenario2_corner2"]
-# S2 existing data mapped to "north" for location comparison.
-# Apply the alias to EVERY seed set so the Location tab works under
-# Dissertation / Journal / All (the N/S/E/W sub-variants were never run at
-# 50 seeds, so "north" mirrors the main S2 for whichever set is active).
-for _ds in (DATA_DISS, DATA_JOURNAL, DATA_ALL):
-    _ds["scenario2_north"] = _ds["scenario2"]
+# S2 existing data mapped to "north" for location comparison. The N/S/E/W
+# sub-variants were never run at 50 seeds, so "north" mirrors the main S2.
+DATA_RECAL["scenario2_north"] = DATA_RECAL["scenario2"]
 
 METRIC_INFO = {
     "satisfaction_rate":    {"label": "Satisfaction Rate",       "unit": "",     "higher_better": True,  "fmt": ".3f"},
@@ -621,6 +636,9 @@ def fig_radar():
     return fig
 
 def fig_composite_ranking():
+    # Composite ranking weights. spatial_equity_index weight is POSITIVE (+0.6) by
+    # project convention — the equity index is treated as higher-is-better in the
+    # composite, matching METRIC_INFO higher_better=True (and the GABM dashboard).
     weights = {"satisfaction_rate":+1.0,"food_insecurity_rate":-1.0,
                "avg_travel_distance":-0.8,"spatial_equity_index":+0.6}
     _sdf = summary_df()
@@ -795,27 +813,85 @@ def fig_seed_variability_all():
           margin=dict(l=210, r=130, t=65, b=115), xaxis=xax, yaxis=yax)
     return fig
 
+def seed_fmt(metric):
+    """Per-seed display precision: 4 dp for rates/distances, integers for $."""
+    return ",.0f" if METRIC_INFO[metric]["fmt"] == ",.0f" else ".4f"
+
 def fig_seed_bars(sk, metric):
-    mi = METRIC_INFO[metric]
-    sn = available_seeds(sk)
-    vals = [DATA[sk]["data"].get(s,{}).get("final_metrics",{}).get(metric, np.nan) for s in sn]
+    """Per-seed bars in RUN ORDER — seed #1, #2, #3 … #n, never sorted by value.
+
+    Sorting replicate bars by outcome manufactures a monotone "trend" out of
+    what are independent draws, so the x axis stays the replicate index and
+    the category order is pinned explicitly (categoryorder='array'). Ticks are
+    the 1-based run index; the actual RNG seed value rides along in the hover
+    so every bar is still traceable to its result file.
+    """
+    mi   = METRIC_INFO[metric]
+    sn   = available_seeds(sk)                 # ascending RNG seed ids = run order
+    vals = [DATA[sk]["data"].get(s, {}).get("final_metrics", {}).get(metric, np.nan)
+            for s in sn]
+    idx  = [str(i) for i in range(1, len(sn) + 1)]
+    n    = len(sn)
+    f    = seed_fmt(metric)
     mean_v = np.nanmean(vals)
     ci_lo, ci_hi = bootstrap_ci(vals)
     c = DATA[sk]["color"]
+
+    # Dense runs (50 seeds) need vertical value labels at a small size to fit;
+    # short runs can keep the roomier horizontal labels.
+    dense = n > 18
     fig = go.Figure()
     fig.add_trace(go.Bar(
-        x=[f"Seed {s}" for s in sn], y=vals,
-        marker=dict(color=c, line=dict(color="white", width=2), cornerradius=5),
-        text=[f"{v:.4f}" for v in vals], textposition="outside",
-        textfont=dict(size=12, color="#1C2434"), showlegend=False,
+        x=idx, y=vals, customdata=sn,
+        marker=dict(color=c, line=dict(color="white", width=1 if dense else 2),
+                    cornerradius=3 if dense else 5),
+        text=[("" if np.isnan(v) else format(v, f)) for v in vals],
+        textposition="outside", cliponaxis=False,
+        textangle=-90 if dense else 0,
+        textfont=dict(size=9 if dense else 12, color="#1C2434"),
+        hovertemplate=(f"<b>Seed #%{{x}}</b> of {n}  (RNG seed %{{customdata}})<br>"
+                       f"{mi['label']} = %{{y:{f}}}<extra></extra>"),
+        showlegend=False,
     ))
-    fig.add_hline(y=mean_v, line_dash="dash", line_color="#374151", line_width=2,
-                  annotation_text=f"  Mean = {mean_v:.4f}  [95% CI: {ci_lo:.4f}–{ci_hi:.4f}]",
-                  annotation_font=dict(color="#374151", size=11),
-                  annotation_position="top left")
-    apply(fig, f"{DATA[sk]['label']} — {mi['label']} by Seed",
-          yaxis_title=mi["label"]+mi["unit"], bargap=0.45)
+    fig.add_hline(y=mean_v, line_dash="dash", line_color="#374151", line_width=2)
+    # Parked in the top-left corner rather than on the line itself: at n=50 the
+    # on-line label sits right on top of the per-bar value text.
+    fig.add_annotation(xref="paper", yref="paper", x=0.005, y=0.99,
+                       xanchor="left", yanchor="top", showarrow=False,
+                       text=(f"– – Mean = {mean_v:{f}}"
+                             f"   [95% CI: {ci_lo:{f}}–{ci_hi:{f}}]"),
+                       font=dict(color="#374151", size=11),
+                       bgcolor="rgba(255,255,255,0.85)", bordercolor="#E2E8F0",
+                       borderwidth=1, borderpad=4)
+
+    finite = [v for v in vals if not np.isnan(v)]
+    top = max(finite) * (1.30 if dense else 1.14) if finite else 1
+    xax = {**PLOT_BASE["xaxis"], "type": "category",
+           "categoryorder": "array", "categoryarray": idx,
+           "tickmode": "array", "tickvals": idx, "ticktext": idx,
+           "tickangle": 0, "tickfont": {"size": 9 if dense else 11, "color": "#4B5563"},
+           "title": f"Seed # (run order, n={n} — not sorted by value)"}
+    yax = {**PLOT_BASE["yaxis"], "range": [0, top],
+           "title": mi["label"] + mi["unit"]}
+    apply(fig, f"{DATA[sk]['label']} — {mi['label']} by Seed  (run order, n={n})",
+          xaxis=xax, yaxis=yax, bargap=0.18 if dense else 0.45,
+          margin=dict(l=68, r=32, t=62, b=64))
     return fig
+
+def table_seed_values(sk, metric):
+    """Seed # → RNG seed → metric value, one row per seed, in run order."""
+    mi = METRIC_INFO[metric]
+    sn = available_seeds(sk)
+    f  = seed_fmt(metric)
+    vals = [DATA[sk]["data"].get(s, {}).get("final_metrics", {}).get(metric, np.nan)
+            for s in sn]
+    mean_v = np.nanmean(vals)
+    return pd.DataFrame({
+        "Seed #":     [str(i) for i in range(1, len(sn) + 1)],
+        "RNG Seed":   [str(s) for s in sn],
+        mi["label"]:  [("—" if np.isnan(v) else format(v, f)) for v in vals],
+        "Δ vs Mean":  [("—" if np.isnan(v) else format(v - mean_v, "+" + f)) for v in vals],
+    })
 
 def fig_vs_baseline(sk, metric):
     mi = METRIC_INFO[metric]
@@ -898,27 +974,105 @@ def fig_pairwise_cohend(metric):
           margin=dict(l=80, r=120, t=65, b=80))
     return fig
 
+# ── Sobol sensitivity (recalibrated γ=2.6 run) ──────────────────────────────
+# Loaded from the SAME artifact the paper's Figure 5 is drawn from
+# (paper_revision/recalibration/state/sobol_indices.json, written 2026-07-24,
+# N=256, center = γ=2.6 recal, ±30%). Never hardcode these numbers: the
+# pre-recalibration values (θ_low S₁≈0.96) contradict the current model, in
+# which γ dominates (S_T=0.942).
+SOBOL_PATHS = [
+    os.environ.get("GEOMESA_SOBOL_JSON", ""),
+    os.path.join(BASE_DIR, "..", "paper_revision", "recalibration", "state", "sobol_indices.json"),
+    os.path.join(BASE_DIR, "paper_revision", "recalibration", "state", "sobol_indices.json"),
+    os.path.join(BASE_DIR, "sobol_indices.json"),          # flat HF Space layout
+]
+
+def _load_sobol():
+    for p in SOBOL_PATHS:
+        if p and os.path.isfile(p):
+            d = _safe_json(p)
+            if d and "ST" in d and "S1" in d:
+                d["_path"] = p
+                return d
+    return None
+
+SOBOL = _load_sobol()
+
+SOBOL_LABELS = {
+    "gamma_quality_variety":    "γ  quality / variety",
+    "go_shop_threshold_high":   "θ_high  shop threshold",
+    "go_shop_threshold_medium": "θ_med  shop threshold",
+    "go_shop_threshold_low":    "θ_low  shop threshold",
+    "delta_convenience":        "δ  convenience",
+    "alpha_distance":           "α  distance",
+    "beta_price_budget":        "β  price / budget",
+}
+
+def sobol_top():
+    """(label, S_T, S_1) for the highest total-order parameter, or None."""
+    if not SOBOL:
+        return None
+    k, v = max(SOBOL["ST"].items(), key=lambda kv: kv[1])
+    return SOBOL_LABELS.get(k, k), v, SOBOL["S1"].get(k, float("nan"))
+
 def fig_tornado_sensitivity():
-    """Simplified tornado chart from Sobol SA results (hardcoded if SA json not available)."""
-    # Use Sobol S1 from known analysis — replace with loaded values if available
-    params  = ["θ_low (shopping threshold)", "θ_med", "α (distance weight)",
-               "β (price/budget weight)", "γ (quality weight)", "δ (convenience)", "θ_high"]
-    s1_vals = [0.957, 0.321, 0.187, 0.142, 0.096, 0.071, 0.043]  # from prior analysis
-    colors  = ["#667eea" if v > 0.3 else "#9CA3AF" for v in s1_vals]
-    fig = go.Figure(go.Bar(
-        x=s1_vals,
-        y=params,
-        orientation="h",
-        marker=dict(color=colors, line=dict(color="white", width=1), cornerradius=4),
-        text=[f"S₁ = {v:.3f}" for v in s1_vals],
-        textposition="outside", textfont=dict(size=12, color="#1C2434"),
+    """Sobol tornado for food insecurity — total-order (S_T) with first-order
+    (S₁) alongside. Mirrors the paper's Figure 5; the S_T−S₁ gap is the
+    interaction share, which is the whole point for γ."""
+    if not SOBOL:
+        fig = go.Figure()
+        fig.add_annotation(
+            text=("Sobol indices unavailable — <b>sobol_indices.json</b> not found.<br>"
+                  "Expected at paper_revision/recalibration/state/ (or set "
+                  "GEOMESA_SOBOL_JSON).<br>No values are shown rather than stale "
+                  "pre-recalibration ones."),
+            xref="paper", yref="paper", x=0.5, y=0.5, showarrow=False,
+            font=dict(size=13, color="#B91C1C"), align="center")
+        apply(fig, "Sobol Sensitivity — data not loaded",
+              xaxis=dict(visible=False), yaxis=dict(visible=False))
+        return fig
+
+    st, s1 = SOBOL["ST"], SOBOL["S1"]
+    items = sorted(st.items(), key=lambda kv: kv[1])       # ascending, as in the paper
+    keys  = [k for k, _ in items]
+    ylab  = [SOBOL_LABELS.get(k, k) for k in keys]
+    st_v  = [st[k] for k in keys]
+    s1_v  = [s1.get(k, np.nan) for k in keys]
+    top_k = max(st, key=st.get)
+
+    fig = go.Figure()
+    fig.add_trace(go.Bar(
+        x=s1_v, y=ylab, orientation="h", name="First-order S₁",
+        marker=dict(color="#CBD5E1", line=dict(color="white", width=1), cornerradius=3),
+        text=[f"{v:.3f}" for v in s1_v], textposition="outside",
+        textfont=dict(size=10, color="#64748B"),
+        hovertemplate="%{y}<br>S₁ = %{x:.3f}<extra></extra>",
+    ))
+    fig.add_trace(go.Bar(
+        x=st_v, y=ylab, orientation="h", name="Total-order S_T",
+        marker=dict(color=["#EF4444" if k == top_k else "#64748B" for k in keys],
+                    line=dict(color="white", width=1), cornerradius=3),
+        text=[f"{v:.3f}" for v in st_v], textposition="outside",
+        textfont=dict(size=11, color="#1C2434"),
+        hovertemplate="%{y}<br>S_T = %{x:.3f}<extra></extra>",
     ))
     fig.add_vline(x=0.05, line_dash="dot", line_color="#9CA3AF",
                   annotation_text="Negligible (< 0.05)",
+                  annotation_position="bottom right",
                   annotation_font=dict(size=10, color="#9CA3AF"))
-    apply(fig, "Sobol Sensitivity — First-Order Indices (S₁) for Food Insecurity Rate",
-          xaxis_title="First-Order Sobol Index (S₁)",
-          margin=dict(l=240, r=100, t=65, b=55), bargap=0.35)
+    src = (f"output = {SOBOL.get('output','food_insecurity_share')} · "
+           f"N={SOBOL.get('N','?')} · center = γ=2.6 recal · "
+           f"±{int(SOBOL.get('pct', 0.3) * 100)}% · {SOBOL.get('households','?')} hh "
+           f"× {SOBOL.get('n_steps','?')} d")
+    fig.add_annotation(xref="paper", yref="paper", x=1.0, y=-0.16,
+                       xanchor="right", showarrow=False, text=src,
+                       font=dict(size=9.5, color="#94A3B8"))
+    apply(fig, "Sobol Sensitivity — Food Insecurity  (γ=2.6 recalibrated build)",
+          xaxis_title="Sobol index", barmode="group",
+          legend=dict(orientation="h", x=1, xanchor="right", y=1.13,
+                      bgcolor="rgba(255,255,255,0.96)", bordercolor="#E5E7EB",
+                      borderwidth=1, font=dict(size=11, color="#374151")),
+          margin=dict(l=190, r=110, t=78, b=76), bargap=0.30)
     return fig
 
 # ═══════════════════════════════════════════════════════════════════
@@ -1202,7 +1356,10 @@ body {
 }
 
 /* ── Header ── */
-.dash-header {
+/* NOT .dash-header — that class name is also emitted by dash_table on every
+   <th>, so the banner gradient/flex/padding used to land on table headers
+   and render them as unreadable stacked teal bars. */
+.app-banner {
   background: linear-gradient(135deg, #1E3A5F 0%, #0D9488 100%);
   padding: 24px 40px 18px;
   color: white;
@@ -1210,10 +1367,10 @@ body {
   align-items: center;
   justify-content: space-between;
 }
-.dash-header h1 {
+.app-banner h1 {
   margin: 0; font-size: 19px; font-weight: 700; letter-spacing: -0.4px;
 }
-.dash-header p { margin: 5px 0 0; font-size: 11.5px; opacity: 0.80; font-weight: 400; }
+.app-banner p { margin: 5px 0 0; font-size: 11.5px; opacity: 0.80; font-weight: 400; }
 .header-badge {
   background: rgba(255,255,255,0.15);
   border: 1px solid rgba(255,255,255,0.3);
@@ -1512,16 +1669,15 @@ TAB_DEFS = [
 # ═══════════════════════════════════════════════════════════════════
 
 def _seed_set_counts():
-    n_diss    = max(len([s for s in DATA_DISS[sk]["data"]    if isinstance(s,int)]) for sk in SCENARIO_KEYS)
-    n_journal = max(len([s for s in DATA_JOURNAL[sk]["data"] if isinstance(s,int)]) for sk in SCENARIO_KEYS)
-    n_all     = n_diss + n_journal
-    return n_diss, n_journal, n_all
+    n_recal = max(len([s for s in DATA_RECAL[sk]["data"] if isinstance(s,int)]) for sk in SCENARIO_KEYS)
+    return n_recal
 
-_nd, _nj, _na = _seed_set_counts()
+_nr = _seed_set_counts()
+# Only the recalibrated (gamma=2.6) FINAL build is available. The selector is a
+# single fixed option (retained so the callbacks below keep working) — no other
+# seed set is loaded or selectable.
 SEED_SET_OPTIONS = [
-    {"label": f"Dissertation  ({_nd} seeds)", "value": "dissertation"},
-    {"label": f"Journal  ({_nj} seeds)",      "value": "journal"},
-    {"label": f"All combined  ({_na} seeds)", "value": "all"},
+    {"label": f"Recalibrated γ=2.6 · FINAL  ({_nr} seeds)", "value": "recal"},
 ]
 
 app.layout = html.Div([
@@ -1532,13 +1688,13 @@ app.layout = html.Div([
             html.P("Jacksonville, FL  ·  Health Zone 1  ·  500 Households  ·  365-Day Simulation  ·  5 Scenarios"),
         ]),
         html.Div([
-            html.Div("Seed set:", style={"fontSize":"11px","fontWeight":"700","color":"#94A3B8",
+            html.Div("Model build:", style={"fontSize":"11px","fontWeight":"700","color":"#94A3B8",
                                          "textTransform":"uppercase","letterSpacing":"0.6px",
                                          "marginBottom":"5px"}),
             dcc.RadioItems(
                 id="seed-set-radio",
                 options=SEED_SET_OPTIONS,
-                value="dissertation",
+                value="recal",
                 inline=False,
                 inputStyle={"marginRight":"5px"},
                 labelStyle={"display":"block","fontSize":"12px","color":"#E2E8F0",
@@ -1554,7 +1710,7 @@ app.layout = html.Div([
                       "padding": "9px 13px", "borderRadius": "8px",
                       "whiteSpace": "nowrap", "alignSelf": "center"}
                ) if os.environ.get('COMBINED_APP') == '1' else html.Div(),
-    ], className="dash-header"),
+    ], className="app-banner"),
 
     # Tab bar
     html.Div(id="tab-bar",
@@ -1575,14 +1731,18 @@ app.layout = html.Div([
         "baseline":   "overview", "scenario1": "overview",
         "scenario2":  "overview", "scenario3": "overview", "scenario4": "overview",
     }),
-    dcc.Store(id="seed-set", data="dissertation"),
+    dcc.Store(id="seed-set", data="recal"),
 
     # Body
     html.Div([
         html.Div(id="sidebar",      className="sidebar"),
+        # dcc.Loading puts `style` on its INNER div, so the outer wrapper needs
+        # parent_style to actually stretch — without it the wrapper sizes to its
+        # content and every chart renders in a ~480px column on any screen.
         dcc.Loading(
             html.Div(id="content-area", className="content-area"),
             type="circle", color="#4F46E5",
+            parent_style={"flex": "1", "minWidth": "0", "display": "flex"},
             style={"flex": "1", "minWidth": "0"},
         ),
     ], className="body-layout"),
@@ -1599,11 +1759,9 @@ app.layout = html.Div([
 )
 def update_seed_set(value):
     label_map = {
-        "dissertation": f"Dissertation · {_nd} seeds",
-        "journal":      f"Journal · {_nj} seeds",
-        "all":          f"All combined · {_na} seeds",
+        "recal": f"Recalibrated γ=2.6 · FINAL · {_nr} seeds",
     }
-    return value, label_map.get(value, "")
+    return value, label_map.get(value, label_map["recal"])
 
 @app.callback(Output("active-tab","data"),
               Input({"type":"tab-btn","tab":dash.ALL},"n_clicks"),
@@ -1681,13 +1839,13 @@ _RENDER_CACHE = {}
               Input("seed-set","data"))
 def render_content(active_tab, active_items, seed_set):
     global DATA
-    seed_set = seed_set or "dissertation"
+    seed_set = seed_set or "recal"
     item = active_items.get(active_tab, "kpi-overview")
     key = (seed_set, active_tab, item)
     with _render_lock:
         if key in _RENDER_CACHE:
             return _RENDER_CACHE[key]
-        DATA = DATA_MAP.get(seed_set, DATA_DISS)
+        DATA = DATA_MAP.get(seed_set, DATA_RECAL)
         dispatch = {
             "comparison": render_comparison,
             "location":   render_location,
@@ -1945,11 +2103,30 @@ def render_comparison(item):
         ])
 
     elif item == "tornado":
+        top = sobol_top()
+        if top:
+            name, st_v, s1_v = top
+            note = (f"**{name} dominates the variance in daily food insecurity: "
+                    f"S_T = {st_v:.3f}** (first-order S₁ = {s1_v:.3f}). The gap between "
+                    f"the two is the share carried by *interactions* — {name.split()[0]} matters "
+                    "both on its own and through how it conditions every other parameter. "
+                    "The shopping thresholds (θ) sit an order of magnitude lower, so food "
+                    "insecurity here is governed by the quality/variety of the reachable food "
+                    "environment rather than by the propensity to shop. This is the "
+                    "recalibrated (γ=2.6) result and matches Figure 5 of the paper; the "
+                    "pre-recalibration θ_low result no longer applies.")
+            kind = "success"
+        else:
+            note = ("**Sobol indices are not loaded**, so no sensitivity claim is shown here. "
+                    "Point `GEOMESA_SOBOL_JSON` at the recalibration artifact "
+                    "(`paper_revision/recalibration/state/sobol_indices.json`) to populate this panel.")
+            kind = "danger"
         return html.Div([
-            section_hdr("Sensitivity Analysis — Sobol First-Order Indices",
-                        "Proportion of outcome variance explained by each input parameter independently."),
-            card("Tornado Chart — S₁ Indices for Food Insecurity Rate", G(fig_tornado_sensitivity(), 430)),
-            finding("**θ_low (shopping threshold for low-income households) explains 95.7% of output variance** — this is an extraordinary dominance result. It confirms that food insecurity in HZ1 is primarily driven by *whether* low-income households can afford to shop at all, not *where* or *how far* they travel. This finding directly motivates S4 (delivery subsidy) as the policy mechanism targeting θ_low.", "success"),
+            section_hdr("Sensitivity Analysis — Sobol Indices",
+                        "Total-order S_T = share of output variance attributable to a parameter "
+                        "including all its interactions. First-order S₁ = its independent share."),
+            card("Tornado Chart — Food Insecurity Rate", G(fig_tornado_sensitivity(), 460)),
+            finding(note, kind),
         ])
 
     elif item == "stability-cv":
@@ -2270,7 +2447,7 @@ def render_policy(item):
                 ], className="card"),
                 html.Div([
                     html.H4("🚶  No-Vehicle Household Radius", style={"color":"#4F46E5","margin":"0 0 10px"}),
-                    html.P("Agents without vehicles are constrained to a 0.8 mi radius. This radius is the single most important spatial parameter in the model (Sobol S₁ = 0.957 for θ_low). Any intervention that places providers within 0.8 mi of no-vehicle household clusters will show outsized benefit. The S2 hub placement achieves this in the north.", style={"fontSize":"13px","color":"#374151","lineHeight":"1.65"}),
+                    html.P("Agents without vehicles are constrained to a 0.8 mi radius, so any intervention that places providers within 0.8 mi of no-vehicle household clusters shows outsized benefit — the S2 hub placement achieves this in the north. Note the Sobol run ranks α (distance) at S_T = 0.210: the radius shapes *which* providers are reachable, but the quality/variety of what is reachable (γ, S_T = 0.942) is what moves food insecurity. See the Sensitivity Tornado panel.", style={"fontSize":"13px","color":"#374151","lineHeight":"1.65"}),
                 ], className="card"),
                 html.Div([
                     html.H4("📐  Location Sensitivity (S2 Variants)", style={"color":"#0D9488","margin":"0 0 10px"}),
@@ -2419,7 +2596,9 @@ def render_scenario(sk, item):
                           style={"background":"white","borderRadius":"12px","padding":"16px 20px","border":"1px solid #E2E8F0","minWidth":"130px","textAlign":"center"}),
             ], style={"display":"flex","gap":"14px","marginBottom":"20px","flexWrap":"wrap"}),
             card(f"{mi['label']} — Per-Seed Breakdown",
-                 G(fig_seed_bars(sk, m), 420), color=c),
+                 G(fig_seed_bars(sk, m), 460), color=c),
+            card(f"{mi['label']} — Value per Seed (run order, not sorted)",
+                 make_dash_table(table_seed_values(sk, m)), color=c),
         ])
 
     elif item in ("vs-baseline","vs-bl-travel"):
@@ -2476,16 +2655,14 @@ if __name__ == "__main__":
     print("  ABM Food Access — PhD Dissertation Dashboard  v4")
     print("  Jacksonville, FL  |  Health Zone 1")
     print("═"*65)
-    print(f"  {'Scenario':<32}  {'Diss':>5}  {'Journal':>8}  {'All':>5}")
-    print(f"  {'─'*32}  {'─'*5}  {'─'*8}  {'─'*5}")
+    print(f"  {'Scenario':<32}  {'Recal γ=2.6 seeds':>18}")
+    print(f"  {'─'*32}  {'─'*18}")
     for sk in SCENARIO_KEYS:
-        nd = len([s for s in DATA_DISS[sk]["data"]    if isinstance(s,int)])
-        nj = len([s for s in DATA_JOURNAL[sk]["data"] if isinstance(s,int)])
-        na = len([s for s in DATA_ALL[sk]["data"]     if isinstance(s,int)])
-        lbl = DATA_DISS[sk]["label"]
-        print(f"  {lbl:<32}  {nd:>5}  {nj:>8}  {na:>5}")
+        nr = len([s for s in DATA_RECAL[sk]["data"] if isinstance(s,int)])
+        lbl = DATA_RECAL[sk]["label"]
+        print(f"  {lbl:<32}  {nr:>18}")
     print("═"*65)
-    print("  Seed-set selector available in the dashboard header.")
+    print("  Showing ONLY the recalibrated γ=2.6 FINAL build (no other seed sets).")
     print("  ➜  http://127.0.0.1:8065")
     print("═"*65 + "\n")
     if os.environ.get('COMBINED_APP') != '1':

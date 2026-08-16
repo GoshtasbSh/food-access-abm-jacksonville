@@ -23,6 +23,9 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from SALib.sample import sobol as sobol_sampler
 from SALib.analyze import sobol
 
+# Sobol outputs live under ABM/results/sa_results/ (cwd-independent, restructure).
+_SA_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "results", "sa_results")
+
 # Model imports - each run loads its own data
 # (imports inside run_single_model to keep worker process clean)
 
@@ -148,6 +151,12 @@ def _run_single_model_impl(args_tuple):
         
         with _quiet():
             model = create_baseline_scenario(config=config)
+            # Seed Mesa's per-model activation RNG (model.random) — the global
+            # random/np seeds above do NOT control it, so without this the
+            # same (sample, seed) gave different Sobol outputs on every run
+            # (see run_journal_50seeds.py for the same ritual).
+            if hasattr(model, "reset_randomizer"):
+                model.reset_randomizer(seed)
             for _ in range(n_steps):
                 model.step()
         
@@ -241,7 +250,7 @@ def run_sa_sweep(N: int, pct: float, n_steps: int = 90,
     if progress_callback:
         progress_callback(0, n_runs, done=False, result_path=None)
     
-    os.makedirs('sa_results', exist_ok=True)
+    os.makedirs(_SA_DIR, exist_ok=True)
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     
     Y_matrix = np.full((n_runs, len(OUTPUT_NAMES)), np.nan)
@@ -280,7 +289,7 @@ def run_sa_sweep(N: int, pct: float, n_steps: int = 90,
             if progress_callback:
                 progress_callback(completed, n_runs, done=False, result_path=None)
             if completed % 200 == 0 and completed > 0:
-                ckpt_path = f"sa_results/checkpoint_{timestamp}_{completed}.csv"
+                ckpt_path = os.path.join(_SA_DIR, f"checkpoint_{timestamp}_{completed}.csv")
                 raw = pd.DataFrame(param_values, columns=param_names)
                 for j, k in enumerate(OUTPUT_NAMES):
                     raw[k] = Y_matrix[:, j]
@@ -335,9 +344,9 @@ def run_sa_sweep(N: int, pct: float, n_steps: int = 90,
         result_path = f"sa_results/sobol_{timestamp}"
         progress_callback(n_runs, n_runs, done=True, result_path=result_path)
     
-    raw_path = f"sa_results/sobol_raw_{timestamp}.csv"
-    tidy_path = f"sa_results/sobol_tidy_{timestamp}.csv"
-    indices_path = f"sa_results/sobol_indices_{timestamp}.json"
+    raw_path = os.path.join(_SA_DIR, f"sobol_raw_{timestamp}.csv")
+    tidy_path = os.path.join(_SA_DIR, f"sobol_tidy_{timestamp}.csv")
+    indices_path = os.path.join(_SA_DIR, f"sobol_indices_{timestamp}.json")
     
     raw_df.to_csv(raw_path, index=False)
     if tidy_df is not None:
@@ -397,7 +406,7 @@ def load_latest_sa_results():
     Load most recent sobol_tidy_*.csv and sobol_indices_*.json from ./sa_results/
     Returns (raw_df, tidy_df, indices_dict) or (None, None, None)
     """
-    d = 'sa_results'
+    d = _SA_DIR
     if not os.path.isdir(d):
         return (None, None, None)
     
@@ -1076,6 +1085,6 @@ if __name__ == '__main__':
         sys.exit(1)
 
     print(f"Loaded {len(raw_df)} rows from latest SA results.", flush=True)
-    output_dir = 'sa_results'
+    output_dir = _SA_DIR
     generate_dissertation_figures(raw_df, indices_dict, output_dir)
     print("Done.", flush=True)

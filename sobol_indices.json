@@ -1,0 +1,37 @@
+{
+  "output": "food_insecurity_share",
+  "nan_imputed": 0,
+  "ST": {
+    "alpha_distance": 0.20950754341019076,
+    "beta_price_budget": 0.02975614384666478,
+    "gamma_quality_variety": 0.9418730429832054,
+    "delta_convenience": 0.2143656893443401,
+    "go_shop_threshold_low": 0.13299174494733848,
+    "go_shop_threshold_medium": 0.22529651769617615,
+    "go_shop_threshold_high": 0.25991080747699025
+  },
+  "S1": {
+    "alpha_distance": -0.010383160166998563,
+    "beta_price_budget": -0.004521598348989378,
+    "gamma_quality_variety": 0.6231031762975617,
+    "delta_convenience": 0.05641634642755499,
+    "go_shop_threshold_low": 0.04548551807571896,
+    "go_shop_threshold_medium": -0.0013002300977323562,
+    "go_shop_threshold_high": 0.06357813834329655
+  },
+  "center": {
+    "alpha_distance": 2.0,
+    "beta_price_budget": 1.1,
+    "gamma_quality_variety": 2.6,
+    "delta_convenience": 0.4,
+    "go_shop_threshold_low": 3.0,
+    "go_shop_threshold_medium": 5.0,
+    "go_shop_threshold_high": 14.0
+  },
+  "pct": 0.3,
+  "N": 256,
+  "n_steps": 90,
+  "seed": 42,
+  "households": 200,
+  "written": "2026-07-24T22:07:34.408086"
+}

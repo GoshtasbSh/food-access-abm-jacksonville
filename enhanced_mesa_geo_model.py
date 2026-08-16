@@ -45,11 +45,19 @@ def _load_calibrated_params_from_json():
     import os as _os
 
     script_dir = _os.path.dirname(_os.path.abspath(__file__))
-    search_dirs = [script_dir, '.', _os.path.join(script_dir, 'extra_Files'), 'extra_Files']
+    # Calibrated params are discovered from the PROJECT ROOT only. Archived
+    # copies under extra_Files/ hold different (superseded) parameter values
+    # and must never win discovery via an mtime tiebreak; CWD-relative dirs
+    # made the winner depend on where Python was launched. Set
+    # GEOMESA_CALIBRATED_PARAMS to an explicit JSON path to override.
+    search_dirs = [script_dir]
     patterns = [
         'FINAL_CALIBRATED_PARAMS_*.json',
         'BEST_PHASE1_PARAMS_*.json',
     ]
+    _explicit = _os.environ.get('GEOMESA_CALIBRATED_PARAMS')
+    if _explicit and _os.path.isfile(_explicit):
+        search_dirs, patterns = [_os.path.dirname(_explicit)], [_os.path.basename(_explicit)]
 
     files = []
     for d in search_dirs:
@@ -312,11 +320,9 @@ class SimulationConfig:
     gamma_quality_variety: float = 0.6  # Quality/variety preference weight
     delta_convenience: float = 0.4      # Convenience factor weight
     
-    # Store-type biases by income level (additive offsets to utility)
-    # Format: {store_type: bias_value}
-    store_bias_low_income: Dict[str, float] = None
-    store_bias_medium_income: Dict[str, float] = None
-    store_bias_high_income: Dict[str, float] = None
+    # (store-type bias fields removed: the biases were keyed on store
+    #  types that no instantiated provider ever has, so the term was
+    #  provably always 0.0 — deleted so code matches the written model)
     
     # Go-shop threshold (days since last shop that triggers shopping need) - CALIBRATED
     go_shop_threshold_low: float = 4.0      # Low income
@@ -402,36 +408,6 @@ class SimulationConfig:
             self.go_shop_threshold_medium = _cal['go_shop_threshold_medium']
             self.go_shop_threshold_high = _cal['go_shop_threshold_high']
 
-        # Set default store-type biases for discrete choice model
-        if self.store_bias_low_income is None:
-            self.store_bias_low_income = {
-                'supercenter': 0.1,      # Low income prefers supercenters (low prices)
-                'convenience': 0.05,     # Slight preference for nearby convenience
-                'discount': 0.15,        # Strong preference for discount stores
-                'supermarket': 0.0,      # Neutral
-                'club_store': -0.1,      # Membership cost barrier
-                'specialty': -0.2        # Too expensive
-            }
-        
-        if self.store_bias_medium_income is None:
-            self.store_bias_medium_income = {
-                'supercenter': 0.05,
-                'convenience': 0.0,
-                'discount': 0.05,
-                'supermarket': 0.05,     # Slight preference
-                'club_store': 0.0,
-                'specialty': 0.0
-            }
-        
-        if self.store_bias_high_income is None:
-            self.store_bias_high_income = {
-                'supercenter': 0.0,
-                'convenience': 0.0,
-                'discount': -0.05,       # Slight aversion
-                'supermarket': 0.1,      # Preference for quality
-                'club_store': 0.05,      # Can afford membership
-                'specialty': 0.1         # Quality/variety preference
-            }
         
         if self.operating_hours is None:
             self.operating_hours = {
@@ -603,8 +579,6 @@ class EnhancedHouseholdAgent(mg.GeoAgent):
         self.is_delivery_user = (self.can_use_delivery and
                                  random.random() < self.delivery_propensity)
         
-        # Store type biases for utility calculation
-        self.store_type_biases = self._get_store_type_biases()
         
         # ===== ENHANCED SPATIAL TRACKING =====
         self.accessibility_score = 0.0
@@ -747,26 +721,8 @@ class EnhancedHouseholdAgent(mg.GeoAgent):
         else:  # HIGH
             return self.config.delivery_baseline_high
     
-    def _should_use_delivery_today(self) -> bool:
-        """Decide if household will use delivery today (stochastic choice)"""
-        if not self.can_use_delivery:
-            return False
-        
-        # Check if any delivery services available
-        delivery_services = [p for p in self.model.food_providers 
-                            if isinstance(p, EnhancedDeliveryService)]
-        if not delivery_services:
-            return False
-        
-        # Stochastic choice based on propensity
-        # If subsidized delivery exists, increase propensity by uplift multiplier
-        has_subsidy = any(d.subsidized for d in delivery_services)
-        effective_propensity = self.delivery_propensity
-        if has_subsidy:
-            effective_propensity *= self.config.delivery_subsidy_uplift
-            effective_propensity = min(effective_propensity, 0.95)  # Cap at 95%
-        
-        return random.random() < effective_propensity
+    # (_should_use_delivery_today removed: it was never called; the
+    #  subsidy adoption uplift is applied at Scenario-4 setup instead)
     
     def _find_best_delivery_service(self) -> Tuple[Optional['EnhancedDeliveryService'], float, float]:
         """
@@ -866,14 +822,6 @@ class EnhancedHouseholdAgent(mg.GeoAgent):
             return None, float('inf'), -float('inf')
         return best_service, best_delivery_distance, best_delivery_utility
     
-    def _get_store_type_biases(self) -> Dict[str, float]:
-        """Get store type biases based on income level"""
-        if self.income == IncomeLevel.LOW:
-            return self.config.store_bias_low_income.copy()
-        elif self.income == IncomeLevel.MEDIUM:
-            return self.config.store_bias_medium_income.copy()
-        else:  # HIGH
-            return self.config.store_bias_high_income.copy()
     
     def calculate_utility(self, provider, distance: float) -> float:
         """
@@ -903,10 +851,8 @@ class EnhancedHouseholdAgent(mg.GeoAgent):
         # IDEA #1: Corner stores have 1.16x price premium (makes them less attractive)
         elif store_type_str == 'corner_store':
             price_score = 1.0 / 1.16  # Lower utility due to higher prices (≈0.86)
-        elif store_type_str in ['discount', 'supercenter']:
-            price_score = 1.2  # Lower prices
-        elif store_type_str in ['specialty', 'club_store']:
-            price_score = 0.8  # Higher prices
+        # (discount/supercenter/specialty/club_store branches removed:
+        #  no instantiated provider ever has those types)
         
         # Budget consciousness varies by income (pantries especially attractive for low-income!)
         budget_weight = 1.0 if self.income == IncomeLevel.LOW else (0.7 if self.income == IncomeLevel.MEDIUM else 0.5)
@@ -921,11 +867,9 @@ class EnhancedHouseholdAgent(mg.GeoAgent):
         convenience_score = availability * 0.5 + 0.5  # Range [0.5, 1.0]
         convenience_term = self.config.delta_convenience * convenience_score
         
-        # Store type bias (income-specific preferences)
-        store_bias = self.store_type_biases.get(store_type_str, 0.0)
-        
-        # Total utility
-        utility = distance_term + price_term + quality_term + convenience_term + store_bias
+        # Total utility (store-type bias term removed — see SimulationConfig
+        # note: it was provably always 0.0)
+        utility = distance_term + price_term + quality_term + convenience_term
         
         # CRITICAL FIX: Add MASSIVE utility boost for mobile pantries to encourage usage
         # Pantries are FREE and provide essential food - should be highly attractive
@@ -1997,7 +1941,13 @@ class EnhancedMesaGeoModel(mesa.Model):
                 provider.update_market_status(self.current_day)
             if isinstance(provider, EnhancedMobilePantry):
                 provider.update_daily_status()
-        
+
+        # Mobile pantries may have relocated above; rebuild the spatial index
+        # so today's household choice sets see providers at their real
+        # positions (a stale index leaves relocated pantries discoverable only
+        # near their add-time coordinates).
+        self._build_spatial_index()
+
         # Standard Mesa step
         self.schedule.step()
         
@@ -2054,7 +2004,9 @@ class EnhancedMesaGeoModel(mesa.Model):
         return sum(c.travel_distance for c in travelers) / len(travelers)
     
     def _calculate_spatial_equity_index(self) -> float:
-        """Calculate spatial equity index (lower = more equitable)"""
+        """Calculate spatial equity index (coefficient of variation of household
+        accessibility; treated as HIGHER-is-better in the composite ranking —
+        dissertation Fig. 4-13, weight +0.6. Do not flip that weight to negative)."""
         if not self.consumers:
             return 0.0
         
@@ -2129,7 +2081,7 @@ class EnhancedMesaGeoModel(mesa.Model):
             if income_consumers:
                 avg_satisfaction = np.mean([c.satisfied_today for c in income_consumers])
                 avg_accessibility = np.mean([c.accessibility_score for c in income_consumers])
-                avg_travel = np.mean([c.travel_distance for c in income_consumers if c.travel_distance > 0])
+                avg_travel = (np.mean(_d) if (_d := [c.travel_distance for c in income_consumers if c.travel_distance > 0]) else 0.0)
                 
                 demographic_stats[f'income_{income_level.value}'] = {
                     'count': len(income_consumers),
@@ -2146,12 +2098,12 @@ class EnhancedMesaGeoModel(mesa.Model):
             'with_car': {
                 'count': len(car_owners),
                 'satisfaction_rate': np.mean([c.satisfied_today for c in car_owners]) if car_owners else 0,
-                'avg_travel_distance': np.mean([c.travel_distance for c in car_owners if c.travel_distance > 0]) or 0
+                'avg_travel_distance': (np.mean(_d) if (_d := [c.travel_distance for c in car_owners if c.travel_distance > 0]) else 0)
             },
             'without_car': {
                 'count': len(non_car_owners),
                 'satisfaction_rate': np.mean([c.satisfied_today for c in non_car_owners]) if non_car_owners else 0,
-                'avg_travel_distance': np.mean([c.travel_distance for c in non_car_owners if c.travel_distance > 0]) or 0
+                'avg_travel_distance': (np.mean(_d) if (_d := [c.travel_distance for c in non_car_owners if c.travel_distance > 0]) else 0)
             }
         }
         

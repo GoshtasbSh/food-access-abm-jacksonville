@@ -28,6 +28,34 @@ import glob
 import os
 from datetime import datetime
 
+# ── Use the RECALIBRATED (gamma=2.6) FINAL model as the base calibration for the
+# live dashboard, so it matches the paper/dissertation results (single best model).
+# This points the calibrated-param loader at the recal file via the explicit
+# GEOMESA_CALIBRATED_PARAMS override. It does NOT create an auto-discovered
+# FINAL_CALIBRATED_PARAMS_* file, so default discovery (and the GABM model, which
+# loads its own Feb file) is unchanged. Must run BEFORE the first SimulationConfig()
+# because get_calibrated_params() caches once per process. setdefault respects an
+# explicit external override.
+_RECAL_PARAMS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "RECAL_JOURNAL_PARAMS.json")
+if not os.path.isfile(_RECAL_PARAMS):
+    _alt = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                        "paper_revision", "recalibration", "RECAL_JOURNAL_PARAMS.json")
+    if os.path.isfile(_alt):
+        _RECAL_PARAMS = _alt
+if os.path.isfile(_RECAL_PARAMS):
+    os.environ.setdefault("GEOMESA_CALIBRATED_PARAMS", _RECAL_PARAMS)
+
+# If a bundled Health-Zone shapefile ships next to this file (deploy layout where
+# the external ../Data tree is absent, e.g. the HF Space), point the model at it so
+# household placement + distances use the REAL geography instead of the fallback
+# polygon (which badly distorts results). Guarded by isfile so a normal local
+# checkout — which resolves the shapefile via config's default ../Data path —
+# is unaffected when the bundle is absent.
+_BUNDLED_SHP = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                            "geodata", "HealthZones1and4", "Health_Zones_1_and_4.shp")
+if os.path.isfile(_BUNDLED_SHP):
+    os.environ.setdefault("GEOMESA_HEALTH_ZONE_SHP", _BUNDLED_SHP)
+
 # Import enhanced Mesa-Geo modules
 from baseline_scenario import create_baseline_scenario, BaselineScenarioModel
 from enhanced_scenario_1 import create_enhanced_scenario_1, EnhancedScenario1Model
@@ -3190,14 +3218,14 @@ def create_comparison_radar(rank_df, sc_colors_map):
     labels  = ["Satisfaction Rate", "FI Reduction", "Travel Efficiency", "Equity (low CV)"]
 
     norm_df = rank_df.copy()
-    # satisfaction_rate: HIGHER is better → normalise 0→1 directly
-    for col in ["satisfaction_rate"]:
+    # satisfaction_rate AND spatial_equity_index: HIGHER is better (study convention,
+    # dissertation Fig. 4-13, weight +0.6) → normalise 0→1 directly
+    for col in ["satisfaction_rate", "spatial_equity_index"]:
         if col in norm_df.columns:
             rng = norm_df[col].max() - norm_df[col].min()
             norm_df[col] = (norm_df[col] - norm_df[col].min()) / (rng + 1e-9)
-    # FI rate, travel distance AND spatial_equity_index: ALL lower = better → invert
-    # spatial_equity_index = CV (std/mean of access scores): higher = more unequal = WORSE
-    for col in ["food_insecurity_rate", "avg_travel_distance", "spatial_equity_index"]:
+    # FI rate, travel distance: lower = better → invert so bigger = better on the radar
+    for col in ["food_insecurity_rate", "avg_travel_distance"]:
         if col in norm_df.columns:
             rng = norm_df[col].max() - norm_df[col].min()
             norm_df[col] = 1.0 - (norm_df[col] - norm_df[col].min()) / (rng + 1e-9)
@@ -3690,7 +3718,7 @@ def _autosave_single_seed(scenario, config_dict, seed, snap_key, history, days):
     """
     try:
         script_dir  = os.path.dirname(os.path.abspath(__file__))
-        save_dir    = os.path.join(script_dir, "scenarios_results")
+        save_dir    = os.path.join(script_dir, "results", "scenarios_results")
         os.makedirs(save_dir, exist_ok=True)
         n_hh   = int(config_dict.get("num_consumers", 0))
         ts_str = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -3779,7 +3807,7 @@ def _store_scenario_snapshot(scenario_name, all_seed_histories=None, seeds_used=
     # ── Auto-save summary JSON (outside lock) ──────────────────────────────
     try:
         script_dir = os.path.dirname(os.path.abspath(__file__))
-        save_dir   = os.path.join(script_dir, "scenarios_results")
+        save_dir   = os.path.join(script_dir, "results", "scenarios_results")
         os.makedirs(save_dir, exist_ok=True)
         seeds_str = "_".join(str(s) for s in (seeds_used or [42]))
         ts_file   = datetime.now().strftime("%Y%m%d_%H%M%S")
@@ -4198,7 +4226,7 @@ def create_results_view(selected_scenario=None):
                     style={"width":"100%","borderCollapse":"collapse",
                            "border":"1px solid #E2E8F0","fontSize":"12px"}
                 ),
-                html.P("Spatial Equity (CV) = std/mean of household accessibility scores — lower is more equitable.",
+                html.P("Spatial Equity Index — how evenly food access is distributed across households; higher = more equitable.",
                        style={"fontSize":"10px","color":"#94A3B8","marginTop":"6px","marginBottom":"0"}),
             ], style={"marginBottom":"16px","background":"white","padding":"14px",
                       "borderRadius":"8px","border":"1px solid #E2E8F0",
@@ -4529,6 +4557,12 @@ def control_simulation(start_clicks, stop_clicks, reset_clicks, selected_tab, sc
                         # ── Fresh model + seed for this replication ──────────
                         _rmod.seed(seed); np.random.seed(seed)
                         model = _create_model_for_scenario(scenario, config, input_dict)
+                        # Seed Mesa's per-model activation RNG too — the global
+                        # seeds above do NOT control it; without this the same
+                        # seed gave non-reproducible dashboard runs (same
+                        # ritual as run_journal_50seeds.py).
+                        if hasattr(model, "reset_randomizer"):
+                            model.reset_randomizer(seed)
                         with simulation_lock:
                             sim_state.current_model = model
 
@@ -4892,7 +4926,7 @@ def initialize_metrics_navigation(main_metric):
 def _build_sa_figure_tabs():
     """Load pre-generated SA figures from disk and return a dcc.Tabs (or placeholder)."""
     import base64
-    sa_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'sa_results')
+    sa_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'results', 'sa_results')
     figures = [
         ("🔵 Pearson Correlations", "fig1_pearson_heatmap.png",
          "Pearson r between each parameter and output metric. "
@@ -4993,7 +5027,7 @@ def build_sa_layout(center_params, json_path, cal_error, tidy_df, indices_dict=N
     budget_content = html.Div("No results yet — run sensitivity analysis above.",
                              style={"padding": "20px", "textAlign": "center", "color": "#9ca3af", "fontSize": "14px"})
     pearson_csv = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                               'sa_results', 'sensitivity_pearson_results.csv')
+                               'results', 'sa_results', 'sensitivity_pearson_results.csv')
     if os.path.isfile(pearson_csv):
         try:
             pdf = pd.read_csv(pearson_csv)
