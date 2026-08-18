@@ -36,14 +36,27 @@ from datetime import datetime
 # loads its own Feb file) is unchanged. Must run BEFORE the first SimulationConfig()
 # because get_calibrated_params() caches once per process. setdefault respects an
 # explicit external override.
-_RECAL_PARAMS = os.path.join(os.path.dirname(os.path.abspath(__file__)), "RECAL_JOURNAL_PARAMS.json")
-if not os.path.isfile(_RECAL_PARAMS):
-    _alt = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                        "paper_revision", "recalibration", "RECAL_JOURNAL_PARAMS.json")
-    if os.path.isfile(_alt):
-        _RECAL_PARAMS = _alt
-if os.path.isfile(_RECAL_PARAMS):
-    os.environ.setdefault("GEOMESA_CALIBRATED_PARAMS", _RECAL_PARAMS)
+# GEOFIX (2026-08-18): prefer the corrected-geography FINAL calibration
+# (RECAL_GEOFIX_PARAMS.json, MAPE 6.51%) and its corrected store CSV; fall back
+# to the July recal file only if the geofix artifacts are absent.
+_ABM_DIR = os.path.dirname(os.path.abspath(__file__))
+_REPO_DIR = os.path.dirname(_ABM_DIR)
+_PARAM_CANDIDATES = [
+    os.path.join(_ABM_DIR, "RECAL_GEOFIX_PARAMS.json"),
+    os.path.join(_REPO_DIR, "paper_revision", "recalibration_geofix", "RECAL_GEOFIX_PARAMS.json"),
+    os.path.join(_ABM_DIR, "RECAL_JOURNAL_PARAMS.json"),
+    os.path.join(_REPO_DIR, "paper_revision", "recalibration", "RECAL_JOURNAL_PARAMS.json"),
+]
+for _p in _PARAM_CANDIDATES:
+    if os.path.isfile(_p):
+        os.environ.setdefault("GEOMESA_CALIBRATED_PARAMS", _p)
+        break
+for _c in (os.path.join(_REPO_DIR, "data", "supermarkets_with_coords_CORRECTED_20260818.csv"),
+           os.path.join(_ABM_DIR, "data", "supermarkets_with_coords_CORRECTED_20260818.csv"),
+           os.path.join(_ABM_DIR, "supermarkets_with_coords_CORRECTED_20260818.csv")):
+    if os.path.isfile(_c):
+        os.environ.setdefault("GEOMESA_SUPERMARKET_CSV", _c)
+        break
 
 # If a bundled Health-Zone shapefile ships next to this file (deploy layout where
 # the external ../Data tree is absent, e.g. the HF Space), point the model at it so

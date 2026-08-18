@@ -28,8 +28,11 @@ def get_project_dir() -> str:
     return _PROJECT_DIR_OVERRIDE
 
 def get_supermarket_csv() -> str:
-    """Path to curated supermarket CSV (in project)."""
-    return os.path.join(get_project_dir(), "supermarkets_with_coords_CURATED.csv")
+    """Path to curated supermarket CSV (in project).
+    GEOFIX 2026-08-18: override via GEOMESA_SUPERMARKET_CSV (corrected store
+    coordinates); default unchanged."""
+    default = os.path.join(get_project_dir(), "supermarkets_with_coords_CURATED.csv")
+    return os.environ.get("GEOMESA_SUPERMARKET_CSV", default)
 
 def get_census_data_dir() -> str:
     """Path to census data (duval_household_attributes.csv, ACS* files). Override via GEOMESA_CENSUS_DATA_DIR."""

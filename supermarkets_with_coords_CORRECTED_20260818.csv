@@ -1,0 +1,15 @@
+Name,Address,ZipCode,Category,ProviderType,Longitude,Latitude,Capacity,PriceLevel,Rating
+Publix Super Market at Riverside,"2033 Riverside Ave, Jacksonville, FL 32204",32204,Supermarket,ProviderType.GROCERY_STORE,-81.6820914,30.3112133,700,$$,4.5
+Winn_Dixie (Brentwood),"5210 Norwood Ave, Jacksonville, FL 32208",32208,Grocery store / Supermarket,ProviderType.GROCERY_STORE,-81.6654910,30.3711200,700,$,4.1
+Harveys Supermarket (Gateway Town Center),"201 W 48th Street, Jacksonville, FL 32208",32208,Supermarket,ProviderType.GROCERY_STORE,-81.6554071,30.3757176,700,$,4.1
+ALDI,"2261 Edgewood Ave W, Jacksonville, FL 32209",32209,Supermarket,ProviderType.GROCERY_STORE,-81.6982895,30.3789801,700,$,4.3
+Springfield Superette,"1950 N Main St, Jacksonville, FL 32206",32206,Convenience store,ProviderType.CORNER_STORE,-81.6538625,30.3477531,80,$,3.5
+Clean Greens Mart,"1807 W 45th St #1, Jacksonville, FL 32209",32209,Convenience store,ProviderType.CORNER_STORE,-81.6877145,30.3717539,80,$,4.6
+Prime Time Super Market,"1548 Kings Rd, Jacksonville, FL 32209",32209,Convenience store,ProviderType.CORNER_STORE,-81.6809176,30.3427956,80,$,3.0
+Dollar Tree (Gateway Town Center),"5258 Norwood Ave Unit 12A, Jacksonville, FL 32208",32208,Dollar store,ProviderType.CORNER_STORE,-81.6656000,30.3716000,80,$,3.5
+Family Dollar (Moncrief Rd),"3000 Moncrief Rd Unit 6, Jacksonville, FL 32209",32209,Dollar store,ProviderType.CORNER_STORE,-81.6734930,30.3561620,80,$,3.5
+Family Dollar (Edgewood Ave W),"3040 Edgewood Ave W, Jacksonville, FL 32209",32209,Dollar store,ProviderType.CORNER_STORE,-81.7145590,30.3745371,80,$,3.5
+Dollar General,"2161 Kings Rd, Jacksonville, FL 32209",32209,Dollar store,ProviderType.CORNER_STORE,-81.6961474,30.3489115,80,$,3.5
+Moonshine Food Store,"3629 N Main St, Jacksonville, FL 32206",32206,Convenience store,ProviderType.CORNER_STORE,-81.6534961,30.3602217,50,$,3.0
+Magic Korner,"1501 Mcconihe St, Jacksonville, FL 32209",32209,Convenience store,ProviderType.CORNER_STORE,-81.6800330,30.3464160,50,$,3.5
+Shop and Save,"150 E 3rd St, Jacksonville, FL 32206",32206,Convenience store,ProviderType.CORNER_STORE,-81.6523465,30.3388333,50,$,4.0

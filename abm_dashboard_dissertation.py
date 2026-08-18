@@ -284,13 +284,20 @@ def load_combined_all(data_diss, data_journal):
         )
     return combined
 
-# ONLY the recalibrated (gamma=2.6) FINAL build is shown. The pre-recal
-# Dissertation (6-seed) and Journal (July 50-seed) sets used the old, mismatched
-# gamma=0.6 parameters and were removed so the dashboard, paper, and dissertation
-# all reflect the single best/current model with no discrepancy.
+# FINAL build = GEOFIX (corrected store geography, recalibrated 2026-08-18,
+# aggregate MAPE 6.51%). The July recal set (gamma=2.6) was produced with the
+# displaced store coordinates and is retained as a selectable reference only.
+GEOFIX_DIR = os.path.join(BASE_DIR, "results", "journal_results_50seeds_geofix")
+
+def load_geofix_all():
+    """Load the GEOFIX FINAL 50-seed results — corrected store geography,
+    recalibrated (alpha=2.0, beta=0.5, gamma=0.6, MAPE 6.51%, 2026-08-18)."""
+    return load_journal_dir(GEOFIX_DIR, JOURNAL_SEEDS)
+
+DATA_GEOFIX  = load_geofix_all()
 DATA_RECAL   = load_recal_all()
-DATA_MAP     = {"recal": DATA_RECAL}
-DATA         = DATA_RECAL   # the only dataset (recalibrated FINAL build)
+DATA_MAP     = {"geofix": DATA_GEOFIX, "recal": DATA_RECAL}
+DATA         = DATA_GEOFIX  # default dataset (GEOFIX FINAL build)
 
 SCENARIO_KEYS       = ["baseline", "scenario1", "scenario2", "scenario3", "scenario4"]
 LOCATION_KEYS       = ["scenario2_north", "scenario2_south", "scenario2_east", "scenario2_west"]
@@ -982,6 +989,8 @@ def fig_pairwise_cohend(metric):
 # which γ dominates (S_T=0.942).
 SOBOL_PATHS = [
     os.environ.get("GEOMESA_SOBOL_JSON", ""),
+    os.path.join(BASE_DIR, "..", "paper_revision", "recalibration_geofix", "state", "sobol_indices.json"),
+    os.path.join(BASE_DIR, "paper_revision", "recalibration_geofix", "state", "sobol_indices.json"),
     os.path.join(BASE_DIR, "..", "paper_revision", "recalibration", "state", "sobol_indices.json"),
     os.path.join(BASE_DIR, "paper_revision", "recalibration", "state", "sobol_indices.json"),
     os.path.join(BASE_DIR, "sobol_indices.json"),          # flat HF Space layout
@@ -1060,14 +1069,15 @@ def fig_tornado_sensitivity():
                   annotation_text="Negligible (< 0.05)",
                   annotation_position="bottom right",
                   annotation_font=dict(size=10, color="#9CA3AF"))
+    _g = (SOBOL.get('center') or {}).get('gamma_quality_variety', '?')
     src = (f"output = {SOBOL.get('output','food_insecurity_share')} · "
-           f"N={SOBOL.get('N','?')} · center = γ=2.6 recal · "
+           f"N={SOBOL.get('N','?')} · center γ={_g} · "
            f"±{int(SOBOL.get('pct', 0.3) * 100)}% · {SOBOL.get('households','?')} hh "
            f"× {SOBOL.get('n_steps','?')} d")
     fig.add_annotation(xref="paper", yref="paper", x=1.0, y=-0.16,
                        xanchor="right", showarrow=False, text=src,
                        font=dict(size=9.5, color="#94A3B8"))
-    apply(fig, "Sobol Sensitivity — Food Insecurity  (γ=2.6 recalibrated build)",
+    apply(fig, "Sobol Sensitivity — Food Insecurity  (FINAL corrected-geography build)",
           xaxis_title="Sobol index", barmode="group",
           legend=dict(orientation="h", x=1, xanchor="right", y=1.13,
                       bgcolor="rgba(255,255,255,0.96)", bordercolor="#E5E7EB",
@@ -1669,15 +1679,17 @@ TAB_DEFS = [
 # ═══════════════════════════════════════════════════════════════════
 
 def _seed_set_counts():
-    n_recal = max(len([s for s in DATA_RECAL[sk]["data"] if isinstance(s,int)]) for sk in SCENARIO_KEYS)
-    return n_recal
+    n_geofix = max(len([s for s in DATA_GEOFIX[sk]["data"] if isinstance(s,int)]) for sk in SCENARIO_KEYS)
+    n_recal  = max(len([s for s in DATA_RECAL[sk]["data"] if isinstance(s,int)]) for sk in SCENARIO_KEYS)
+    return n_geofix, n_recal
 
-_nr = _seed_set_counts()
-# Only the recalibrated (gamma=2.6) FINAL build is available. The selector is a
-# single fixed option (retained so the callbacks below keep working) — no other
-# seed set is loaded or selectable.
+_ng, _nr = _seed_set_counts()
+# Default = GEOFIX FINAL build (corrected store geography, MAPE 6.51%,
+# 2026-08-18). The July recal build (produced with the displaced store
+# coordinates) is retained as a selectable reference for comparison only.
 SEED_SET_OPTIONS = [
-    {"label": f"Recalibrated γ=2.6 · FINAL  ({_nr} seeds)", "value": "recal"},
+    {"label": f"FINAL · corrected geography  ({_ng} seeds)", "value": "geofix"},
+    {"label": f"July recal γ=2.6 · superseded (wrong store coords)  ({_nr} seeds)", "value": "recal"},
 ]
 
 app.layout = html.Div([
@@ -1694,7 +1706,7 @@ app.layout = html.Div([
             dcc.RadioItems(
                 id="seed-set-radio",
                 options=SEED_SET_OPTIONS,
-                value="recal",
+                value="geofix",
                 inline=False,
                 inputStyle={"marginRight":"5px"},
                 labelStyle={"display":"block","fontSize":"12px","color":"#E2E8F0",
@@ -1731,7 +1743,7 @@ app.layout = html.Div([
         "baseline":   "overview", "scenario1": "overview",
         "scenario2":  "overview", "scenario3": "overview", "scenario4": "overview",
     }),
-    dcc.Store(id="seed-set", data="recal"),
+    dcc.Store(id="seed-set", data="geofix"),
 
     # Body
     html.Div([
@@ -1839,13 +1851,13 @@ _RENDER_CACHE = {}
               Input("seed-set","data"))
 def render_content(active_tab, active_items, seed_set):
     global DATA
-    seed_set = seed_set or "recal"
+    seed_set = seed_set or "geofix"
     item = active_items.get(active_tab, "kpi-overview")
     key = (seed_set, active_tab, item)
     with _render_lock:
         if key in _RENDER_CACHE:
             return _RENDER_CACHE[key]
-        DATA = DATA_MAP.get(seed_set, DATA_RECAL)
+        DATA = DATA_MAP.get(seed_set, DATA_GEOFIX)
         dispatch = {
             "comparison": render_comparison,
             "location":   render_location,

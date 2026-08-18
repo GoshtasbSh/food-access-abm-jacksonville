@@ -1,0 +1,264 @@
+{
+  "final_parameters": {
+    "alpha_distance": 2.0,
+    "beta_price_budget": 0.5,
+    "gamma_quality_variety": 0.6,
+    "delta_convenience": 0.4,
+    "go_shop_threshold_low": 4.0,
+    "go_shop_threshold_medium": 5.0,
+    "go_shop_threshold_high": 14.0
+  },
+  "calibration_error_full": 0.06510329665403368,
+  "per_target_mape": {
+    "spend_low": 0.04090641523712122,
+    "spend_med": 0.040298720236091205,
+    "fi_day": 0.10909090909090902
+  },
+  "corner_share_reported": {
+    "value": 0.2403050904471661,
+    "national_benchmark": 0.42,
+    "gap_vs_national": 0.4278450227448426,
+    "role": "validation pattern, NOT scored"
+  },
+  "metrics_mean": {
+    "spend_low": 3555.3599187159916,
+    "spend_med": 4483.724379056982,
+    "corner_trips": 0.2403050904471661,
+    "fi_day": 0.366
+  },
+  "metrics_std": {
+    "spend_low": 68.63525477125062,
+    "spend_med": 154.7090911596601,
+    "corner_trips": 0.01578063338563297,
+    "fi_day": 0.01679285562374666
+  },
+  "seed_results": [
+    {
+      "cfg_id": "1811",
+      "seed": "1",
+      "hh": "500",
+      "days": "365",
+      "poll": "1",
+      "alpha": "2.0",
+      "beta": "0.5",
+      "gamma": "0.6",
+      "th_low": "4.0",
+      "th_med": "5.0",
+      "spend_low": "3506.064930348219",
+      "spend_med": "4426.977873364329",
+      "corner_trips": "0.2603492419665717",
+      "fi_day": "0.378",
+      "error2": "0.053324515773204934",
+      "error3": "0.0840345256669851",
+      "status": "ok"
+    },
+    {
+      "cfg_id": "1811",
+      "seed": "0",
+      "hh": "500",
+      "days": "365",
+      "poll": "1",
+      "alpha": "2.0",
+      "beta": "0.5",
+      "gamma": "0.6",
+      "th_low": "4.0",
+      "th_med": "5.0",
+      "spend_low": "3563.275586644959",
+      "spend_med": "4387.718547617863",
+      "corner_trips": "0.24815300285986655",
+      "fi_day": "0.37",
+      "error2": "0.04980949947454945",
+      "error3": "0.07361037338707334",
+      "status": "ok"
+    },
+    {
+      "cfg_id": "1811",
+      "seed": "2",
+      "hh": "500",
+      "days": "365",
+      "poll": "1",
+      "alpha": "2.0",
+      "beta": "0.5",
+      "gamma": "0.6",
+      "th_low": "4.0",
+      "th_med": "5.0",
+      "spend_low": "3485.331954333073",
+      "spend_med": "4531.412187998804",
+      "corner_trips": "0.21761923756339394",
+      "fi_day": "0.34",
+      "error2": "0.044944361106796143",
+      "error3": "0.04006391750554087",
+      "status": "ok"
+    },
+    {
+      "cfg_id": "1811",
+      "seed": "4",
+      "hh": "500",
+      "days": "365",
+      "poll": "1",
+      "alpha": "2.0",
+      "beta": "0.5",
+      "gamma": "0.6",
+      "th_low": "4.0",
+      "th_med": "5.0",
+      "spend_low": "3559.8735632667863",
+      "spend_med": "4730.5617142484",
+      "corner_trips": "0.23619274951514246",
+      "fi_day": "0.36",
+      "error2": "0.026111714183839778",
+      "error3": "0.04771083975892346",
+      "status": "ok"
+    },
+    {
+      "cfg_id": "1811",
+      "seed": "3",
+      "hh": "500",
+      "days": "365",
+      "poll": "1",
+      "alpha": "2.0",
+      "beta": "0.5",
+      "gamma": "0.6",
+      "th_low": "4.0",
+      "th_med": "5.0",
+      "spend_low": "3662.2535589869226",
+      "spend_med": "4341.951572055508",
+      "corner_trips": "0.2392112203308559",
+      "fi_day": "0.382",
+      "error2": "0.04135736163958969",
+      "error3": "0.08009682695164565",
+      "status": "ok"
+    }
+  ],
+  "validation_settings": {
+    "num_households": 500,
+    "num_days": 365,
+    "num_seeds": 5,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "model_rng": "reset_randomizer(seed) per run"
+  },
+  "provenance": {
+    "procedure": "tiered grid search (A: spend screen 90d; B: 3-target 365d; phase2: top candidates at full scale) on the final committed model",
+    "tierA": {
+      "grid": {
+        "alpha_distance": [
+          1.0,
+          1.5,
+          2.0,
+          2.5,
+          3.0
+        ],
+        "beta_price_budget": [
+          0.5,
+          0.7,
+          0.9,
+          1.1,
+          1.3
+        ],
+        "gamma_quality_variety": [
+          0.6,
+          1.0,
+          1.4,
+          1.8,
+          2.2,
+          2.6
+        ],
+        "go_shop_threshold_low": [
+          2.0,
+          3.0,
+          4.0,
+          5.0,
+          6.0,
+          7.0
+        ],
+        "go_shop_threshold_medium": [
+          4.0,
+          5.0,
+          6.0,
+          7.0,
+          8.0
+        ]
+      },
+      "fixed": {
+        "delta_convenience": 0.4,
+        "go_shop_threshold_high": 14.0
+      },
+      "seed": 42,
+      "households": 100,
+      "days": 90,
+      "n_configs": 4500
+    },
+    "tierB": {
+      "top_n": 300,
+      "forced": [
+        [
+          1.5,
+          0.9,
+          1.8,
+          3.0,
+          5.0
+        ],
+        [
+          2.0,
+          0.5,
+          1.4,
+          4.0,
+          5.0
+        ],
+        [
+          1.5,
+          0.5,
+          2.2,
+          3.0,
+          4.0
+        ],
+        [
+          1.0,
+          0.5,
+          2.6,
+          3.0,
+          4.0
+        ]
+      ],
+      "seed": 42,
+      "households": 100,
+      "days": 365
+    },
+    "phase2": {
+      "seeds": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "households": 500,
+      "days": 365
+    },
+    "targets_scored": {
+      "spend_low": 3707.0,
+      "spend_med": 4672.0,
+      "fi_day": 0.33
+    },
+    "corner_benchmark_reported": 0.42,
+    "construct_decisions": {
+      "scored": {
+        "spend_low": 3707.0,
+        "spend_med": 4672.0,
+        "fi_day_union_>=1day": 0.33
+      },
+      "reported_not_scored": {
+        "corner_trip_share_vs_national": 0.42
+      },
+      "fi_rationale": "paper p.20 daily definition unioned over year; old script's running-unmet_need proxy mismeasured this construct",
+      "corner_rationale": "HZ1 expert testimony (paper validation section) + trip-construct gap vs Chrisinger 2018 store taxonomy"
+    },
+    "written": "2026-08-18T06:10:42.156824",
+    "NOTE": "ABM-ONLY parameters. Invisible to GABM discovery. Consume via GEOMESA_CALIBRATED_PARAMS only."
+  }
+}
