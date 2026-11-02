@@ -1,22 +1,13 @@
-# Dockerfile — GeoMesa Food Access ABM (both dashboards), for Hugging Face Spaces
+# Dockerfile — food-access ABM dashboards (Hugging Face Space, Docker SDK)
 # ----------------------------------------------------------------------------
-# Why Docker: it bakes the full geospatial stack (geopandas / fiona / shapely /
-# pyproj via binary wheels) into a fixed image, so the "can't load my libraries"
-# build failures you hit on Render's free tier cannot happen here.
+# Serves the combined app from app.py on port 7860:
+#   /          -> live interactive simulation (live_enhanced_mesa_dash.py)
+#   /results/  -> results dashboard for the manuscript build
+#                 (abm_dashboard_dissertation.py)
 #
-# Serves the COMBINED app from app.py:
-#   *  /          -> live interactive dashboard (live_enhanced_mesa_dash)
-#   *  /results/  -> dissertation results dashboard (abm_dashboard_dissertation)
-#
-# Hugging Face Spaces note: create the Space with SDK = "docker" and make sure
-# the Space README.md front-matter contains:
-#       ---
-#       title: Food Access ABM (Jacksonville HZ1)
-#       sdk: docker
-#       app_port: 7860
-#       ---
-# HF runs this container on its own servers (16 GB RAM, free) — your laptop does
-# not need to stay on. The app listens on port 7860 (the HF default).
+# Local use:
+#   docker build -t food-access-abm .
+#   docker run -p 7860:7860 food-access-abm      # then open http://localhost:7860
 # ----------------------------------------------------------------------------
 FROM python:3.10-slim
 
@@ -40,13 +31,12 @@ ENV PYTHONUNBUFFERED=1 \
 
 WORKDIR /app
 
-# Install Python deps first (better layer caching). We install from the PINNED
-# lock so the image reproduces the validated env exactly (Mesa 3.0.3, pyogrio
-# engine) rather than the stale `mesa<3.0` in the root requirements.txt.
+# Install Python deps first (better layer caching), from the pinned lock file
+# (the exact versions used for the manuscript: Mesa 3.0.3, Mesa-Geo 0.9.1).
 COPY requirements-lock.txt ./
 RUN pip install --upgrade pip && pip install -r requirements-lock.txt
 
-# App code + data (census_data/, scenarios_results/, CSVs are committed in the repo).
+# App code + input data + paper parameters and results (archive/ is excluded).
 COPY . .
 
 # Run as a non-root user (HF best practice) so the app can write outputs/caches.

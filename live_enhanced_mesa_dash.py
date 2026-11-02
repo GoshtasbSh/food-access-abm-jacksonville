@@ -28,46 +28,25 @@ import glob
 import os
 from datetime import datetime
 
-# ── Use the RECALIBRATED (gamma=2.6) FINAL model as the base calibration for the
-# live dashboard, so it matches the paper/dissertation results (single best model).
-# This points the calibrated-param loader at the recal file via the explicit
-# GEOMESA_CALIBRATED_PARAMS override. It does NOT create an auto-discovered
-# FINAL_CALIBRATED_PARAMS_* file, so default discovery (and the GABM model, which
-# loads its own Feb file) is unchanged. Must run BEFORE the first SimulationConfig()
-# because get_calibrated_params() caches once per process. setdefault respects an
-# explicit external override.
-# GEOFIX (2026-08-18): prefer the corrected-geography FINAL calibration
-# (RECAL_GEOFIX_PARAMS.json, MAPE 6.51%) and its corrected store CSV; fall back
-# to the July recal file only if the geofix artifacts are absent.
+# ── Calibration and inputs: the build reported in the Food Security manuscript.
+# The model's own defaults already resolve to these files (config.py and
+# enhanced_mesa_geo_model.py); they are set explicitly here as well so the live
+# dashboard is pinned to the paper build even if other parameter files are
+# present. setdefault respects an explicit external override. Must run BEFORE
+# the first SimulationConfig() because get_calibrated_params() caches once per
+# process.
 _ABM_DIR = os.path.dirname(os.path.abspath(__file__))
-_REPO_DIR = os.path.dirname(_ABM_DIR)
-_PARAM_CANDIDATES = [
-    os.path.join(_ABM_DIR, "RECAL_GEOFIX_PARAMS.json"),
-    os.path.join(_REPO_DIR, "paper_revision", "recalibration_geofix", "RECAL_GEOFIX_PARAMS.json"),
-    os.path.join(_ABM_DIR, "RECAL_JOURNAL_PARAMS.json"),
-    os.path.join(_REPO_DIR, "paper_revision", "recalibration", "RECAL_JOURNAL_PARAMS.json"),
-]
-for _p in _PARAM_CANDIDATES:
-    if os.path.isfile(_p):
-        os.environ.setdefault("GEOMESA_CALIBRATED_PARAMS", _p)
-        break
-for _c in (os.path.join(_REPO_DIR, "data", "supermarkets_with_coords_CORRECTED_20260818.csv"),
-           os.path.join(_ABM_DIR, "data", "supermarkets_with_coords_CORRECTED_20260818.csv"),
-           os.path.join(_ABM_DIR, "supermarkets_with_coords_CORRECTED_20260818.csv")):
-    if os.path.isfile(_c):
-        os.environ.setdefault("GEOMESA_SUPERMARKET_CSV", _c)
-        break
-
-# If a bundled Health-Zone shapefile ships next to this file (deploy layout where
-# the external ../Data tree is absent, e.g. the HF Space), point the model at it so
-# household placement + distances use the REAL geography instead of the fallback
-# polygon (which badly distorts results). Guarded by isfile so a normal local
-# checkout — which resolves the shapefile via config's default ../Data path —
-# is unaffected when the bundle is absent.
-_BUNDLED_SHP = os.path.join(os.path.dirname(os.path.abspath(__file__)),
-                            "geodata", "HealthZones1and4", "Health_Zones_1_and_4.shp")
+_PAPER_PARAMS = os.path.join(_ABM_DIR, "PAPER_PARAMS_FoodSecurity.json")
+_PAPER_STORES = os.path.join(_ABM_DIR, "store_FINAL_6g_11c.csv")
+_BUNDLED_SHP = os.path.join(_ABM_DIR, "geodata", "HealthZones1and4", "Health_Zones_1_and_4.shp")
+if os.path.isfile(_PAPER_PARAMS):
+    os.environ.setdefault("GEOMESA_CALIBRATED_PARAMS", _PAPER_PARAMS)
+if os.path.isfile(_PAPER_STORES):
+    os.environ.setdefault("GEOMESA_SUPERMARKET_CSV", _PAPER_STORES)
 if os.path.isfile(_BUNDLED_SHP):
     os.environ.setdefault("GEOMESA_HEALTH_ZONE_SHP", _BUNDLED_SHP)
+# Scenario 2 siting rule used for the manuscript results (maximal covering).
+os.environ.setdefault("GEOMESA_S2_SITING", "coverage")
 
 # Import enhanced Mesa-Geo modules
 from baseline_scenario import create_baseline_scenario, BaselineScenarioModel
@@ -1396,10 +1375,10 @@ _param_ids = [
     'param-distance-fee', 'param-delivery-area'
 ]
 _param_defaults = {
-    'param-num-consumers': 300, 'param-simulation-days': 30,
+    'param-num-consumers': 500, 'param-simulation-days': 365,
     'param-delivery-low': 0.08, 'param-delivery-medium': 0.20, 'param-delivery-high': 0.35,
-    'param-grocery-capacity': 600, 'param-scenario1-store-region': 'optimal', 'param-food-hub-capacity': 300,
-    'param-num-corner-stores': 6, 'param-corner-capacity': 60,
+    'param-grocery-capacity': 600, 'param-scenario1-store-region': 'north', 'param-food-hub-capacity': 200,
+    'param-num-corner-stores': 4, 'param-corner-capacity': 60,
     'param-num-mobile-pantries': 2, 'param-mobile-pantry-capacity': 120,
     'param-pantry-strategy': 'fixed',
     'param-delivery-capacity': 500, 'param-base-fee': 2.0, 'param-distance-fee': 0.75,
@@ -3190,7 +3169,7 @@ def create_v2_equity_chart(scenario):
             layout_c = _v2_layout(
                 title=f"Final Snapshot — Key Metrics at Day {snap_day}",
                 subtitle=f"End-of-run summary for {_V2_LABEL.get(sc_key, sc_key)} | "
-                         f"Calibrated baseline: FI=38.3% | MAPE=9.46%",
+                         f"Paper baseline (50 seeds): final-day FI=16.6% | calibration MAPE=2.93%",
                 xlab="", ylab="Rate / Index",
                 tickformat=".0%",
                 height=300,
@@ -5093,7 +5072,7 @@ def build_sa_layout(center_params, json_path, cal_error, tidy_df, indices_dict=N
     warning_banner = None
     if not center_params:
         warning_banner = html.Div(
-            "⚠️ No FINAL_CALIBRATED_PARAMS or BEST_PHASE1_PARAMS JSON found. Run Phase 2 calibration first.",
+            "⚠️ PAPER_PARAMS_FoodSecurity.json not found in the project root.",
             style={"background": "#fef3c7", "color": "#92400e", "padding": "12px 16px", "borderRadius": "8px",
                    "marginBottom": "15px", "fontWeight": "600"}
         )

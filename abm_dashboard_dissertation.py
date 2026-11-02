@@ -1,13 +1,13 @@
 """
-ABM Food Access — PhD Dissertation Dashboard  v4
+ABM Food Access — Results Dashboard
 =================================================
 Jacksonville, FL · Health Zone 1 · 500 Households · 365 Days
-Seed-set selector: Dissertation (6) | Journal (50) | All (56 combined)
+Results of the build reported in the Food Security manuscript
+(50 seeds per scenario, results/journal_results_50seeds_paper/).
 
 NEW in v4
 ---------
-  • Seed-set selector in header — switch between Dissertation (6 seeds),
-    Journal (50 seeds), or All (56 seeds combined) without reloading
+  • Seed-set selector in header (loaders for several result folders)
   • All charts and tables update instantly when seed set changes
   • CI bands correctly narrow as seed count increases
 
@@ -21,7 +21,7 @@ NEW in v3
   • Inter-scenario statistical comparison matrix
   • Within-S2 Location Analysis tab (North / South / East / West)
   • Hub & Corner-Store Variant Analysis tab
-  • Policy Insights tab  ← addresses Dr. Watson's committee feedback
+  • Policy Insights tab
   • Tornado sensitivity diagram
   • Capacity / congestion utilization chart
   • Pairwise Cohen-d heat-map
@@ -144,12 +144,13 @@ JOURNAL_SEEDS = [
     924, 934, 936, 962, 980,
 ]
 
-# Recalibrated (gamma=2.6) FINAL run — same 50 seeds, produced 2026-07-24 with
-# GEOMESA_CALIBRATED_PARAMS=paper_revision/recalibration/RECAL_JOURNAL_PARAMS.json.
-# This is the calibration-valid build (aggregate MAPE 9.53%) and SUPERSEDES the
-# pre-recalibration Dissertation (6-seed) and Journal (July 50-seed) sets, which
-# used the old, mismatched gamma=0.6 parameters. Recal uses the same seed list.
-RECAL_DIR = os.path.join(BASE_DIR, "results", "journal_results_50seeds_recal")
+# Paper build: the 50-seed scenario runs reported in the Food Security
+# manuscript (Tables 4-5, Figs. 3-7), produced with PAPER_PARAMS_FoodSecurity.json
+# and the store inventory store_FINAL_6g_11c.csv. Override the folder with
+# GEOMESA_RESULTS_DIR.
+PAPER_DIR = os.environ.get(
+    "GEOMESA_RESULTS_DIR",
+    os.path.join(BASE_DIR, "results", "journal_results_50seeds_paper"))
 
 def _safe_json(path):
     """Load JSON, returning None on any error so one corrupt/truncated file can
@@ -196,7 +197,7 @@ def load_all():
     return data
 
 def load_journal_dir(results_dir, seeds_list):
-    """Load a 50-seed run from an arbitrary results directory (journal or recal)."""
+    """Load a 50-seed run from an arbitrary results directory."""
     data = {}
     for sk, meta in SCENARIO_META.items():
         seeds = {}
@@ -222,13 +223,12 @@ def load_journal_dir(results_dir, seeds_list):
     return data
 
 def load_journal_all():
-    """Load 50-seed journal results from journal_results_50seeds/ (July, pre-recal)."""
+    """Load 50-seed journal results from results/journal_results_50seeds/."""
     return load_journal_dir(JOURNAL_DIR, JOURNAL_SEEDS)
 
-def load_recal_all():
-    """Load the recalibrated (gamma=2.6) FINAL 50-seed results — the paper's
-    calibration-valid build (aggregate MAPE 9.53%, produced 2026-07-24)."""
-    return load_journal_dir(RECAL_DIR, JOURNAL_SEEDS)
+def load_paper_all():
+    """Load the 50-seed results reported in the Food Security manuscript."""
+    return load_journal_dir(PAPER_DIR, JOURNAL_SEEDS)
 
 def _combined_summary(diss_entry, journal_entry):
     """Merge dissertation and journal per-seed data into a combined summary dict."""
@@ -284,32 +284,18 @@ def load_combined_all(data_diss, data_journal):
         )
     return combined
 
-# FINAL build = GEOFIX (corrected store geography, recalibrated 2026-08-18,
-# aggregate MAPE 6.51%). The July recal set (gamma=2.6) was produced with the
-# displaced store coordinates and is retained as a selectable reference only.
-GEOFIX_DIR = os.path.join(BASE_DIR, "results", "journal_results_50seeds_geofix")
-
-def load_geofix_all():
-    """Load the GEOFIX FINAL 50-seed results — corrected store geography,
-    recalibrated (alpha=2.0, beta=0.5, gamma=0.6, MAPE 6.51%, 2026-08-18)."""
-    return load_journal_dir(GEOFIX_DIR, JOURNAL_SEEDS)
-
-DATA_GEOFIX  = load_geofix_all()
-DATA_RECAL   = load_recal_all()
-DATA_MAP     = {"geofix": DATA_GEOFIX, "recal": DATA_RECAL}
-DATA         = DATA_GEOFIX  # default dataset (GEOFIX FINAL build)
+DATA_PAPER   = load_paper_all()
+DATA_MAP     = {"paper": DATA_PAPER}
+DATA         = DATA_PAPER   # the only dataset: the manuscript build
 
 SCENARIO_KEYS       = ["baseline", "scenario1", "scenario2", "scenario3", "scenario4"]
 LOCATION_KEYS       = ["scenario2_north", "scenario2_south", "scenario2_east", "scenario2_west"]
 VARIANT_KEYS        = ["scenario2_hub_sm", "scenario2_hub_lg", "scenario2_corner6", "scenario2_corner2"]
-# S2 existing data mapped to "north" for location comparison. The N/S/E/W
-# sub-variants were never run at 50 seeds, so "north" mirrors the main S2.
-DATA_RECAL["scenario2_north"] = DATA_RECAL["scenario2"]
 
 METRIC_INFO = {
     "satisfaction_rate":    {"label": "Satisfaction Rate",       "unit": "",     "higher_better": True,  "fmt": ".3f"},
     "food_insecurity_rate": {"label": "Food Insecurity Rate",    "unit": "",     "higher_better": False, "fmt": ".3f"},
-    "avg_travel_distance":  {"label": "Avg Travel Distance",     "unit": " mi",  "higher_better": False, "fmt": ".2f"},
+    "avg_travel_distance":  {"label": "Avg Travel Distance",     "unit": " km",  "higher_better": False, "fmt": ".2f"},
     "spatial_equity_index": {"label": "Spatial Equity Index",    "unit": "",     "higher_better": True,  "fmt": ".3f"},
     "total_revenue":        {"label": "Daily Expenditure",       "unit": " $",   "higher_better": True,  "fmt": ",.0f"},
     "corner_share":         {"label": "Corner Store Share",      "unit": "",     "higher_better": False, "fmt": ".3f"},
@@ -981,26 +967,39 @@ def fig_pairwise_cohend(metric):
           margin=dict(l=80, r=120, t=65, b=80))
     return fig
 
-# ── Sobol sensitivity (recalibrated γ=2.6 run) ──────────────────────────────
-# Loaded from the SAME artifact the paper's Figure 5 is drawn from
-# (paper_revision/recalibration/state/sobol_indices.json, written 2026-07-24,
-# N=256, center = γ=2.6 recal, ±30%). Never hardcode these numbers: the
-# pre-recalibration values (θ_low S₁≈0.96) contradict the current model, in
-# which γ dominates (S_T=0.942).
+# ── Sobol sensitivity (manuscript Fig. 8) ───────────────────────────────────
+# Loaded from sobol_indices_paper.json: Saltelli design, N = 256 base sample,
+# 7 parameters, 4,096 runs, 500 households x 365 days, +/-30% around the
+# calibrated values, bootstrap 95% CIs. The file holds indices for several
+# outputs; the tornado shows the final-day food-insecurity rate (Fig. 8).
+# Values are always read from the file, never hardcoded.
 SOBOL_PATHS = [
     os.environ.get("GEOMESA_SOBOL_JSON", ""),
-    os.path.join(BASE_DIR, "..", "paper_revision", "recalibration_geofix", "state", "sobol_indices.json"),
-    os.path.join(BASE_DIR, "paper_revision", "recalibration_geofix", "state", "sobol_indices.json"),
-    os.path.join(BASE_DIR, "..", "paper_revision", "recalibration", "state", "sobol_indices.json"),
-    os.path.join(BASE_DIR, "paper_revision", "recalibration", "state", "sobol_indices.json"),
-    os.path.join(BASE_DIR, "sobol_indices.json"),          # flat HF Space layout
+    os.path.join(BASE_DIR, "sobol_indices_paper.json"),
 ]
+SOBOL_OUTPUT = os.environ.get("GEOMESA_SOBOL_OUTPUT", "fi_final_day")
+SOBOL_OUTPUT_LABELS = {
+    "fi_final_day": "final-day food-insecurity rate",
+    "fi_day_union": "annual food-insecurity prevalence",
+    "corner_share": "corner-store trip share",
+}
 
 def _load_sobol():
     for p in SOBOL_PATHS:
         if p and os.path.isfile(p):
             d = _safe_json(p)
-            if d and "ST" in d and "S1" in d:
+            if not d:
+                continue
+            if "outputs" in d and SOBOL_OUTPUT in d["outputs"]:
+                o, des = d["outputs"][SOBOL_OUTPUT], d.get("design", {})
+                return {"ST": o["ST"], "S1": o["S1"],
+                        "ST_conf": o.get("ST_conf", {}), "S1_conf": o.get("S1_conf", {}),
+                        "output": SOBOL_OUTPUT_LABELS.get(SOBOL_OUTPUT, SOBOL_OUTPUT),
+                        "N": des.get("N"), "n_runs": des.get("n_runs"),
+                        "pct": des.get("pct", 0.3), "households": des.get("households"),
+                        "n_steps": des.get("days"), "center": des.get("centre", {}),
+                        "_path": p}
+            if "ST" in d and "S1" in d:
                 d["_path"] = p
                 return d
     return None
@@ -1026,15 +1025,13 @@ def sobol_top():
 
 def fig_tornado_sensitivity():
     """Sobol tornado for food insecurity — total-order (S_T) with first-order
-    (S₁) alongside. Mirrors the paper's Figure 5; the S_T−S₁ gap is the
-    interaction share, which is the whole point for γ."""
+    (S₁) alongside. Mirrors the manuscript's Fig. 8; the S_T−S₁ gap is the
+    interaction share."""
     if not SOBOL:
         fig = go.Figure()
         fig.add_annotation(
-            text=("Sobol indices unavailable — <b>sobol_indices.json</b> not found.<br>"
-                  "Expected at paper_revision/recalibration/state/ (or set "
-                  "GEOMESA_SOBOL_JSON).<br>No values are shown rather than stale "
-                  "pre-recalibration ones."),
+            text=("Sobol indices unavailable — <b>sobol_indices_paper.json</b> not found<br>"
+                  "in the project root (or set GEOMESA_SOBOL_JSON)."),
             xref="paper", yref="paper", x=0.5, y=0.5, showarrow=False,
             font=dict(size=13, color="#B91C1C"), align="center")
         apply(fig, "Sobol Sensitivity — data not loaded",
@@ -1069,15 +1066,14 @@ def fig_tornado_sensitivity():
                   annotation_text="Negligible (< 0.05)",
                   annotation_position="bottom right",
                   annotation_font=dict(size=10, color="#9CA3AF"))
-    _g = (SOBOL.get('center') or {}).get('gamma_quality_variety', '?')
-    src = (f"output = {SOBOL.get('output','food_insecurity_share')} · "
-           f"N={SOBOL.get('N','?')} · center γ={_g} · "
+    src = (f"output = {SOBOL.get('output','food insecurity')} · "
+           f"N={SOBOL.get('N','?')} ({SOBOL.get('n_runs','?')} runs) · "
            f"±{int(SOBOL.get('pct', 0.3) * 100)}% · {SOBOL.get('households','?')} hh "
            f"× {SOBOL.get('n_steps','?')} d")
     fig.add_annotation(xref="paper", yref="paper", x=1.0, y=-0.16,
                        xanchor="right", showarrow=False, text=src,
                        font=dict(size=9.5, color="#94A3B8"))
-    apply(fig, "Sobol Sensitivity — Food Insecurity  (FINAL corrected-geography build)",
+    apply(fig, "Sobol Sensitivity — Final-Day Food Insecurity  (total-order S_T, manuscript Fig. 8)",
           xaxis_title="Sobol index", barmode="group",
           legend=dict(orientation="h", x=1, xanchor="right", y=1.13,
                       bgcolor="rgba(255,255,255,0.96)", bordercolor="#E5E7EB",
@@ -1340,7 +1336,7 @@ def table_cumulative_burden():
 # 9.  DASH APP
 # ═══════════════════════════════════════════════════════════════════
 
-app = dash.Dash(__name__, title="ABM Food Access — PhD Dissertation v3",
+app = dash.Dash(__name__, title="ABM Food Access — Results",
                 suppress_callback_exceptions=True,
                 requests_pathname_prefix=os.environ.get('DASH_DISS_PREFIX', '/'))
 
@@ -1664,9 +1660,6 @@ SCEN_ITEMS = [
 
 TAB_DEFS = [
     ("comparison", "⚡ All Scenarios",       "#4F46E5", ""),
-    ("location",   "📍 S2: Location Analysis","#0D9488", "teal"),
-    ("variants",   "🔧 Variant Analysis",    "#D97706", "amber"),
-    ("policy",     "🏛 Policy Insights",     "#4F46E5", ""),
     ("baseline",   "BL: Baseline",           "#6B7280", ""),
     ("scenario1",  "S1: North Grocery",      "#667eea", ""),
     ("scenario2",  "S2: Hub+Corner",         "#10B981", ""),
@@ -1679,24 +1672,18 @@ TAB_DEFS = [
 # ═══════════════════════════════════════════════════════════════════
 
 def _seed_set_counts():
-    n_geofix = max(len([s for s in DATA_GEOFIX[sk]["data"] if isinstance(s,int)]) for sk in SCENARIO_KEYS)
-    n_recal  = max(len([s for s in DATA_RECAL[sk]["data"] if isinstance(s,int)]) for sk in SCENARIO_KEYS)
-    return n_geofix, n_recal
+    return max(len([s for s in DATA_PAPER[sk]["data"] if isinstance(s,int)]) for sk in SCENARIO_KEYS)
 
-_ng, _nr = _seed_set_counts()
-# Default = GEOFIX FINAL build (corrected store geography, MAPE 6.51%,
-# 2026-08-18). The July recal build (produced with the displaced store
-# coordinates) is retained as a selectable reference for comparison only.
+_np_seeds = _seed_set_counts()
 SEED_SET_OPTIONS = [
-    {"label": f"FINAL · corrected geography  ({_ng} seeds)", "value": "geofix"},
-    {"label": f"July recal γ=2.6 · superseded (wrong store coords)  ({_nr} seeds)", "value": "recal"},
+    {"label": f"Food Security manuscript build  ({_np_seeds} seeds)", "value": "paper"},
 ]
 
 app.layout = html.Div([
     # Header
     html.Div([
         html.Div([
-            html.H1("ABM Food Access Intervention Analysis  —  PhD Dissertation"),
+            html.H1("ABM Food Access Intervention Analysis  —  Results"),
             html.P("Jacksonville, FL  ·  Health Zone 1  ·  500 Households  ·  365-Day Simulation  ·  5 Scenarios"),
         ]),
         html.Div([
@@ -1706,7 +1693,7 @@ app.layout = html.Div([
             dcc.RadioItems(
                 id="seed-set-radio",
                 options=SEED_SET_OPTIONS,
-                value="geofix",
+                value="paper",
                 inline=False,
                 inputStyle={"marginRight":"5px"},
                 labelStyle={"display":"block","fontSize":"12px","color":"#E2E8F0",
@@ -1743,7 +1730,7 @@ app.layout = html.Div([
         "baseline":   "overview", "scenario1": "overview",
         "scenario2":  "overview", "scenario3": "overview", "scenario4": "overview",
     }),
-    dcc.Store(id="seed-set", data="geofix"),
+    dcc.Store(id="seed-set", data="paper"),
 
     # Body
     html.Div([
@@ -1771,9 +1758,9 @@ app.layout = html.Div([
 )
 def update_seed_set(value):
     label_map = {
-        "recal": f"Recalibrated γ=2.6 · FINAL · {_nr} seeds",
+        "paper": f"Manuscript build · {_np_seeds} seeds",
     }
-    return value, label_map.get(value, label_map["recal"])
+    return value, label_map.get(value, label_map["paper"])
 
 @app.callback(Output("active-tab","data"),
               Input({"type":"tab-btn","tab":dash.ALL},"n_clicks"),
@@ -1851,13 +1838,13 @@ _RENDER_CACHE = {}
               Input("seed-set","data"))
 def render_content(active_tab, active_items, seed_set):
     global DATA
-    seed_set = seed_set or "geofix"
+    seed_set = seed_set or "paper"
     item = active_items.get(active_tab, "kpi-overview")
     key = (seed_set, active_tab, item)
     with _render_lock:
         if key in _RENDER_CACHE:
             return _RENDER_CACHE[key]
-        DATA = DATA_MAP.get(seed_set, DATA_GEOFIX)
+        DATA = DATA_MAP.get(seed_set, DATA_PAPER)
         dispatch = {
             "comparison": render_comparison,
             "location":   render_location,
@@ -1934,7 +1921,7 @@ def kpi_cards_comparison():
     metrics_show = [
         ("satisfaction_rate",   "Satisfaction Rate", "#4F46E5"),
         ("food_insecurity_rate","Food Insecurity",   "#DC2626"),
-        ("avg_travel_distance", "Avg Travel (mi)",   "#D97706"),
+        ("avg_travel_distance", "Avg Travel (km)",   "#D97706"),
         ("spatial_equity_index","Spatial Equity",    "#059669"),
     ]
     rows = []
@@ -1975,6 +1962,11 @@ def kpi_cards_comparison():
 # 14.  CONTENT RENDERER — COMPARISON TAB
 # ═══════════════════════════════════════════════════════════════════
 
+def _m(sk, m):
+    """Mean of a final-day metric over the loaded seeds of one scenario."""
+    vs = [x for x in seed_vals(sk, m) if not np.isnan(x)]
+    return float(np.mean(vs)) if vs else float("nan")
+
 def _cmp_narrative():
     """Live Scenario-2-vs-Baseline figures for the narrative/finding boxes,
     computed from the ACTIVE seed set so the prose never contradicts the
@@ -2012,17 +2004,17 @@ def render_comparison(item):
         return html.Div([
             section_hdr("Satisfaction & Food Insecurity", "Mean ± SD. N-seed bootstrap 95% CI also computed."),
             card("Grouped Comparison — Primary Outcomes", G(fig_grouped_bar_primary(), 480)),
-            finding(f"**Scenario 2** achieves the highest satisfaction ({_cmp_narrative()['s2_sat']:.3f}) and lowest food insecurity ({_cmp_narrative()['s2_ins']:.3f}). **Scenario 3** (Mobile Pantry) shows no meaningful difference from Baseline — a statistically important null result. **Scenario 1** (North Grocery) slightly improves overall satisfaction but worsens spatial equity for south-zone households."),
+            finding(f"**Scenario 2** has the lowest final-day food-insecurity rate ({_cmp_narrative()['s2_ins']:.3f}) and the highest satisfaction ({_cmp_narrative()['s2_sat']:.3f}), followed by Scenario 4. Scenarios 1 (North Grocery) and 3 (Mobile Pantries) are not distinguishable from Baseline on food insecurity (manuscript Table 5)."),
         ])
 
     elif item == "travel-equity":
         return html.Div([
             section_hdr("Travel Distance & Spatial Equity", "Mean ± bootstrapped 95% CI."),
             html.Div([
-                card("Avg Travel Distance (mi)", G(fig_bar_metric("avg_travel_distance"), 400)),
+                card("Avg Travel Distance (km)", G(fig_bar_metric("avg_travel_distance"), 400)),
                 card("Spatial Equity Index",     G(fig_bar_metric("spatial_equity_index"), 400)),
             ], className="grid-2"),
-            finding(f"**Scenario 2 reduces average travel by {abs(_cmp_narrative()['trv_pct']):.1f}%** ({_cmp_narrative()['bl_trv']:.3f} → {_cmp_narrative()['s2_trv']:.3f} mi). **Critical finding:** Scenario 1 (North Grocery) *reduces* the spatial equity index — it adds stores only in the north, creating wider spatial gaps for south/east households. This directly supports your policy argument that location of new infrastructure matters as much as quantity.", "warning"),
+            finding(f"**Scenario 2 reduces average travel by {abs(_cmp_narrative()['trv_pct']):.1f}%** ({_cmp_narrative()['bl_trv']:.3f} → {_cmp_narrative()['s2_trv']:.3f} km). Scenario 1 also shortens travel. Differences in the spatial equity index between scenarios are small relative to seed-to-seed variation, and none survives Holm correction (manuscript Table 5).", "info"),
         ])
 
     elif item == "heatmap-pct":
@@ -2030,14 +2022,14 @@ def render_comparison(item):
             section_hdr("% Change vs Baseline — All Scenarios × Metrics",
                         "Green = improvement | Red = decline | White = no change."),
             card("Direction & Magnitude Heatmap", G(fig_heatmap_pct(), 390)),
-            finding("The heatmap confirms **Scenario 2 is the only consistently positive intervention** across all food access metrics. Scenario 1 produces mixed signals (better overall satisfaction, worse equity). Scenario 3 shows near-zero change — the null result. Scenario 4 improves delivery share but has mixed effects on travel (delivery substitutes short corner trips).", "info"),
+            finding("The heatmap shows each scenario's percentage change relative to Baseline. Scenario 2 shows the largest reductions in food insecurity and travel; Scenario 4 shows the largest increase in delivery share; Scenarios 1 and 3 change food insecurity by only a few per cent.", "info"),
         ])
 
     elif item == "radar":
         return html.Div([
             section_hdr("Normalized Performance Radar", "All axes normalized 0–1. Outward = better on every dimension."),
             card("Multi-Dimensional Performance Spider Chart", G(fig_radar(), 560)),
-            finding("The radar confirms S2's dominance: it has the largest polygon across all axes. Note S1's poor spatial equity axis despite good satisfaction — a classic coverage gap pattern. S4 shows a unique profile: strong delivery share but average food insecurity, suggesting delivery helps but cannot substitute for physical store access at scale."),
+            finding("Each axis is normalised across scenarios; a larger polygon indicates better values. Read the radar together with the effect-size table, because several between-scenario differences are within seed-to-seed variation."),
         ])
 
     elif item == "ranking":
@@ -2045,7 +2037,7 @@ def render_comparison(item):
             section_hdr("Composite Performance Ranking",
                         "Weighted index: Satisfaction (+1.0) | Insecurity (−1.0) | Travel (−0.8) | Equity (+0.6). 0–1 normalized per metric."),
             card("Composite Score — All Scenarios Ranked", G(fig_composite_ranking(), 390)),
-            finding("**Rank order: S2 > S4 > S1 > Baseline ≈ S3.** S2 leads by a clear margin. S3 ties baseline — confirming the null result. These weights are defensible but sensitivity: a committee member may ask you to vary them. Robustness check: under any positive weight combination that includes food insecurity, S2 remains #1.", "teal"),
+            finding("The composite score uses the weights listed above. On the primary outcome alone (final-day food insecurity, manuscript Table 4) the order is S2 > S4 > S1 > S3, and S1 and S3 are not distinguishable from Baseline.", "teal"),
         ])
 
     elif item == "cum-burden":
@@ -2054,7 +2046,7 @@ def render_comparison(item):
                         "Normalised AUC of daily food insecurity over 365 days. Integrates severity × duration."),
             card("Total Burden Experienced — All Scenarios", G(fig_cumulative_burden(), 420)),
             card("Cumulative Burden Reference Table", make_dash_table(table_cumulative_burden())),
-            finding("**Cumulative burden is a more complete measure than single-day final values** — it captures the integrated impact over the entire year. S2 shows the largest burden reduction. This metric is particularly important for low-income households who may experience prolonged food insecurity spells, not just point-in-time counts. **Consider using AUC as a supplementary metric in your dissertation Table 4-2.**", "teal"),
+            finding("**Cumulative burden** averages the food-insecurity rate over all 365 days instead of using the final day only. Scenario 2 shows the largest reduction, followed by Scenario 4; Scenarios 1 and 3 stay close to Baseline.", "teal"),
         ])
 
     elif item == "ts-satisfaction":
@@ -2062,7 +2054,7 @@ def render_comparison(item):
             section_hdr("Satisfaction Rate — 365-Day Trajectory",
                         "Mean ± bootstrap 95% CI across all seeds. All scenarios reach equilibrium within 5–10 days."),
             card("Time Series — All Scenarios", G(fig_ts_all("satisfaction_rate"), 510)),
-            finding("All scenarios reach **behavioral equilibrium within the first 5–10 simulation days** with < 1% drift thereafter. This validates the simulation length and confirms the 365-day run is adequate. S2 consistently separates from all others after Day 1.", "success"),
+            finding("Food insecurity rises over the first days as households use up their starting food stocks and then fluctuates around a stable level for the rest of the year. Tables report final-day (day 365) values.", "info"),
         ])
 
     elif item == "ts-insecurity":
@@ -2083,14 +2075,14 @@ def render_comparison(item):
             section_hdr("Income-Stratified Food Insecurity",
                         "Baseline vs S2. Shows whether improvements are equitable across income tiers."),
             card("Food Insecurity by Income Group — Baseline vs S2", G(fig_income_insecurity_ts(), 510)),
-            finding("**Critical equity test:** If S2's improvement benefits high-income households more than low-income, the intervention may not address structural inequality. Income-stratified tracking requires sub-group metrics in `metrics_history`. **If your model tracks sub-group insecurity, this chart becomes a flagship finding for the equity argument in Chapter 4.**", "warning"),
+            finding("This panel needs income-stratified food-insecurity series in the result files and is empty when they are absent. Income differences in the manuscript are reported through the income equity ratio (low-income ÷ high-income spending).", "info"),
         ])
 
     elif item == "channel-mix":
         return html.Div([
             section_hdr("Channel Market Share", "Share of all shopping trips by alternative channel type."),
             card("Corner Store / Pantry / Delivery — All Scenarios", G(fig_channel_mix(), 470)),
-            finding("**S1 dramatically reduces corner store reliance** (0.637 → 0.461) as agents substitute the north grocery. **S4** increases delivery share from 5.0% → 7.0%. **S3 barely moves pantry share** (0.086 → 0.089), explaining its null result — the mobile pantry is not effectively reached. This is the key behavioral mechanism behind your findings.", "info"),
+            finding(f"Corner-store share: Baseline {_m('baseline','corner_share'):.3f}, S2 {_m('scenario2','corner_share'):.3f} (new corner stores), S4 {_m('scenario4','corner_share'):.3f}. Delivery share rises from {_m('baseline','delivery_share'):.3f} to {_m('scenario4','delivery_share'):.3f} under S4. Pantry share moves only from {_m('baseline','pantry_share'):.3f} to {_m('scenario3','pantry_share'):.3f} under S3, consistent with its small effect on food insecurity.", "info"),
         ])
 
     elif item == "income-spending":
@@ -2103,7 +2095,7 @@ def render_comparison(item):
         return html.Div([
             section_hdr("Income Equity Ratio: Low ÷ High Spending", "Higher ratio = more equitable."),
             card("Equity Ratio — All Scenarios", G(fig_equity_ratio(), 410)),
-            finding("**Critical finding:** S1 (North Grocery) *worsens* income equity — the ratio drops from baseline. High-income vehicle-owning households benefit more. **S4 (Delivery) produces the best equity ratio** by removing the travel barrier for car-free households. This argues that delivery subsidies may be a high-equity complement to physical store interventions.", "warning"),
+            finding("Scenarios 1–3 leave the income equity ratio close to Baseline. Scenario 4 lowers it slightly (Cohen's d = −0.54), a difference that does not survive Holm correction (manuscript Table 5).", "info"),
         ])
 
     elif item == "cohend-matrix":
@@ -2111,27 +2103,26 @@ def render_comparison(item):
             section_hdr("Pairwise Cohen's d — Food Insecurity Rate",
                         "Symmetric matrix. Positive = row scenario has higher insecurity than column. |d|>0.8 = large."),
             card("Inter-Scenario Effect Sizes", G(fig_pairwise_cohend("food_insecurity_rate"), 420)),
-            finding("The pairwise matrix reveals that **S2 vs Baseline** and **S2 vs S3** show the largest effect sizes. This confirms S2's unique mechanism — not just marginally better, but a categorically different outcome profile. Use this matrix in your dissertation to justify that S2 is not a statistical artifact but a genuine behavioral effect.", "teal"),
+            finding("The matrix shows Cohen's d for every pair of scenarios. The largest effects involve Scenario 2, followed by Scenario 4.", "teal"),
         ])
 
     elif item == "tornado":
         top = sobol_top()
         if top:
             name, st_v, s1_v = top
-            note = (f"**{name} dominates the variance in daily food insecurity: "
-                    f"S_T = {st_v:.3f}** (first-order S₁ = {s1_v:.3f}). The gap between "
-                    f"the two is the share carried by *interactions* — {name.split()[0]} matters "
-                    "both on its own and through how it conditions every other parameter. "
-                    "The shopping thresholds (θ) sit an order of magnitude lower, so food "
-                    "insecurity here is governed by the quality/variety of the reachable food "
-                    "environment rather than by the propensity to shop. This is the "
-                    "recalibrated (γ=2.6) result and matches Figure 5 of the paper; the "
-                    "pre-recalibration θ_low result no longer applies.")
+            _th = [SOBOL["ST"][k] for k in SOBOL["ST"] if k.startswith("go_shop")]
+            _w  = [SOBOL["ST"][k] for k in SOBOL["ST"] if not k.startswith("go_shop")]
+            note = (f"**{name} has the largest total-order index for the {SOBOL.get('output', 'output')} "
+                    f"(S_T = {st_v:.3f}, S₁ = {s1_v:.3f}).** The three go-shop thresholds have "
+                    f"S_T between {min(_th):.3f} and {max(_th):.3f}; the four utility weights "
+                    f"between {min(_w):.3f} and {max(_w):.3f}. Saltelli design, N = {SOBOL.get('N','?')}, "
+                    f"{SOBOL.get('n_runs','?')} runs, ±30% around the calibrated values (manuscript Fig. 8). "
+                    "Indices for annual prevalence and corner-store share are in sobol_indices_paper.json.")
             kind = "success"
         else:
             note = ("**Sobol indices are not loaded**, so no sensitivity claim is shown here. "
-                    "Point `GEOMESA_SOBOL_JSON` at the recalibration artifact "
-                    "(`paper_revision/recalibration/state/sobol_indices.json`) to populate this panel.")
+                    "Expected file: `sobol_indices_paper.json` in the project root "
+                    "(or set `GEOMESA_SOBOL_JSON`).")
             kind = "danger"
         return html.Div([
             section_hdr("Sensitivity Analysis — Sobol Indices",
@@ -2146,21 +2137,21 @@ def render_comparison(item):
             section_hdr("Seed Stability — Coefficient of Variation",
                         f"CV (%) = SD/Mean × 100. Green < 5% = stable | Yellow 5–20% = moderate | Red > 20% = review needed."),
             card("CV Heatmap — All Scenarios × Metrics", G(fig_seed_variability_all(), 410)),
-            finding(f"**All primary outcome metrics (satisfaction, food insecurity, travel, equity) show CV < 12%** across all scenarios — acceptable for ABM research with n={max(len(available_seeds(sk)) for sk in SCENARIO_KEYS)} seeds. **Total revenue CV exceeds 30%** — this metric reflects which households happen to shop on the final day and should NOT be used as a primary finding. Use daily average spending instead.", "danger"),
+            finding(f"Coefficients of variation across the {max(len(available_seeds(sk)) for sk in SCENARIO_KEYS)} seeds are shown below. Final-day total revenue varies far more across seeds than the access metrics, because it depends on which households happen to shop on the last day, so it is not used as an outcome.", "info"),
         ])
 
     elif item == "tbl-summary":
         return html.Div([
-            section_hdr("Summary Statistics", "Mean ± SD for all metrics. Ready for dissertation Table 4-1."),
+            section_hdr("Summary Statistics", "Mean ± SD for all metrics over all loaded seeds."),
             card("Table 4-1 — Final-Day Metrics (Mean ± SD, all seeds)", make_dash_table(table_summary())),
-            html.Div("📋  Copy this table directly into your dissertation. Report n seeds in the table footnote.", className="export-hint"),
+            html.Div("📋  n = number of seeds per scenario (see the seed badge).", className="export-hint"),
         ])
 
     elif item == "tbl-pct":
         return html.Div([
             section_hdr("% Change vs Baseline", "Table 4-2 — all interventions vs no-intervention reference."),
             card("Percentage Change from Baseline", make_dash_table(table_pct_change())),
-            finding("This is **Table 4-2** in your dissertation. Highlight S2's consistent negative % on food insecurity and travel, and S3's near-zero row as the null result. These values derive from multi-seed means, making them robust to individual seed variability.", "info"),
+            finding("Values are final-day means over all seeds, as in manuscript Table 4, with the percentage change relative to Baseline.", "info"),
         ])
 
     elif item == "tbl-effect":
@@ -2360,7 +2351,7 @@ def render_variants(item):
     return html.Div("Select an item from the sidebar.")
 
 # ═══════════════════════════════════════════════════════════════════
-# 17.  CONTENT RENDERER — POLICY INSIGHTS TAB (Dr. Watson)
+# 17.  CONTENT RENDERER — POLICY INSIGHTS TAB (not shown in the navigation)
 # ═══════════════════════════════════════════════════════════════════
 
 def render_policy(item):
@@ -2370,14 +2361,6 @@ def render_policy(item):
                         "Translating simulation findings into actionable guidance for Jacksonville community planners and health officials.",
                         "#4F46E5"),
 
-            # Dr. Watson callout
-            html.Div([
-                html.Div("👩‍🏫  Committee Note — Dr. Maria Watson",
-                         style={"fontWeight":"700","fontSize":"12px","color":"#4F46E5","marginBottom":"8px","letterSpacing":"0.5px"}),
-                html.P("Dr. Watson recommended articulating 'the practical role of the interactive dashboard in community-based and scenario-based planning for city officials and health agencies in Jacksonville, beyond its academic contribution.' This tab fulfills that recommendation and should be cited in the dissertation's Chapter 4 discussion section.",
-                       style={"fontSize":"13px","color":"#374151","margin":"0","lineHeight":"1.65"}),
-            ], style={"background":"rgba(79,70,229,0.05)","border":"1px solid rgba(79,70,229,0.18)",
-                       "borderLeft":"4px solid #4F46E5","borderRadius":"10px","padding":"16px 20px","marginBottom":"22px"}),
 
             html.Div([
                 html.Div([
@@ -2444,7 +2427,7 @@ def render_policy(item):
                     ("scenario4", {"Capital cost":  "~$0.1–0.2M","Annual operating": "~$450K subsidy","Cost/HH/yr":"~$180–350",      "Evidence base": "USDA SNAP delivery pilot costs"}),
                 ]
             ], className="grid-2"),
-            html.Div("⚠  These are literature-based order-of-magnitude estimates for illustration. They are NOT from model outputs. Cite appropriately in the dissertation as 'rough estimates based on comparable programs'.",
+            html.Div("⚠  These are literature-based order-of-magnitude estimates for illustration. They are NOT model outputs and are not reported in the manuscript.",
                      style={"fontSize":"11.5px","color":"#D97706","fontStyle":"italic","marginTop":"8px","padding":"10px 16px","background":"#FFFBEB","borderRadius":"8px","border":"1px solid #FDE68A"}),
         ])
 
@@ -2490,7 +2473,7 @@ def render_policy(item):
             ], style={"background":"#F0FDF4","borderRadius":"12px","padding":"20px","border":"1px solid #A7F3D0","marginBottom":"18px"}),
             html.Div([
                 html.Div("⚠  Model Limitations — What This Simulation Cannot Tell You", style={"fontWeight":"700","fontSize":"14px","color":"#D97706","marginBottom":"12px"}),
-                html.P("This model simulates agent behavior under assumed conditions. It does not account for: actual store profitability/viability; political or zoning feasibility; resident preference surveys; seasonal food price variation; or demographic change. Results should be treated as directional evidence for planning conversations, not as precise forecasts.",
+                html.P("This model simulates agent behavior under assumed conditions. It does not account for: actual store profitability/viability; political or zoning feasibility; stated preferences of residents; seasonal food price variation; or demographic change. Results should be treated as directional evidence for planning conversations, not as precise forecasts.",
                        style={"fontSize":"13px","color":"#374151","lineHeight":"1.65"}),
             ], style={"background":"#FFFBEB","borderRadius":"12px","padding":"20px","border":"1px solid #FDE68A"}),
         ])
@@ -2635,8 +2618,8 @@ def render_scenario(sk, item):
             ("Corner Capacity",     cfg.get("corner_store_capacity","—")),
             ("Hub Capacity",        cfg.get("food_hub_capacity","—")),
             ("Pantry Capacity",     cfg.get("mobile_pantry_capacity","—")),
-            ("Max Dist Car",        f"{cfg.get('max_distance_car','—')} mi"),
-            ("Max Dist No-Car",     f"{cfg.get('max_distance_no_car','—')} mi"),
+            ("Max Dist Car",        f"{cfg.get('max_distance_car','—')} km"),
+            ("Max Dist No-Car",     f"{cfg.get('max_distance_no_car','—')} km"),
             ("Budget Low/wk",       f"${cfg.get('weekly_budget_low','—')}"),
             ("Budget Med/wk",       f"${cfg.get('weekly_budget_medium','—')}"),
             ("Budget High/wk",      f"${cfg.get('weekly_budget_high','—')}"),
@@ -2664,17 +2647,17 @@ def render_scenario(sk, item):
 
 if __name__ == "__main__":
     print("\n" + "═"*65)
-    print("  ABM Food Access — PhD Dissertation Dashboard  v4")
+    print("  ABM Food Access — Results Dashboard")
     print("  Jacksonville, FL  |  Health Zone 1")
     print("═"*65)
-    print(f"  {'Scenario':<32}  {'Recal γ=2.6 seeds':>18}")
+    print(f"  {'Scenario':<32}  {'Seeds loaded':>18}")
     print(f"  {'─'*32}  {'─'*18}")
     for sk in SCENARIO_KEYS:
-        nr = len([s for s in DATA_RECAL[sk]["data"] if isinstance(s,int)])
-        lbl = DATA_RECAL[sk]["label"]
+        nr = len([s for s in DATA_PAPER[sk]["data"] if isinstance(s,int)])
+        lbl = DATA_PAPER[sk]["label"]
         print(f"  {lbl:<32}  {nr:>18}")
     print("═"*65)
-    print("  Showing ONLY the recalibrated γ=2.6 FINAL build (no other seed sets).")
+    print(f"  Results folder: {PAPER_DIR}")
     print("  ➜  http://127.0.0.1:8065")
     print("═"*65 + "\n")
     if os.environ.get('COMBINED_APP') != '1':

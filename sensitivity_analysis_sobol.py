@@ -7,6 +7,7 @@ Does NOT import from live_enhanced_mesa_dash.py (one-way dependency only).
 Dependency: pip install SALib
 """
 
+import fnmatch
 import glob
 import os
 import io
@@ -44,9 +45,10 @@ PARAM_NAMES = [
 
 def load_calibration_center(glob_pattern: str = None):
     """
-    Load most recent calibration params JSON.
-    Priority: Phase 2 (FINAL_CALIBRATED_PARAMS) > Phase 1 (BEST_PHASE1/MEMORY_OPTIMIZED).
-    Uses most recent by mtime across all found files.
+    Load the calibration centre for the sensitivity analysis.
+    Priority: PAPER_PARAMS_FoodSecurity.json (manuscript Table 2) >
+    FINAL_CALIBRATED_PARAMS > BEST_PHASE1 / MEMORY_OPTIMIZED; most recent by
+    mtime within a tier.
     
     Returns:
         (params_dict, file_path, calibration_error) or (None, None, None) if not found.
@@ -57,7 +59,8 @@ def load_calibration_center(glob_pattern: str = None):
     patterns = (
         [p.strip() for p in glob_pattern.split('|')] if glob_pattern and '|' in glob_pattern
         else [glob_pattern] if glob_pattern
-        else ['FINAL_CALIBRATED_PARAMS_*.json', 'BEST_PHASE1_PARAMS_*.json', 'BEST_MEMORY_OPTIMIZED_PARAMS_*.json']
+        else ['PAPER_PARAMS_FoodSecurity.json', 'FINAL_CALIBRATED_PARAMS_*.json',
+              'BEST_PHASE1_PARAMS_*.json', 'BEST_MEMORY_OPTIMIZED_PARAMS_*.json']
     )
     files = []
     for d in search_dirs:
@@ -69,8 +72,13 @@ def load_calibration_center(glob_pattern: str = None):
     if not files:
         return (None, None, None)
     
-    # Most recent by mtime
-    latest = max(files, key=lambda f: os.path.getmtime(f))
+    # Highest-priority pattern first, then most recent by mtime
+    def _rank(f):
+        name = os.path.basename(f)
+        tier = next((i for i, p in enumerate(patterns) if fnmatch.fnmatch(name, p)),
+                    len(patterns))
+        return (tier, -os.path.getmtime(f))
+    latest = min(files, key=_rank)
     
     try:
         with open(latest, 'r') as f:

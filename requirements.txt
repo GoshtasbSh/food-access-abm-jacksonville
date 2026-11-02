@@ -1,37 +1,33 @@
-# GeoMesa Food Access ABM — Dependencies
-# Python 3.9+ recommended
+# Food-access ABM, Health Zone 1, Jacksonville FL — dependencies
+# Python 3.10 (the results in the manuscript were produced with Python 3.10.16).
+#
+# Install the exact versions used for the manuscript:
+#     pip install -r requirements-lock.txt
+#
+# This file lists the same packages with the two version pins that matter for
+# reproducing the published numbers (Mesa 3.0.3, Mesa-Geo 0.9.1).
 
-# Core Mesa ABM framework
-mesa>=2.1.0,<3.0.0
-mesa-geo>=0.7.1,<1.0.0
+Mesa==3.0.3
+Mesa-Geo==0.9.1
 
-# Scientific computing
 numpy
 pandas
 scipy
-
-# Geospatial
 geopandas
-shapely>=1.8.0
+shapely>=2.0
 pyproj
+pyogrio
+rtree
 geopy
-fiona
-
-# Spatial analytics
 scikit-learn
 networkx
 
-# Dashboards and visualization
-dash>=2.6.0
-dash-leaflet>=0.1.23
-plotly>=5.10.0
+dash
+dash-leaflet
+plotly
 
-# Utilities
 psutil
 tqdm
-
-# Sensitivity analysis (optional, for Sobol indices)
 SALib
 
-# Production WSGI server (for Render deployment)
-gunicorn>=21.2.0
+gunicorn

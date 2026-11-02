@@ -429,7 +429,7 @@ def main():
     ap.add_argument("--days", type=int, default=365)
     ap.add_argument("--scenarios", nargs="+", default=list(SCENARIOS.keys()),
                     choices=list(SCENARIOS.keys()))
-    ap.add_argument("--out", default=os.path.join(_SCRIPT_DIR, "journal_results_50seeds"))
+    ap.add_argument("--out", default=os.path.join(_SCRIPT_DIR, "results", "journal_results_50seeds"))
     ap.add_argument("--workers", type=int, default=max(1, (os.cpu_count() or 2) - 1))
     ap.add_argument("--max-tasks-per-child", type=int, default=1,
                     help="Seeds a worker runs before it is recycled (default 1 = fresh process per "

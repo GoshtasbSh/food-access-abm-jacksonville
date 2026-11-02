@@ -14,6 +14,7 @@ from enhanced_mesa_geo_model import (
 from baseline_scenario import load_real_provider_data, add_baseline_mobile_pantries, add_baseline_delivery_service  # ⭐ NEW: Uses real data loader
 from hz1_census_data_loader import HZ1CensusDataLoader  # ⭐ NEW: Real census demographics
 from shapely.geometry import Point
+import os
 import random
 import numpy as np
 from typing import Dict, Any, List
@@ -140,20 +141,102 @@ class EnhancedScenario2Model(EnhancedMesaGeoModel):
         
         # STEP 2: Add NEW food hub (the intervention)
         print(f"\n   🆕 Adding NEW food hub (INTERVENTION):")
-        self.new_food_hub = self.add_food_hub(capacity=food_hub_capacity)
+        #
+        # GEOMESA_S2_SITING = "coverage" (default; the siting rule used for the
+        #                                results in the Food Security manuscript)
+        #                                hub and corner stores sited by the
+        #                                maximal covering location rule
+        #                                (Church & ReVelle 1974): each facility
+        #                                goes where it brings a store within
+        #                                walking reach of the most car-less
+        #                                households that currently have none.
+        #                                Same information S1 already uses to
+        #                                site its store (realised population +
+        #                                existing providers).
+        #                   = "grid"     earlier development rule: hub at a
+        #                                random point in the zone, corner stores
+        #                                on a fixed lattice.
+        self._siting_mode = os.environ.get("GEOMESA_S2_SITING", "coverage")
+        self._coverage_sites_taken = []
+        if self._siting_mode == "coverage":
+            hub_location = self._coverage_sites(1)[0]
+            self.new_food_hub = self.add_food_hub(location=hub_location,
+                                                  capacity=food_hub_capacity)
+        else:
+            self.new_food_hub = self.add_food_hub(capacity=food_hub_capacity)
         print(f"      • NEW Food Hub at ({self.new_food_hub.geometry.x:.3f}, {self.new_food_hub.geometry.y:.3f})")
         print(f"      • Capacity: {food_hub_capacity}")
         print(f"      • Market days: {self.config.food_hub_market_days}")
         
-        # STEP 3: Add NEW corner stores using spatial optimization
-        print(f"\n   🆕 Adding {num_new_corner_stores} NEW corner stores (INTERVENTION):")
-        corner_store_locations = self._optimize_corner_store_locations(num_new_corner_stores)
-        
-        for i, location in enumerate(corner_store_locations):
-            corner_store = self.add_corner_store(location, corner_store_capacity)
-            self.new_corner_stores.append(corner_store)
-            print(f"      • NEW Corner Store {i+1} at ({location.x:.3f}, {location.y:.3f})")
-        
+        # STEP 3: the small-format arm of the intervention.
+        #
+        # GEOMESA_S2_MODE = "build"   (default) add NEW corner stores, as the
+        #                              published model does.
+        #                 = "convert" upgrade EXISTING corner stores to
+        #                              fresh-food provision and build nothing.
+        #
+        # "convert" is the healthy-corner-store design used by The Food Trust
+        # and NYC Healthy Bodegas: an operator already trading is stocked with
+        # produce, dairy and staples. It is also the design the published cost
+        # figure implies -- $0.4-1.1M per YEAR is operating support, not the
+        # capital cost of building four stores.
+        #
+        # Which existing stores are converted is decided by the SAME grid the
+        # build arm uses for siting: for each grid point, the nearest existing
+        # corner store is converted. Placement logic is therefore identical
+        # between the two arms and only the mechanism differs.
+        mode = os.environ.get("GEOMESA_S2_MODE", "build")
+        if self._siting_mode == "coverage":
+            corner_store_locations = self._coverage_sites(num_new_corner_stores)
+        else:
+            corner_store_locations = self._optimize_corner_store_locations(num_new_corner_stores)
+
+        if mode == "convert":
+            q = float(os.environ.get("GEOMESA_S2_CONVERT_QUALITY", "0.8"))
+            cap = int(os.environ.get("GEOMESA_S2_CONVERT_CAPACITY", "200"))
+            existing = [p for p in self.food_providers
+                        if getattr(p, "provider_type", None) == ProviderType.CORNER_STORE]
+            print(f"\n   ♻️  CONVERTING existing corner stores (INTERVENTION), "
+                  f"{len(existing)} candidates:")
+            taken = set()
+            for i, loc in enumerate(corner_store_locations):
+                pool = [p for p in existing if id(p) not in taken]
+                if not pool:
+                    break
+                nearest = min(pool, key=lambda p: (p.geometry.x - loc.x) ** 2
+                                                  + (p.geometry.y - loc.y) ** 2)
+                taken.add(id(nearest))
+                nearest.quality_score = q + random.uniform(-0.05, 0.05)
+                nearest.capacity = cap
+                nearest.current_inventory = cap
+                self.new_corner_stores.append(nearest)
+                print(f"      • CONVERTED {getattr(nearest,'name','corner store')} "
+                      f"-> quality {q}, capacity {cap}")
+            self._build_spatial_index()
+        else:
+            print(f"\n   🆕 Adding {num_new_corner_stores} NEW corner stores (INTERVENTION):")
+            for i, location in enumerate(corner_store_locations):
+                corner_store = self.add_corner_store(location, corner_store_capacity)
+                self.new_corner_stores.append(corner_store)
+                print(f"      • NEW Corner Store {i+1} at ({location.x:.3f}, {location.y:.3f})")
+
+        # Optional fresh-food conversion (healthy-corner-store design).
+        # OFF by default so every existing run reproduces bit-for-bit; the
+        # _USDA pipeline switches it on via the environment. Placement is
+        # untouched — only type, quality and capacity change, which makes the
+        # converted outlets eligible for full shops (find_best_provider
+        # excludes CORNER_STORE when exclude_corners=True).
+        if os.environ.get("GEOMESA_S2_CONVERT_OUTLETS", "0") == "1":
+            cap = int(os.environ.get("GEOMESA_S2_OUTLET_CAPACITY", "200"))
+            for store in self.new_corner_stores:
+                store.provider_type = ProviderType.GROCERY_STORE
+                store.quality_score = 0.8 + random.uniform(-0.05, 0.05)
+                store.capacity = cap
+                store.current_inventory = cap
+            self._build_spatial_index()
+            print(f"      ⭐ CONVERTED {len(self.new_corner_stores)} outlets to "
+                  f"fresh-food (grocery type, quality 0.8, capacity {cap})")
+
         print(f"\n   ✅ Scenario 2 setup complete:")
         print(f"      • Consumers: {len(self.consumers)}")
         print(f"      • Existing providers: {baseline_stores_added}")
@@ -168,6 +251,50 @@ class EnhancedScenario2Model(EnhancedMesaGeoModel):
         print(f"   📊 Initial average accessibility score: {initial_accessibility:.2f}")
         print(f"   🗺️  Average distance to nearest store: {self._calculate_avg_distance_to_nearest():.2f} km")
     
+    def _coverage_sites(self, num_sites: int, step_deg: float = 0.004) -> List[Point]:
+        """Greedy maximal-covering siting (GEOMESA_S2_SITING=coverage).
+
+        Candidates: a ~0.4 km lattice inside the health zone. Demand: car-less
+        households with no non-pantry physical provider within their own
+        walking reach (max_travel_distance). Each site is the candidate that
+        covers the most still-uncovered demand; covered households are removed
+        and the next site chosen. Sites already taken in this run are skipped,
+        so the hub and the corner stores never coincide.
+        """
+        from enhanced_mesa_geo_model import EnhancedDeliveryService
+        physical = [p for p in self.food_providers
+                    if not isinstance(p, EnhancedDeliveryService)
+                    and 'pantry' not in p.provider_type.value]
+        uncovered = [c for c in self.consumers if not c.vehicle_available and all(
+            self.calculate_distance(c.geometry, p.geometry) > c.max_travel_distance
+            for p in physical)]
+        b = self.health_zone_polygon.bounds
+        candidates = [Point(x, y)
+                      for x in np.arange(b[0], b[2], step_deg)
+                      for y in np.arange(b[1], b[3], step_deg)]
+        candidates = [p for p in candidates if self.health_zone_polygon.contains(p)
+                      and not any(p.equals(t) for t in self._coverage_sites_taken)]
+        chosen: List[Point] = []
+        print(f"   🎯 Coverage siting: {len(uncovered)} car-less households have no "
+              f"store within walking reach; {len(candidates)} candidate sites")
+        for _ in range(num_sites):
+            best, best_cov = None, -1
+            for cand in candidates:
+                cov = sum(1 for c in uncovered
+                          if self.calculate_distance(c.geometry, cand) <= c.max_travel_distance)
+                if cov > best_cov:
+                    best, best_cov = cand, cov
+            if best is None:
+                break
+            chosen.append(best)
+            self._coverage_sites_taken.append(best)
+            candidates = [p for p in candidates if not p.equals(best)]
+            uncovered = [c for c in uncovered
+                         if self.calculate_distance(c.geometry, best) > c.max_travel_distance]
+            print(f"      • site ({best.x:.4f}, {best.y:.4f}) covers {best_cov}; "
+                  f"{len(uncovered)} still uncovered")
+        return chosen
+
     def _optimize_corner_store_locations(self, num_stores: int) -> List[Point]:
         """Optimize corner store locations using spatial analysis"""
         print(f"   🎯 Optimizing locations for {num_stores} corner stores...")

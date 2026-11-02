@@ -1,0 +1,340 @@
+{
+ "design": {
+  "N": 256,
+  "n_runs": 4096,
+  "pct": 0.3,
+  "households": 500,
+  "days": 365,
+  "seed": 42,
+  "calc_second_order": true,
+  "matrix_sha": "bd62b601c90b7256",
+  "store_csv": "/Users/goshtasbshahriari/UF Dropbox/Goshtasb Shahriari Mehr/Final_Dissertation_Goshtasb_ShahriariMehr/Code/GeoMesa_Food_Access/data/store_FINAL_6g_11c.csv",
+  "centre": {
+   "alpha_distance": 2.0,
+   "beta_price_budget": 0.5,
+   "gamma_quality_variety": 0.6,
+   "delta_convenience": 0.4,
+   "go_shop_threshold_low": 4.0,
+   "go_shop_threshold_medium": 5.0,
+   "go_shop_threshold_high": 14.0
+  }
+ },
+ "outputs": {
+  "fi_unmet_proxy": {
+   "min": 0.226,
+   "max": 0.238,
+   "mean": 0.23359912109375003,
+   "sd": 0.0024595237425208494,
+   "range": 0.011999999999999983,
+   "n_distinct": 7,
+   "nan_imputed": 0,
+   "ST": {
+    "alpha_distance": 0.48356729975227036,
+    "beta_price_budget": 0.019818331957060252,
+    "gamma_quality_variety": 0.27877786952931416,
+    "delta_convenience": 0.3369116432700242,
+    "go_shop_threshold_low": 0.4545004128819166,
+    "go_shop_threshold_medium": 0.43203963666391476,
+    "go_shop_threshold_high": 0.5813377374071024
+   },
+   "ST_conf": {
+    "alpha_distance": 0.1409692020615102,
+    "beta_price_budget": 0.015571041910987623,
+    "gamma_quality_variety": 0.0935492462447128,
+    "delta_convenience": 0.10546590090720781,
+    "go_shop_threshold_low": 0.11502083242458919,
+    "go_shop_threshold_medium": 0.09975612658550846,
+    "go_shop_threshold_high": 0.1228622605724047
+   },
+   "S1": {
+    "alpha_distance": 0.18339956647398756,
+    "beta_price_budget": 0.024300036127167888,
+    "gamma_quality_variety": 0.09880070706028125,
+    "delta_convenience": 0.07663668971924004,
+    "go_shop_threshold_low": 0.05921629851362454,
+    "go_shop_threshold_medium": -0.006338382535094509,
+    "go_shop_threshold_high": 0.04759883360858717
+   },
+   "S1_conf": {
+    "alpha_distance": 0.10326650043160107,
+    "beta_price_budget": 0.03397255309914988,
+    "gamma_quality_variety": 0.0976055171449743,
+    "delta_convenience": 0.10389368313151529,
+    "go_shop_threshold_low": 0.09762757143161518,
+    "go_shop_threshold_medium": 0.11671412988468675,
+    "go_shop_threshold_high": 0.13632807571788236
+   }
+  },
+  "fi_day_union": {
+   "min": 0.186,
+   "max": 0.442,
+   "mean": 0.3667890625,
+   "sd": 0.07242260441582513,
+   "range": 0.256,
+   "n_distinct": 5,
+   "nan_imputed": 0,
+   "ST": {
+    "alpha_distance": 0.0,
+    "beta_price_budget": 0.0,
+    "gamma_quality_variety": 0.0,
+    "delta_convenience": 0.0,
+    "go_shop_threshold_low": 0.6353779261657924,
+    "go_shop_threshold_medium": 0.3219223822477083,
+    "go_shop_threshold_high": 0.0
+   },
+   "ST_conf": {
+    "alpha_distance": 0.0,
+    "beta_price_budget": 0.0,
+    "gamma_quality_variety": 0.0,
+    "delta_convenience": 0.0,
+    "go_shop_threshold_low": 0.0971636885115615,
+    "go_shop_threshold_medium": 0.05651390917575125,
+    "go_shop_threshold_high": 0.0
+   },
+   "S1": {
+    "alpha_distance": 0.0,
+    "beta_price_budget": 0.0,
+    "gamma_quality_variety": 0.0,
+    "delta_convenience": 0.0,
+    "go_shop_threshold_low": 0.6814803907839827,
+    "go_shop_threshold_medium": 0.372697813544938,
+    "go_shop_threshold_high": 0.0
+   },
+   "S1_conf": {
+    "alpha_distance": 0.0,
+    "beta_price_budget": 0.0,
+    "gamma_quality_variety": 0.0,
+    "delta_convenience": 0.0,
+    "go_shop_threshold_low": 0.1206228360415686,
+    "go_shop_threshold_medium": 0.098090646096829,
+    "go_shop_threshold_high": 0.0
+   }
+  },
+  "fi_final_day": {
+   "min": 0.132,
+   "max": 0.182,
+   "mean": 0.14977978515624998,
+   "sd": 0.007393867652324604,
+   "range": 0.04999999999999999,
+   "n_distinct": 26,
+   "nan_imputed": 0,
+   "ST": {
+    "alpha_distance": 0.1509144682631602,
+    "beta_price_budget": 0.009943976590983438,
+    "gamma_quality_variety": 0.08130663212627626,
+    "delta_convenience": 0.0865710903215028,
+    "go_shop_threshold_low": 0.5884494382664309,
+    "go_shop_threshold_medium": 0.6302726339285073,
+    "go_shop_threshold_high": 0.31352773251571286
+   },
+   "ST_conf": {
+    "alpha_distance": 0.04911442947618058,
+    "beta_price_budget": 0.013861450686401705,
+    "gamma_quality_variety": 0.04429785571802397,
+    "delta_convenience": 0.04036573023338661,
+    "go_shop_threshold_low": 0.18260976335029097,
+    "go_shop_threshold_medium": 0.14298031771268735,
+    "go_shop_threshold_high": 0.07806989398290157
+   },
+   "S1": {
+    "alpha_distance": 0.011886730749182912,
+    "beta_price_budget": 0.014301463920381901,
+    "gamma_quality_variety": 0.01834220406344645,
+    "delta_convenience": 0.0006789071793649278,
+    "go_shop_threshold_low": 0.3194521044837294,
+    "go_shop_threshold_medium": 0.36966824373824425,
+    "go_shop_threshold_high": -0.005586489261584947
+   },
+   "S1_conf": {
+    "alpha_distance": 0.05909993404350678,
+    "beta_price_budget": 0.02085331324770279,
+    "gamma_quality_variety": 0.0408944776841521,
+    "delta_convenience": 0.03918921693102368,
+    "go_shop_threshold_low": 0.14819168725447351,
+    "go_shop_threshold_medium": 0.1522042069888765,
+    "go_shop_threshold_high": 0.08116382818622751
+   }
+  },
+  "spend_low": {
+   "min": 2943.044432188943,
+   "max": 4288.044560709506,
+   "mean": 3407.159398114038,
+   "sd": 334.80774834023936,
+   "range": 1345.000128520563,
+   "n_distinct": 3486,
+   "nan_imputed": 0,
+   "ST": {
+    "alpha_distance": 0.0003310635409924037,
+    "beta_price_budget": 2.5138176580957127e-05,
+    "gamma_quality_variety": 0.0001523441686663403,
+    "delta_convenience": 3.8134541434359706e-05,
+    "go_shop_threshold_low": 0.9877425629586942,
+    "go_shop_threshold_medium": 0.00019955624544985078,
+    "go_shop_threshold_high": 0.0002142467600417492
+   },
+   "ST_conf": {
+    "alpha_distance": 0.00013091756168848937,
+    "beta_price_budget": 8.798487988171567e-06,
+    "gamma_quality_variety": 4.223841071701851e-05,
+    "delta_convenience": 3.7117710700945994e-05,
+    "go_shop_threshold_low": 0.11806499280714913,
+    "go_shop_threshold_medium": 8.283305324781664e-05,
+    "go_shop_threshold_high": 7.17160685764995e-05
+   },
+   "S1": {
+    "alpha_distance": -0.0004394934714533114,
+    "beta_price_budget": -2.6497194894235723e-05,
+    "gamma_quality_variety": 0.00036691479266115934,
+    "delta_convenience": -0.000460341229158974,
+    "go_shop_threshold_low": 0.9888236882921395,
+    "go_shop_threshold_medium": 0.0020596670083975815,
+    "go_shop_threshold_high": 0.0007035798410995735
+   },
+   "S1_conf": {
+    "alpha_distance": 0.002771941703093145,
+    "beta_price_budget": 0.0006218863459062172,
+    "gamma_quality_variety": 0.002307644850300874,
+    "delta_convenience": 0.0007314847750515422,
+    "go_shop_threshold_low": 0.18478030556290861,
+    "go_shop_threshold_medium": 0.002072509475707412,
+    "go_shop_threshold_high": 0.002263528548994646
+   }
+  },
+  "spend_med": {
+   "min": 4363.949652141827,
+   "max": 4993.458031888648,
+   "mean": 4583.256265797128,
+   "sd": 185.66488166183092,
+   "range": 629.5083797468214,
+   "n_distinct": 3575,
+   "nan_imputed": 0,
+   "ST": {
+    "alpha_distance": 0.002970766935199329,
+    "beta_price_budget": 2.3240049159435868e-05,
+    "gamma_quality_variety": 0.0010068651197417632,
+    "delta_convenience": 0.0009596661153873389,
+    "go_shop_threshold_low": 0.0023215946120352395,
+    "go_shop_threshold_medium": 1.0523921779374852,
+    "go_shop_threshold_high": 0.0032224846477886364
+   },
+   "ST_conf": {
+    "alpha_distance": 0.0008185869971702932,
+    "beta_price_budget": 2.4350260279075767e-05,
+    "gamma_quality_variety": 0.000388370080184565,
+    "delta_convenience": 0.00038747120383521993,
+    "go_shop_threshold_low": 0.0006537727759178651,
+    "go_shop_threshold_medium": 0.12719324851479072,
+    "go_shop_threshold_high": 0.0005737161029513103
+   },
+   "S1": {
+    "alpha_distance": 0.003825516392855526,
+    "beta_price_budget": -0.0009525136231313824,
+    "gamma_quality_variety": 0.0007189939150300257,
+    "delta_convenience": -0.001030144441770264,
+    "go_shop_threshold_low": -0.002192129361743165,
+    "go_shop_threshold_medium": 1.0440855338855604,
+    "go_shop_threshold_high": -0.012135076042369013
+   },
+   "S1_conf": {
+    "alpha_distance": 0.009136385483453628,
+    "beta_price_budget": 0.0013762982803698916,
+    "gamma_quality_variety": 0.006104797703991646,
+    "delta_convenience": 0.00466361457013272,
+    "go_shop_threshold_low": 0.008203071971077915,
+    "go_shop_threshold_medium": 0.16961310403429067,
+    "go_shop_threshold_high": 0.009889125243302767
+   }
+  },
+  "corner_share": {
+   "min": 0.15383842443729903,
+   "max": 0.29218915926704175,
+   "mean": 0.21165722161528255,
+   "sd": 0.024463881504116665,
+   "range": 0.13835073482974272,
+   "n_distinct": 3571,
+   "nan_imputed": 0,
+   "ST": {
+    "alpha_distance": 0.3309098959835653,
+    "beta_price_budget": 0.011254304423736186,
+    "gamma_quality_variety": 0.27960173009955325,
+    "delta_convenience": 0.0021909886189886794,
+    "go_shop_threshold_low": 0.22567449769562634,
+    "go_shop_threshold_medium": 0.15784766599590866,
+    "go_shop_threshold_high": 0.0006515396236260501
+   },
+   "ST_conf": {
+    "alpha_distance": 0.05952375056444672,
+    "beta_price_budget": 0.003084427812880069,
+    "gamma_quality_variety": 0.05016681573568584,
+    "delta_convenience": 0.0006282770616633486,
+    "go_shop_threshold_low": 0.046513216646346445,
+    "go_shop_threshold_medium": 0.027546667548228314,
+    "go_shop_threshold_high": 0.00014224959082615823
+   },
+   "S1": {
+    "alpha_distance": 0.29140379865827787,
+    "beta_price_budget": 0.009995008768734676,
+    "gamma_quality_variety": 0.28261233207334263,
+    "delta_convenience": -0.005388741513215771,
+    "go_shop_threshold_low": 0.22971014905675702,
+    "go_shop_threshold_medium": 0.18300422101256408,
+    "go_shop_threshold_high": 0.0002790932956854189
+   },
+   "S1_conf": {
+    "alpha_distance": 0.09625390174130964,
+    "beta_price_budget": 0.01724052029237461,
+    "gamma_quality_variety": 0.09412813262935121,
+    "delta_convenience": 0.006970813124276948,
+    "go_shop_threshold_low": 0.09060084613937089,
+    "go_shop_threshold_medium": 0.07345493500961281,
+    "go_shop_threshold_high": 0.0046214291014560665
+   }
+  },
+  "trips_per_hh": {
+   "min": 59.624,
+   "max": 88.602,
+   "mean": 69.3570703125,
+   "sd": 5.943103800057616,
+   "range": 28.978,
+   "n_distinct": 390,
+   "nan_imputed": 0,
+   "ST": {
+    "alpha_distance": 2.4878838604034733e-05,
+    "beta_price_budget": 1.8663557037736532e-06,
+    "gamma_quality_variety": 1.175902495259824e-05,
+    "delta_convenience": 1.2497257741812562e-05,
+    "go_shop_threshold_low": 0.6367506496953114,
+    "go_shop_threshold_medium": 0.3162385487440167,
+    "go_shop_threshold_high": 6.562902616361574e-05
+   },
+   "ST_conf": {
+    "alpha_distance": 7.507700228616102e-06,
+    "beta_price_budget": 3.193429358549381e-06,
+    "gamma_quality_variety": 7.371729979311357e-06,
+    "delta_convenience": 5.321978054755006e-06,
+    "go_shop_threshold_low": 0.09662110326886213,
+    "go_shop_threshold_medium": 0.051931762101936264,
+    "go_shop_threshold_high": 1.412555977483752e-05
+   },
+   "S1": {
+    "alpha_distance": -9.177731226077693e-05,
+    "beta_price_budget": 0.0001995177554412546,
+    "gamma_quality_variety": 0.00011616255608893357,
+    "delta_convenience": -0.00019565042479170578,
+    "go_shop_threshold_low": 0.666069183273386,
+    "go_shop_threshold_medium": 0.36255212684721055,
+    "go_shop_threshold_high": 0.0010534631598449339
+   },
+   "S1_conf": {
+    "alpha_distance": 0.0007270732358029319,
+    "beta_price_budget": 0.0003259224956913643,
+    "gamma_quality_variety": 0.0006191490145405455,
+    "delta_convenience": 0.0005642982261474089,
+    "go_shop_threshold_low": 0.1607734244466714,
+    "go_shop_threshold_medium": 0.09992999940324256,
+    "go_shop_threshold_high": 0.001388997993775542
+   }
+  }
+ },
+ "written": "2026-09-06T15:49:30.008926"
+}

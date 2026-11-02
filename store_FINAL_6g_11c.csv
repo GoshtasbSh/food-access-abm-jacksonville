@@ -1,0 +1,18 @@
+Name,Address,ZipCode,Category,SourceStoreType,ProviderType,Longitude,Latitude,Capacity,PriceLevel,Rating
+ALDI 74178,"2261 Edgewood Ave W, Jacksonville, FL 32209",32209,Supermarket,Supermarket,ProviderType.GROCERY_STORE,-81.697952,30.379879,700,$,4.1
+ALDI 74303,"777 N Market St, Jacksonville, FL 32202",32202,Supermarket,Supermarket,ProviderType.GROCERY_STORE,-81.651932,30.330919,700,$,4.1
+Save a Lot 21661,"8000 Lem Turner Rd, Jacksonville, FL 32208",32208,Supermarket,Supermarket,ProviderType.GROCERY_STORE,-81.681236,30.391872,700,$,4.1
+Winn Dixie Store 108,"5210 Norwood Ave, Jacksonville, FL 32208",32208,Supermarket,Supermarket,ProviderType.GROCERY_STORE,-81.663773,30.371078,700,$,4.1
+Winn Dixie Store 1692,"5250 Moncrief Rd W, Jacksonville, FL 32209",32209,Supermarket,Supermarket,ProviderType.GROCERY_STORE,-81.730095,30.391535,700,$,4.1
+Winn Dixie Store 1694,"201 W 48th St, Jacksonville, FL 32208",32208,Supermarket,Supermarket,ProviderType.GROCERY_STORE,-81.654945,30.376469,700,$,4.1
+1st And Huron Food Store,"1098 Huron St, Jacksonville, FL 32254",32254,Convenience store,Convenience Store,ProviderType.CORNER_STORE,-81.714348,30.339979,50,$,3.5
+A & E GROCERY #2,"2072 Phoenix Ave, Jacksonville, FL 32206",32206,Convenience store,Grocery Store,ProviderType.CORNER_STORE,-81.64109,30.349369,50,$,3.5
+Bestway Foods,"2361 Kings Rd, Jacksonville, FL 32209",32209,Convenience store,Convenience Store,ProviderType.CORNER_STORE,-81.701736,30.351244,50,$,3.5
+Buffalo Food Store,"6754 Buffalo Ave, Jacksonville, FL 32208",32208,Convenience store,Convenience Store,ProviderType.CORNER_STORE,-81.641685,30.381632,50,$,3.5
+Campbell's 1 Stop,"2538 N Davis St, Jacksonville, FL 32209",32209,Convenience store,Convenience Store,ProviderType.CORNER_STORE,-81.667366,30.353197,50,$,3.5
+G & M Food Store,"5673 Avenue B, Jacksonville, FL 32209",32209,Convenience store,Convenience Store,ProviderType.CORNER_STORE,-81.698723,30.375038,50,$,3.5
+Good Neighbor Food Market Inc,"2127 Fairfax St, Jacksonville, FL 32209",32209,Convenience store,Convenience Store,ProviderType.CORNER_STORE,-81.686287,30.350449,50,$,3.5
+Prime Time Food Store 5,"5523 Cleveland Rd, Jacksonville, FL 32209",32209,Convenience store,Convenience Store,ProviderType.CORNER_STORE,-81.710037,30.370438,50,$,3.5
+Quickway Food Store,"4402 Moncrief Rd, Jacksonville, FL 32209",32209,Convenience store,Convenience Store,ProviderType.CORNER_STORE,-81.680603,30.365891,50,$,3.5
+Springfield Superette,"1701 N Pearl St, Jacksonville, FL 32206",32206,Convenience store,Grocery Store,ProviderType.CORNER_STORE,-81.658524,30.344969,50,$,3.5
+Sylvia Food Mart,"852 Tyler St, Jacksonville, FL 32209",32209,Convenience store,Convenience Store,ProviderType.CORNER_STORE,-81.681488,30.337835,50,$,3.5

@@ -397,11 +397,11 @@ def get_stores_for_model(csv_path: str,
 
 if __name__ == "__main__":
     import os
-    from config import get_project_dir
+    from config import get_project_dir, get_supermarket_csv
     print("="*80)
     print("REAL SUPERMARKET DATA LOADER - EXAMPLE")
     print("="*80)
-    csv_path = os.environ.get("GEOMESA_SUPERMARKET_CSV", os.path.join(get_project_dir(), "supermarkets_with_coords_CURATED.csv"))
+    csv_path = os.environ.get("GEOMESA_SUPERMARKET_CSV", get_supermarket_csv())
     
     # Example 1: Load without geocoding (fast)
     print("\n1. Loading with fallback coordinates (fast):")

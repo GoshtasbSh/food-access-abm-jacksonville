@@ -1,21 +1,46 @@
 cff-version: 1.2.0
-title: GeoMesa Food Access ABM
-message: "If you use this software, please cite it as below."
+message: "If you use this software, please cite the manuscript below."
 type: software
+title: >-
+  A literature-calibrated spatial agent-based model for comparing food-access
+  interventions in a data-scarce urban food desert: a case study of Health
+  Zone 1, Jacksonville, FL
+version: 1.0.0
+date-released: 2026-11-02
 authors:
-  - family-names: "YourLastName"
-    given-names: "YourFirstName"
-    email: "your.email@ufl.edu"
-    affiliation: "University of Florida"
-date-released: 2025-03-10
-url: "https://github.com/GoshtasbSh/food-access-abm-jacksonville"
+  - family-names: Shahriari-Mehr
+    given-names: Goshtasb
+  - family-names: von Meding
+    given-names: Jason
+  - family-names: Watson
+    given-names: Maria
+  - family-names: Tepe
+    given-names: Emre
 repository-code: "https://github.com/GoshtasbSh/food-access-abm-jacksonville"
+url: "https://goshtasb-food-access-abm-jacksonville.hf.space/"
+license: MIT
 keywords:
   - agent-based model
   - food access
   - food insecurity
+  - food desert
+  - pattern-oriented modelling
   - Jacksonville
-  - Health Zone 1
   - Mesa-Geo
-  - spatial simulation
-license: MIT
+preferred-citation:
+  type: article
+  title: >-
+    A literature-calibrated spatial agent-based model for comparing food-access
+    interventions in a data-scarce urban food desert: a case study of Health
+    Zone 1, Jacksonville, FL
+  authors:
+    - family-names: Shahriari-Mehr
+      given-names: Goshtasb
+    - family-names: von Meding
+      given-names: Jason
+    - family-names: Watson
+      given-names: Maria
+    - family-names: Tepe
+      given-names: Emre
+  journal: Food Security
+  status: submitted

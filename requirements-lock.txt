@@ -1,13 +1,11 @@
-# requirements-lock.txt — EXACT versions from the validated `abm310` environment
-# (Python 3.10.16). Use this for Docker / Hugging Face deployment so reviewers
-# reproduce the SAME numbers you validated on.
+# requirements-lock.txt — exact package versions of the environment that
+# produced every result in the manuscript (Python 3.10.16, macOS; the same
+# versions run in the Hugging Face Docker image on Linux).
 #
-# IMPORTANT: your model was validated on Mesa 3.0.3. The root requirements.txt
-# still pins `mesa<3.0` (a stale constraint) — this lock supersedes it for
-# deployment. geopandas 1.0.1 uses the `pyogrio` I/O engine (NOT fiona), and all
-# geospatial wheels are manylinux binaries, so no system GDAL build is needed.
+# geopandas 1.0.1 uses the pyogrio I/O engine; all geospatial packages install
+# as binary wheels, so no system GDAL build is needed.
 #
-# Captured via `pip freeze` in abm310 on 2026-06-02.
+#     pip install -r requirements-lock.txt
 
 Mesa==3.0.3
 Mesa-Geo==0.9.1

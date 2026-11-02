@@ -37,21 +37,24 @@ warnings.filterwarnings('ignore')
 
 def _load_calibrated_params_from_json():
     """
-    Load calibrated parameters from the most recent FINAL_CALIBRATED_PARAMS JSON.
-    Falls back to BEST_PHASE1_PARAMS if no Phase 2 file exists.
+    Load the calibrated choice-model parameters.
+
+    Default: PAPER_PARAMS_FoodSecurity.json in the project root (the parameter
+    set reported in the Food Security manuscript, Table 2). Set
+    GEOMESA_CALIBRATED_PARAMS to an explicit JSON path to use another file.
     Result is cached so the file is read at most once per process.
     """
     import glob as _glob
     import os as _os
 
     script_dir = _os.path.dirname(_os.path.abspath(__file__))
-    # Calibrated params are discovered from the PROJECT ROOT only. Archived
-    # copies under extra_Files/ hold different (superseded) parameter values
-    # and must never win discovery via an mtime tiebreak; CWD-relative dirs
-    # made the winner depend on where Python was launched. Set
-    # GEOMESA_CALIBRATED_PARAMS to an explicit JSON path to override.
+    # Calibrated params are discovered from the PROJECT ROOT only (never from
+    # archive/ or the current working directory), so the result does not
+    # depend on where Python was launched. Set GEOMESA_CALIBRATED_PARAMS to an
+    # explicit JSON path to override.
     search_dirs = [script_dir]
     patterns = [
+        'PAPER_PARAMS_FoodSecurity.json',
         'FINAL_CALIBRATED_PARAMS_*.json',
         'BEST_PHASE1_PARAMS_*.json',
     ]
@@ -69,11 +72,13 @@ def _load_calibrated_params_from_json():
     if not files:
         return None
 
-    # Priority: FINAL_CALIBRATED_PARAMS > BEST_PHASE1_PARAMS > others.
+    # Priority: PAPER_PARAMS > FINAL_CALIBRATED_PARAMS > BEST_PHASE1_PARAMS > others.
     # Use mtime only as tiebreaker within the same priority tier.
     def _priority(f):
         name = _os.path.basename(f)
-        tier = 0 if 'FINAL_CALIBRATED' in name else (1 if 'BEST_PHASE1' in name else 2)
+        tier = (0 if name.startswith('PAPER_PARAMS') else
+                1 if 'FINAL_CALIBRATED' in name else
+                2 if 'BEST_PHASE1' in name else 3)
         return (tier, -_os.path.getmtime(f))   # lower tier = higher priority
     latest = min(files, key=_priority)
     try:
@@ -309,8 +314,8 @@ class SimulationConfig:
     distance_noise_pct: float = 0.10    # ±10% uniform noise
     
     # ===================================================================
-    # DISCRETE CHOICE MODEL PARAMETERS - CALIBRATED (Phase 2, Error ≈ 0.0946)
-    # Source: FINAL_CALIBRATED_PARAMS_20260228_050319.json
+    # DISCRETE CHOICE MODEL PARAMETERS - CALIBRATED
+    # Source: PAPER_PARAMS_FoodSecurity.json (manuscript Table 2).
     # Auto-loaded from JSON in __post_init__; defaults here are a safety net.
     # ===================================================================
     
@@ -1664,6 +1669,14 @@ class EnhancedMesaGeoModel(mesa.Model):
         self.food_providers = []
         self.current_day = 0
         self.metrics_history = []
+
+        # Memoised geodesic distances. Consumers never move and fixed providers
+        # never move, so the overwhelming majority of consumer->provider pairs
+        # are recomputed thousands of times per run. Keying on the coordinate
+        # pair returns the identical float for static geometry and misses
+        # naturally for mobile pantries (which reassign self.geometry), so no
+        # special-casing is needed and results are bit-identical.
+        self._geo_cache = {}
         
         # Enhanced analytics
         self.spatial_clusters = None
@@ -1859,10 +1872,19 @@ class EnhancedMesaGeoModel(mesa.Model):
             # This would implement actual routing
             pass
         
-        # Use geodesic distance (more accurate than Euclidean)
+        # Use geodesic distance (more accurate than Euclidean).
+        # Memoised on the coordinate pair — same inputs, same float, so this is
+        # a pure speedup with no effect on results. See _geo_cache in __init__.
+        key = (point1.x, point1.y, point2.x, point2.y)
+        cached = self._geo_cache.get(key)
+        if cached is not None:
+            return cached
+
         coord1 = (point1.y, point1.x)  # lat, lon
         coord2 = (point2.y, point2.x)
-        return geodesic(coord1, coord2).kilometers
+        d = geodesic(coord1, coord2).kilometers
+        self._geo_cache[key] = d
+        return d
     
     def get_providers_within_distance(self, consumer: EnhancedConsumerAgent, 
                                     max_distance: float) -> List[Tuple[EnhancedFoodProvider, float]]:

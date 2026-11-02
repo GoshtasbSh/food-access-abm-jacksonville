@@ -36,3 +36,9 @@ sa_results/checkpoint_*.csv
 # scenarios_results/*.json
 # past_scenario_resutls/
 # sa_results/
+
+# Local reruns (the paper results are committed under results/journal_results_50seeds_paper/)
+results/sobol_rerun*/
+results/scenarios_results/
+results/sa_results/
+calibration/table3_reproduced.csv

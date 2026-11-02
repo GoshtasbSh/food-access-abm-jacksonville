@@ -18,12 +18,12 @@ def create_dynamic_parameter_layout(scenario='baseline'):
         # Basic Parameters
         html.Div([
             html.Label("Number of Households:"),
-            dcc.Input(id='param-num-consumers', type='number', value=200, min=10, max=1000, step=10),
+            dcc.Input(id='param-num-consumers', type='number', value=500, min=10, max=1000, step=10),
         ], style={'marginBottom': '15px'}),
         
         html.Div([
             html.Label("Simulation Days:"),
-            dcc.Input(id='param-simulation-days', type='number', value=30, min=1, max=365, step=1),
+            dcc.Input(id='param-simulation-days', type='number', value=365, min=1, max=365, step=1),
         ], style={'marginBottom': '15px'}),
         
         # Choice Model Parameters
@@ -188,7 +188,7 @@ def render_section_for_scenario(scenario, section):
                 dcc.Input(
                     id='param-num-consumers',
                     type='number',
-                    value=200,
+                    value=500,
                     min=10,
                     max=1000,
                     step=10,
@@ -202,7 +202,7 @@ def render_section_for_scenario(scenario, section):
                 dcc.Input(
                     id='param-simulation-days',
                     type='number',
-                    value=30,
+                    value=365,
                     min=1,
                     max=365,
                     step=1,
@@ -338,7 +338,7 @@ def render_section_for_scenario(scenario, section):
                     {'label': '⬅️ West', 'value': 'west'},
                     {'label': '📍 Center', 'value': 'center'}
                 ],
-                value='optimal',
+                value='north',
                 clearable=False,
                 style={'fontSize': '14px'}
             )
@@ -375,7 +375,7 @@ def render_section_for_scenario(scenario, section):
                         {'label': '⬅️ West', 'value': 'west'},
                         {'label': '📍 Center', 'value': 'center'}
                     ],
-                    value='optimal',
+                    value='north',
                     clearable=False,
                     style={'fontSize': '14px'}
                 ),
@@ -398,7 +398,7 @@ def render_section_for_scenario(scenario, section):
                 dcc.Input(
                     id='param-food-hub-capacity',
                     type='number',
-                    value=300,
+                    value=200,
                     min=100,
                     max=1000,
                     step=50,
@@ -422,7 +422,7 @@ def render_section_for_scenario(scenario, section):
                 dcc.Input(
                     id='param-num-corner-stores',
                     type='number',
-                    value=6,
+                    value=4,
                     min=2,
                     max=15,
                     step=1,
